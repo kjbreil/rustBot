@@ -36,7 +36,10 @@ var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) +
 //					THE Functions					//
 //##################################################//
 
-// NONE its all in other files
+function iffer(line) {
+	if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
+	if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
+}
 
 //##################################################//
 //					THE Code						//
@@ -57,9 +60,13 @@ var lineReader = require('readline').createInterface({
 // NOTE: ATM Regex not working with switch statements has to be if statements
 // Also does not look promising on the array, fuck
 
-lineReader.on('line', function (line) {
-  if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
-  if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
-});
+// lineReader.on('line', function (line) {
+//   if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
+//   if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
+// });
 
 
+
+rcon = new base.RconService(rconData);
+rcon.defaultListener = function(msg) {iffer(msg)};
+rcon.Connect();
