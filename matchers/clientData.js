@@ -1,8 +1,6 @@
 // clientData.js
 
-// Template file for rustBot matchers 
-
-// Set the regex matching, must be same name as file
+// Client data is not implemented yet but will be logon, disconnect messages
 
 const base = require("./../lib/base");
 
