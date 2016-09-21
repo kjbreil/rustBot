@@ -1,25 +1,30 @@
 #!/usr/bin
 
+//##################################################//
+//					THE Constructs					//
+//##################################################//
+
+const base = require("./lib/base");
+
 const fs = require("fs");
+
+const clientDataCon = require("./matchers/clientData");
+
+//##################################################//
+//					THE Variables					//
+//##################################################//
 
 var inputlogfile = "./exLog/gamelog-2016-09-17-03-00-01.log";
 
+//##################################################//
+//					THE Functions					//
+//##################################################//
 
-function log(msg, color) {
-	//rustify the date
-    var date = new Date().toISOString()
-                            .replace(/T/, ' ')
-                            .replace(/\..+/, '');
-    var text = msg;
-    
-    process.stdout.write('['+date+'] ' + text + '\n');
-    //log file, should already be created
-    fs.appendFile('rcon.log', '['+date+'] ' + text + '\n');
-}
+// NONE
 
-
-
-
+//##################################################//
+//					THE Code						//
+//##################################################//
 
 // Rust log file date format (why am i keeping this???)
 var date = new Date().toISOString()
@@ -37,15 +42,21 @@ var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) +
 // fs.rename('rcon.log',fileDate + '_rcon.log');
 fs.writeFile('rcon.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 
-
+//initialize linereader - this is a copy/past and should figure out how to do with const
 var lineReader = require('readline').createInterface({
   terminal: false, input: fs.createReadStream(inputlogfile)
 });
 
 
-
 lineReader.on('line', function (line) {
-  log(line);
+  // base.log(line);
+  // switch(line) {
+  // 	case(): clientDataCon.clientDataSW(line); 
+  // 	break;
+  // }
+  if(clientDataRE.test(line)) {clientDataCon.clientDataSW(line);}
+  // clientDataCon.clientDataSW(line);
+
 });
 
 
