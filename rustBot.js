@@ -46,8 +46,8 @@ function iffer(line) {
 //##################################################//
 
 //Rename the old log file - fuck this for right now, will be implemented when live
-// fs.rename('rcon.log',fileDate + '_rcon.log');
-fs.writeFile('rcon.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
+fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');
+fs.writeFile('logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 
 //initialize linereader - this is a copy/paste and should figure out how to do with const
 var lineReader = require('readline').createInterface({

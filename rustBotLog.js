@@ -10,6 +10,7 @@ const fs = require('fs');
 
 const clientDataCon = require("./matchers/clientData");
 const deathMessageCon = require("./matchers/deathMessage");
+const chatCon = require("./matchers/chat");
 
 
 //##################################################//
@@ -28,7 +29,8 @@ var rightnow = new Date(),
 	month = rightnow.getMonth(),
 	day = rightnow.getDay()
 	hour = rightnow.getHours()
-	minute = rightnow.getMinutes();
+	minute = rightnow.getMinutes()
+	seconds = rightnow.getSeconds();
 // fileDate format - YYYYMMDD_HHMM
 var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
 
@@ -60,6 +62,7 @@ var lineReader = require('readline').createInterface({
 lineReader.on('line', function (line) {
   if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
   if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
+  if(chatRE.test(line)) {chatCon.chatIF(line);}
 });
 
 
