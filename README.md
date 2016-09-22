@@ -21,11 +21,11 @@ Requirments:
 * rust server (duh)
 
 Version 1 Goals:
-*Kill Feed
-*Pure chat log
-*Chat responsiveness
+* Kill Feed
+* Pure chat log
+* Chat responsiveness
 	*Read from chat and send messages and/or run commands
 
 Version 2 Goals:
-*SQL(MongoDB?) integration
-*One time use codes
+* SQL(MongoDB?) integration
+* One time use codes
