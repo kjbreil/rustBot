@@ -1,0 +1,12 @@
+{
+  "name": "rustBot",
+  "version": "0.0.3",
+  "description": "Rust Experimental integration bot",
+  "main": "rustBot.js",
+  "author": {
+    "name": "Otto the Caddy"
+  },
+  "dependencies": {
+    "discord.js": "^9.2.0",
+  }
+}
