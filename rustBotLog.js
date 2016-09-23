@@ -3,8 +3,11 @@
 //##################################################//
 //					THE Constructs					//
 //##################################################//
+
+const config = require('./config.js')
 //Base Libraries - things that are called from everwhere
 const base = require('./lib/base');
+
 //discord bot load and initialize
 const Discord = require("discord.js");
 const bot = new Discord.Client();
@@ -20,7 +23,6 @@ const chatCon = require("./matchers/chat");
 //					THE Variables					//
 //##################################################//
 
-var inputlogfile = "./exLog/merged.log";
 
 // Rust log file date format (why am i keeping this???)
 var date = new Date().toISOString()
@@ -41,7 +43,9 @@ var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) +
 //					THE Functions					//
 //##################################################//
 
-// NONE its all in other files
+discordMessage = function(msg){
+    bot.channels.get(bot.channels.first().id).sendMessage(msg);
+}
 
 //##################################################//
 //					THE Code						//
@@ -52,9 +56,7 @@ var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) +
 fs.writeFile('rcon.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 
 //initialize linereader - this is a copy/paste and should figure out how to do with const
-var lineReader = require('readline').createInterface({
-  terminal: false, input: fs.createReadStream(inputlogfile)
-});
+
 
 
 // TODO: Make array from list of files in matchers with js extension
@@ -63,24 +65,22 @@ var lineReader = require('readline').createInterface({
 // Also does not look promising on the array, fuck
 
 bot.on('ready', () => {
-  console.log('I am ready!')
+	console.log('starting')
+	
+	var inputlogfile = "./exLog/gamelog-2016-09-21-03-00-01.log";
 
-  bot.channels.get(bot.channels.first().id).sendMessage("I have logged in");
+	var lineReader = require('readline').createInterface({
+	  terminal: false, input: fs.createReadStream(inputlogfile)
+	});
+
+	lineReader.on('line', function (line) {
+		if(chatRE.test(line)) {chatCon.chatIF(line);}
+	});
+
 });
 
+// if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
+// if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
+// if(chatRE.test(line)) {chatCon.chatIF(line);}
 
-
-
-lineReader.on('line', function (line) {
-  if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
-  if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
-  if(chatRE.test(line)) {chatCon.chatIF(line);}
-});
-
-
-
-
-// create an event listener for messages
-
-
-bot.login('MjI4OTIzOTUwMzM4NDA4NDQ4.CsbzrA.ODQkRY5ItAIGKnb-iItnAX2BMHE');
+bot.login(config.discordAPI)
