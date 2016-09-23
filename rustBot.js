@@ -62,9 +62,13 @@ fs.writeFile('logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 //   if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
 // });
 
+discordMessage = function(msg){
+    bot.channels.get(bot.channels.first().id).sendMessage(msg);
+}
+
 bot.on('ready', () => {
 	console.log('starting')
-
+	discordMessage('BOT CONNECTED')
 	function iffer(line) {
 		if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
 		if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}

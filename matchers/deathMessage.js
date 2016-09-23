@@ -47,7 +47,7 @@ function pvp(line, names){
 	var color2 = '<color=#ff9933>'
 	base.log('pvp',1)
 	base.log(line, 1)
-	base.log(color1 + names[2] + sC + ' killed ' + color2 + names[1] + '</color>', 1)
+	base.log(color1 + names[2] + sC + ' killed ' + color2 + names[1] + '</color>', 3)
 	
 }
 
@@ -57,7 +57,7 @@ function death1(line, names) {
 	var sC = '</color>'
 	var color1 = '<color=#4d4dff>'
 	var color2 = '<color=#ff9933>'
-	var death1type = 1
+	var death1type = 3
 	var reason = names[2].toLowerCase()
 	if(reason == 'generic')			{base.log(color1 + names[1] + sC + ' died genericly', 1)}
 	else if (reason == 'cold')		{base.log(color1 + names[1] + sC + ' succumbed to the cold', death1type);}
@@ -78,7 +78,7 @@ function death2(line, names) {
 	var sC = '</color>'
 	var color1 = '<color=#4d4dff>'
 	var color2 = '<color=#ff9933>'
-	var death2type = 1
+	var death2type = 3
 	var reason = names[2].toLowerCase();
 	if(reason == 'bear')					{base.log(color1 + names[1] + sC + ' was mauled by a bear', death2type);}
 	else if(reason == 'wolf')				{base.log(color1 + names[1] + sC + ' was eaten by a wolf', death2type);}
@@ -103,7 +103,7 @@ function death2(line, names) {
 function suicide(line, names) {
 	base.log('death1', 1)
 	base.log(line, 1)
-	var suicidetype = 1
+	var suicidetype = 3
 	var reason = names[2].toLowerCase()
 	if(reason == 'explosion')			{base.log(names[1] + ' played with explosives ', suicidetype)}
 }
