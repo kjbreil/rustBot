@@ -7,5 +7,6 @@ chatRE = new RegExp(/\[CHAT\] (.+?)\[\d*\/(\d+)] : (.+)/);
 exports.chatIF = function (line) {
 	base.log(line, 1);
 	names = chatRE.exec(line)
-	base.log(names[1] + ': ' + names[3], 2, 'chat.log')
+	base.log(names[1] + ': ' + names[3], 1, 'chat.log')
+	// base.discordMessage(line)
 }

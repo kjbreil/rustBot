@@ -3,9 +3,12 @@
 //##################################################//
 //					THE Constructs					//
 //##################################################//
-
+//Base Libraries - things that are called from everwhere
 const base = require('./lib/base');
-
+//discord bot load and initialize
+const Discord = require("discord.js");
+const bot = new Discord.Client();
+//filesystem manipulation
 const fs = require('fs');
 
 const clientDataCon = require("./matchers/clientData");
@@ -59,6 +62,15 @@ var lineReader = require('readline').createInterface({
 // NOTE: ATM Regex not working with switch statements has to be if statements
 // Also does not look promising on the array, fuck
 
+bot.on('ready', () => {
+  console.log('I am ready!')
+
+  bot.channels.get(bot.channels.first().id).sendMessage("I have logged in");
+});
+
+
+
+
 lineReader.on('line', function (line) {
   if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
   if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
@@ -66,3 +78,9 @@ lineReader.on('line', function (line) {
 });
 
 
+
+
+// create an event listener for messages
+
+
+bot.login('MjI4OTIzOTUwMzM4NDA4NDQ4.CsbzrA.ODQkRY5ItAIGKnb-iItnAX2BMHE');

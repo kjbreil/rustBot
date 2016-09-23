@@ -24,8 +24,10 @@ Version 1 Goals:
 * Kill Feed
 * Pure chat log
 * Chat responsiveness
-	*Read from chat and send messages and/or run commands
+	* Read from chat and send messages and/or run commands
+* Basic discord integration
 
 Version 2 Goals:
 * SQL(MongoDB?) integration
 * One time use codes
+* More advanced discord integration
