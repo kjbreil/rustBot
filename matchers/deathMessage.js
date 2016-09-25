@@ -60,17 +60,10 @@ exports.deathMessageIF = function (line) {
 How to create kill messages.
 
 There are two functions, gotFedUp and gotKilled. This corresponds to if it was a death/suicide or if they were killed 
-by someone truthfully I don't really know the difference sometimes but its how they show up in the log. Each function 
-is a switch which takes the byWhat string matches them int he choose part. Each choose consists of an array and sending 
+by someone but truthfully I don't really know the difference sometimes but its how they show up in the log. Each function 
+is a switch which takes the byWhat string matches them in the choose part. Each choose consists of an array and then sending 
 the array to the log function. The array allows you to assign colors to blocks of text which will be combined together 
-and colorized in rust chat. Don't worry about spaces at the end or begining, the code takes care of spacing.
-
-Here are some examples:
-gotFedUp has two types fed into it, where the how is suicide or just a died type, first 4 are suicides, rest are dieds
-how is suicide: Otto the Caddy[2030269/76561198014626147] was suicide by Suicide
-died: Otto the Caddy[2030269/76561198014626147] died (Heat)
-
-gotKilled examples are coming soon
+and colorized and shown in rust chat. Don't worry about spaces at the end or begining of text, the code takes care of spacing.
 
 The arrage is called message, below is a very basic one which passes the name of person killed and then a blank text
 block, it would look like this 'SERVER Otto the Caddy' and in black text.
@@ -88,6 +81,14 @@ var message = [
 	{'color' : 'red', 'text' : name},
 	{'color' : 'black', 'text' : 'sat on the candle stick'}
 ]
+
+Here are some examples of what is in the log:
+gotFedUp has two types fed into it, where the how is suicide or just a died type, first 4 are suicides, rest are dieds
+how is suicide: Otto the Caddy[2030269/76561198014626147] was suicide by Suicide
+died: Otto the Caddy[2030269/76561198014626147] died (Heat)
+
+gotKilled examples are coming soon
+
 
 */
 
