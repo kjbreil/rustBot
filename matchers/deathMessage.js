@@ -65,6 +65,13 @@ is a switch which takes the byWhat string matches them int he choose part. Each 
 the array to the log function. The array allows you to assign colors to blocks of text which will be combined together 
 and colorized in rust chat. Don't worry about spaces at the end or begining, the code takes care of spacing.
 
+Here are some examples:
+gotFedUp has two types fed into it, where the how is suicide or just a died type, first 4 are suicides, rest are dieds
+how is suicide: Otto the Caddy[2030269/76561198014626147] was suicide by Suicide
+died: Otto the Caddy[2030269/76561198014626147] died (Heat)
+
+gotKilled examples are coming soon
+
 The arrage is called message, below is a very basic one which passes the name of person killed and then a blank text
 block, it would look like this 'SERVER Otto the Caddy' and in black text.
 
@@ -108,84 +115,84 @@ gotFedUp = function (line, name, how, byWhat){
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : 'stabbed himself to death'}
 			]
-			base.log(message, 'l')
+			base.log(message, dT)
 			break;
 		case('Suicide'): // f1 - kill how is suicide
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : 'just couldn\'t take it anymore'}
 			]
-			base.log(message, 'lc')
+			base.log(message, dT)
 			break;
 		case('Heat'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : 'was just too hot for this world'}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Bleeding'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Slash'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Bite'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Fall'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Cold'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Drowned'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Hunger'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('Blunt'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case(''):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		default:
 			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
@@ -202,126 +209,127 @@ gotKilled = function (line, name, how, byWhat) {
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('landmine'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('Drowned'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('patrolhelicopter'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('barricade'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('autoturret_deployed'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('Blunt'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('Hunger'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('wall'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('cactus'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('Poison'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('wolf'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('Cold'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case ('fall'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('spikes'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('campfire'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'black', 'text': 'Jack be Nimble Jack be quick'},
+				{'color' : 'red', 'text' : name},
+				{'color' : 'black', 'text' : 'sat on the candle stick'}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case('oilfireballsmall'):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		case(''):
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : ''}
 			]
-			base.log(message, '')
+			base.log(message, dT)
 			break;
 		default:
 			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
