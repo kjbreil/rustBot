@@ -39,6 +39,7 @@ var rightnow = new Date(),
 // fileDate format - YYYYMMDD_HHMM
 var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
 
+discordEnabled = 1
 
 //##################################################//
 //					THE Code						//
@@ -47,6 +48,8 @@ var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) +
 //Rename the old log file - fuck this for right now, will be implemented when live
 fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');
 fs.writeFile('logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
+fs.rename('logs/chat.log', 'logs/' + fileDate + '_chat.log');
+fs.writeFile('logs/chat.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 
 //initialize linereader - this is a copy/paste and should figure out how to do with const
 
@@ -86,4 +89,4 @@ bot.on('ready', () => {
 // rcon.defaultListener = function(msg) {iffer(msg)};
 // rcon.Connect();
 
-bot.login(config.discordAPI)
+if(discordEnabled == 1) {bot.login(config.discordAPI)}
