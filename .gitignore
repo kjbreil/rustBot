@@ -2,3 +2,4 @@ node_modules/
 rcon.log
 logs/
 settings.js
+exLog/
