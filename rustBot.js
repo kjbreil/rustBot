@@ -39,11 +39,23 @@ var rightnow = new Date(),
 // fileDate format - YYYYMMDD_HHMM
 var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
 
+reDir = ['logs','exLog','lib','matchers']
+
 discordEnabled = 1
+rconEnabled = 1
+
+//something
 
 //##################################################//
 //					THE Code						//
 //##################################################//
+
+// Make sure all the directories exist
+for (var i = 0, len = reDir.length; i < len; i++) {
+	if (!fs.existsSync('.\/' + reDir[i])){
+		fs.mkdirSync('.\/' + reDir[i]);
+	}
+}
 
 //Rename the old log file - fuck this for right now, will be implemented when live
 fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');
