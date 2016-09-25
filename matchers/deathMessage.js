@@ -46,17 +46,47 @@ exports.deathMessageIF = function (line) {
 		case ('sent'): // Sent bad packed, will be logged soon
 			base.log(line, '')
 			break;
+		case ('is'): // only seen this so far 'is inside an out of range building privilege.' but will be logged soon
+			base.log(line, '')
+			break;
 		default:
-			base.log(descriptor, 'l')
+			base.log(('########## || ' + line), 'lc')
 	}
 	
 }
 
-				// {'color' : 'green', 'text' : ''},
-				// {'color' : 'green', 'text' : ''}
+/*
 
-gotFedUp = function (line, name, how, bywhat){
-	switch (bywhat){
+How to create kill messages.
+
+There are two functions, gotFedUp and gotKilled. This corresponds to if it was a death/suicide or if they were killed 
+by someone truthfully I don't really know the difference sometimes but its how they show up in the log. Each function 
+is a switch which takes the byWhat string matches them int he choose part. Each choose consists of an array and sending 
+the array to the log function. The array allows you to assign colors to blocks of text which will be combined together 
+and colorized in rust chat. Don't worry about spaces at the end or begining, the code takes care of spacing.
+
+The arrage is called message, below is a very basic one which passes the name of person killed and then a blank text
+block, it would look like this 'SERVER Otto the Caddy' and in black text.
+
+var message = [
+	{'color' : 'black', 'text': name},
+	{'color' : 'black', 'text' : ''}
+]
+
+You have 3 variables available, name, how and byWhat but I would only recommend using name as the other two are static.
+The variables can be anwhere in the text so this works
+
+var message = [
+	{'color' : 'black', 'text': 'Jack be Nimble Jack be quick'},
+	{'color' : 'red', 'text' : name},
+	{'color' : 'black', 'text' : 'sat on the candle stick'}
+]
+
+*/
+
+
+gotFedUp = function (line, name, how, byWhat){
+	switch (byWhat){
 		case ('Generic'): // when an Admin goes into spectate mode
 			var message = [
 				{'color' : 'black', 'text': name},
@@ -78,14 +108,14 @@ gotFedUp = function (line, name, how, bywhat){
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : 'stabbed himself to death'}
 			]
-			base.log(message, 'lc')
+			base.log(message, 'l')
 			break;
-		case('Suicide'): // f1 - kill
+		case('Suicide'): // f1 - kill how is suicide
 			var message = [
 				{'color' : 'black', 'text': name},
 				{'color' : 'black', 'text' : 'just couldn\'t take it anymore'}
 			]
-			base.log(message, '')
+			base.log(message, 'lc')
 			break;
 		case('Heat'):
 			var message = [
@@ -143,6 +173,13 @@ gotFedUp = function (line, name, how, bywhat){
 			]
 			base.log(message, '')
 			break;
+		case('Blunt'):
+			var message = [
+				{'color' : 'black', 'text': name},
+				{'color' : 'black', 'text' : ''}
+			]
+			base.log(message, '')
+			break;
 		case(''):
 			var message = [
 				{'color' : 'black', 'text': name},
@@ -151,7 +188,7 @@ gotFedUp = function (line, name, how, bywhat){
 			base.log(message, '')
 			break;
 		default:
-			base.log('########## || ' how + ' || ' + byWhat, 'ld')
+			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
 	}
 	
 	
@@ -258,6 +295,27 @@ gotKilled = function (line, name, how, byWhat) {
 			]
 			base.log(message, '')
 			break;
+		case('spikes'):
+			var message = [
+				{'color' : 'black', 'text': name},
+				{'color' : 'black', 'text' : ''}
+			]
+			base.log(message, '')
+			break;
+		case('campfire'):
+			var message = [
+				{'color' : 'black', 'text': name},
+				{'color' : 'black', 'text' : ''}
+			]
+			base.log(message, '')
+			break;
+		case('oilfireballsmall'):
+			var message = [
+				{'color' : 'black', 'text': name},
+				{'color' : 'black', 'text' : ''}
+			]
+			base.log(message, '')
+			break;
 		case(''):
 			var message = [
 				{'color' : 'black', 'text': name},
@@ -266,68 +324,11 @@ gotKilled = function (line, name, how, byWhat) {
 			base.log(message, '')
 			break;
 		default:
-			base.log('########## || ' how + ' || ' + byWhat, 'ld')
+			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
 	}
 }
 
 function pvp(line, name, killer){
 	base.log(killer + ' killed ' + name, '')
 	base.log(line, '')	
-}
-
-function death1(line, names) {
-	base.log('death1', 1)
-	base.log(line, 1)
-	var sC = '</color>'
-	var color1 = '<color=#4d4dff>'
-	var color2 = '<color=#ff9933>'
-	var death1type = deathAll
-	var reason = names[2].toLowerCase()
-	if(reason == 'generic')			{base.log(color1 + names[1] + sC + ' died genericly', 1)}
-	else if (reason == 'cold')		{base.log(color1 + names[1] + sC + ' succumbed to the cold', death1type);}
-	else if (reason == 'bleeding')	{base.log(color1 + names[1] + sC + ' bled out', death1type);}
-	else if (reason == 'heat')		{base.log(color1 + names[1] + sC + ' was just too hot for this world', death1type);}
-	else if (reason == 'suicide')	{base.log(color1 + names[1] + sC + ' was done with with world and ended it', death1type);}
-	else if (reason == 'slash')		{base.log(color1 + names[1] + sC + ' was slashed into pieces', death1type);}
-	else if (reason == 'hunger')	{base.log(color1 + names[1] + sC + ' was hungers, is now dead', death1type);}
-	else if (reason == 'bite')		{base.log(color1 + names[1] + sC + ' should\'ve bit back', death1type);}
-	else if (reason == 'fall')		{base.log(color1 + names[1] + sC + ' tried to fly but faceplanted into the ground', death1type);}
-	else if (reason == 'drowned')	{base.log(color1 + names[1] + sC + ' went for a swim and never came back', death1type);}
-	else 							{base.log('DNF ' + names[1] + '|' + names[2] + '|' + line, 1)}
-}
-
-function death2(line, names) {
-	base.log('death2',1)
-	base.log(line, 1)
-	var sC = '</color>'
-	var color1 = '<color=#4d4dff>'
-	var color2 = '<color=#ff9933>'
-	var death2type = deathAll
-	var reason = names[2].toLowerCase();
-	if(reason == 'bear')					{base.log(color1 + names[1] + sC + ' was mauled by a bear', death2type);}
-	else if(reason == 'wolf')				{base.log(color1 + names[1] + sC + ' was eaten by a wolf', death2type);}
-	else if(reason == 'poison')				{base.log(color1 + names[1] + sC + ' ate some bad food and died', death2type);}
-	else if(reason == 'wall')				{base.log(color1 + names[1] + sC + ' was trying to jump over a wall, it didn\'t work', death2type);}
-	else if(reason == 'drowned')			{base.log(color1 + names[1] + sC + ' went for a swim and never came back', death2type);}
-	else if(reason == 'autoturret_deployed'){base.log(color1 + names[1] + sC + ' got blasted by an autoturret', death2type);}
-	else if(reason == 'patrolhelicopter')	{base.log(color1 + names[1] + sC + ' fought the heli, the heli won', death2type);}
-	else if(reason == 'landmine')			{base.log(color1 + names[1] + sC + ' stepped on a landmine', death2type);}
-	else if(reason == 'cactus')				{base.log(color1 + names[1] + sC + ' tried having sex with a cactus and bled to death', death2type);}
-	else if(reason == 'cold')				{base.log(color1 + names[1] + sC + ' froze to death', death2type);}
-	else if(reason == 'hunger')				{base.log(color1 + names[1] + sC + ' forgot to eat', death2type);}
-	else if(reason == 'blunt')				{base.log(color1 + names[1] + sC + ' was smoking a blunt and died', death2type);}
-	else if(reason == 'barricade')			{base.log(color1 + names[1] + sC + ' was playing on a barricade and died', death2type);}
-	else if(reason == 'spikes')				{base.log(color1 + names[1] + sC + ' impaled by floor spikes', death2type);}
-	else if(reason == 'campfire')			{base.log(color1 + names[1] + sC + ' tried walking on a campfire', death2type);}
-	else if(reason == 'oilfireballsmall')	{base.log(color1 + names[1] + sC + ' burnt alive', death2type);}
-	else 									{base.log('DNF ' + names[1] + '|' + names[2] + '|' + line, 1)}
-	
-}
-
-function suicide(line, names) {
-	base.log('death1', 1)
-	base.log(line, 1)
-	var suicidetype = deathAll
-	var reason = names[2].toLowerCase()
-	if(reason == 'explosion')			{base.log(names[1] + ' played with explosives ', suicidetype)}
 }
