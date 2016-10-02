@@ -41,6 +41,8 @@ var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) +
 
 reDir = ['logs','exLog','lib','matchers']
 
+logFiles = ['rustbot','chat']
+
 discordEnabled = 1
 rconEnabled = 1
 
@@ -56,6 +58,7 @@ for (var i = 0, len = reDir.length; i < len; i++) {
 		fs.mkdirSync('.\/' + reDir[i]);
 	}
 }
+
 
 //Rename the old log file - fuck this for right now, will be implemented when live
 fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');

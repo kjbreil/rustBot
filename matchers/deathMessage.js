@@ -5,6 +5,7 @@
 // Set the regex matching, must be same name as file
 
 const base = require("./../lib/base");
+const config = require('./../config.js');
 // Regex for matcher
 
 deathMessageRE = new RegExp(/^[^[](.+?)\[\d+?\/(\d+?\]) /)

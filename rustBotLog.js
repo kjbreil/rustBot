@@ -40,15 +40,8 @@ var rightnow = new Date(),
 // fileDate format - YYYYMMDD_HHMM
 var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
 
-reDir = ['logs','exLog','lib','matchers']
-
-
-// if (!fs.existsSync(dir)){
-//     fs.mkdirSync(dir);
-// }
-
-discordEnabled = 0
-rconEnabled = 0
+discordEnabled = config.discordEnabled
+rconEnabled = config.rconEnabled
 
 //##################################################//
 //					THE Functions					//
@@ -62,16 +55,34 @@ discordMessage = function(msg){
 //					THE Code						//
 //##################################################//
 
-// Make sure all the directories exist
-for (var i = 0, len = reDir.length; i < len; i++) {
-	if (!fs.existsSync('.\/' + reDir[i])){
-		fs.mkdirSync('.\/' + reDir[i]);
+
+for (var i = 0, len = config.reDir.length; i < len; i++) {
+	try {
+	    stats = fs.lstatSync('.\/' + config.reDir[i]);
+	    if (stats.isDirectory()) {
+	    }
+	}
+	catch (e) {
+	    fs.mkdirSync('.\/' + config.reDir[i]);
+	}
+}
+
+
+for (var i = 0, len = config.logFiles.length; i < len; i++) {
+	try {
+	    stats = fs.lstatSync(config.logFileLocation + config.logFiles[i] + '.log')
+	    if (stats.isFile()) {
+	    	fs.rename(config.logFileLocation + config.logFiles[i] + '.log',config.logFileLocation +  fileDate + '_' + config.logFiles[i] + '.log')
+	    }
+	}
+	catch (e) {
+	    ;
 	}
 }
 
 //Rename the old log file - fuck this for right now, will be implemented when live
-fs.rename('./logs/rustbot.log','./logs/' + fileDate + '_rustbot.log');
-fs.writeFile('./logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
+// fs.rename('./logs/rustbot.log','./logs/' + fileDate + '_rustbot.log');
+// fs.writeFile('./logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 
 //initialize linereader - this is a copy/paste and should figure out how to do with const
 
@@ -92,6 +103,7 @@ if(discordEnabled == 1) {
 			if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
 			if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
 			if(chatRE.test(line)) {chatCon.chatIF(line);}
+			if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
 		});
 	});
 };
@@ -104,10 +116,10 @@ if(discordEnabled == 0) {
 	});
 	
 	lineReader.on('line', function (line) {
-		// if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
+		if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
 		if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
-		// if(chatRE.test(line)) {chatCon.chatIF(line);}
-		// if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
+		if(chatRE.test(line)) {chatCon.chatIF(line);}
+		if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
 	});
 };
 
