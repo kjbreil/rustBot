@@ -3,10 +3,12 @@
 //##################################################//
 //					THE Constructs					//
 //##################################################//
+
 const config = require('./config.js')
 
 //Base Libraries - things that are called from everwhere
 const base = require('./lib/base');
+
 //discord bot load and initialize
 const Discord = require("discord.js");
 const bot = new Discord.Client();
@@ -16,13 +18,13 @@ const fs = require('fs');
 const clientDataCon = require("./matchers/clientData");
 const deathMessageCon = require("./matchers/deathMessage");
 const chatCon = require("./matchers/chat");
+const serverMessageCon = require("./matchers/serverMessage");
 
 
 //##################################################//
 //					THE Variables					//
 //##################################################//
 
-var inputlogfile = "./exLog/merged.log";
 
 // Rust log file date format (why am i keeping this???)
 var date = new Date().toISOString()
@@ -39,32 +41,62 @@ var rightnow = new Date(),
 // fileDate format - YYYYMMDD_HHMM
 var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
 
-reDir = ['logs','exLog','lib','matchers']
+discordEnabled = config.discordEnabled
+rconEnabled = config.rconEnabled
 
-logFiles = ['rustbot','chat']
+//##################################################//
+//					THE Functions					//
+//##################################################//
 
-discordEnabled = 1
-rconEnabled = 1
+findChannel = function(channel) { 
+    return channel.name === 'chat';
+}
 
-//something
+discordMessage = function(msg){
+    chanAr = bot.channels.array()    
+    // bot.channels.get(bot.channels.first().id).sendMessage(msg);
+
+    function findChannel(channel) { 
+        return channel.name === 'chat';
+    }
+
+    bot.channels.get(chanAr.find(findChannel).id).sendMessage(msg);
+}
 
 //##################################################//
 //					THE Code						//
 //##################################################//
 
-// Make sure all the directories exist
-for (var i = 0, len = reDir.length; i < len; i++) {
-	if (!fs.existsSync('.\/' + reDir[i])){
-		fs.mkdirSync('.\/' + reDir[i]);
+
+for (var i = 0, len = config.reDir.length; i < len; i++) {
+	try {
+	    stats = fs.lstatSync('.\/' + config.reDir[i]);
+	    if (stats.isDirectory()) {
+	    }
+	}
+	catch (e) {
+	    fs.mkdirSync('.\/' + config.reDir[i]);
 	}
 }
 
 
+for (var i = 0, len = config.logFiles.length; i < len; i++) {
+	try {
+	    stats = fs.lstatSync(config.logFileLocation + config.logFiles[i] + '.log')
+	    if (stats.isFile()) {
+	    	fs.rename(config.logFileLocation + config.logFiles[i] + '.log',config.logFileLocation +  fileDate + '_' + config.logFiles[i] + '.log')
+	    }
+	}
+	catch (e) {
+	    ;
+	}
+}
+
 //Rename the old log file - fuck this for right now, will be implemented when live
-fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');
-fs.writeFile('logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
-fs.rename('logs/chat.log', 'logs/' + fileDate + '_chat.log');
-fs.writeFile('logs/chat.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
+// fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');
+// fs.writeFile('logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
+// fs.rename('logs/chat.log', 'logs/' + fileDate + '_chat.log');
+// fs.writeFile('logs/chat.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 
 //initialize linereader - this is a copy/paste and should figure out how to do with const
 
@@ -80,17 +112,17 @@ fs.writeFile('logs/chat.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
 //   if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
 // });
 
-discordMessage = function(msg){
-    bot.channels.get(bot.channels.first().id).sendMessage(msg);
-}
 
 bot.on('ready', () => {
 	console.log('starting')
 	discordMessage('BOT CONNECTED')
 	function iffer(line) {
 		if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
-		if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
-		if(chatRE.test(line)) {chatCon.chatIF(line);}
+		else if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
+		else if(chatRE.test(line)) {chatCon.chatIF(line);}
+		else if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
+		else if(serverArrayRE.test(line)) {serverMessageCon.serverArrayIF(line);}
+		else  base.log('### NF' + line, 'l')
 	}
 
 	rcon = new base.RconService(config);

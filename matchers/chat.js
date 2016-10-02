@@ -10,3 +10,7 @@ exports.chatIF = function (line) {
 	base.log(names[1] + ': ' + names[3], 1, 'chat.log')
 	if(discordEnabled == 1) {discordMessage(names[1] + ': ' + names[3])}
 }
+
+exports.chatArray = function (msg){
+	base.log(msg.Message + ': ' + msg.Username, 'lcd')
+}

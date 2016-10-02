@@ -10,7 +10,7 @@ const config = require('./../config.js');
 
 deathMessageRE = new RegExp(/^[^[](.+?)\[\d+?\/(\d+?\]) /)
 
-dT = ''
+dT = 'ldr'
 
 exports.deathMessageIF = function (line) {
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
@@ -67,20 +67,20 @@ the array to the log function. The array allows you to assign colors to blocks o
 and colorized and shown in rust chat. Don't worry about spaces at the end or begining of text, the code takes care of spacing.
 
 The arrage is called message, below is a very basic one which passes the name of person killed and then a blank text
-block, it would look like this 'SERVER Otto the Caddy' and in black text.
+block, it would look like this 'SERVER Otto the Caddy' and in default text.
 
 var message = [
-	{'color' : 'black', 'text': name},
-	{'color' : 'black', 'text' : ''}
+	{'color' : 'default', 'text': name},
+	{'color' : 'default', 'text' : ''}
 ]
 
 You have 3 variables available, name, how and byWhat but I would only recommend using name as the other two are static.
 The variables can be anwhere in the text so this works
 
 var message = [
-	{'color' : 'black', 'text': 'Jack be Nimble Jack be quick'},
+	{'color' : 'default', 'text': 'Jack be Nimble Jack be quick'},
 	{'color' : 'red', 'text' : name},
-	{'color' : 'black', 'text' : 'sat on the candle stick'}
+	{'color' : 'default', 'text' : 'sat on the candle stick'}
 ]
 
 Here are some examples of what is in the log:
@@ -98,101 +98,101 @@ gotFedUp = function (line, name, how, byWhat){
 	switch (byWhat){
 		case ('Generic'): // when an Admin goes into spectate mode
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : ''}
 			]
 			base.log(message, '')
 			break;
 		case('Explosion'):  // how is suicide
 			var message = [
 				{'color' : 'darkgreen', 'text': name},
-				{'color' : 'black', 'text' : 'was playing with '},
+				{'color' : 'default', 'text' : 'was playing with '},
 				{'color' : 'red', 'text' : 'explosives'},
-				{'color' : 'black', 'text' : 'it did not go well'}
+				{'color' : 'default', 'text' : 'it did not go well'}
 			]
 			base.log(message, dT)
 			break;
 		case('Stab'): // how is suicide - I really don't know how this happens
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : 'stabbed himself to death'}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'stabbed himself to death'}
 			]
 			base.log(message, dT)
 			break;
 		case('Suicide'): // f1 - kill how is suicide
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : 'just couldn\'t take it anymore'}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'just couldn\'t take it anymore'}
 			]
 			base.log(message, dT)
 			break;
 		case('Heat'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : 'was just too hot for this world'}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'was just too hot for this world'}
 			]
 			base.log(message, dT)
 			break;
 		case('Bleeding'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'bled out'}
 			]
 			base.log(message, dT)
 			break;
 		case('Slash'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'was slashed into pieces'}
 			]
 			base.log(message, dT)
 			break;
 		case('Bite'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'should\'ve bit back'}
 			]
 			base.log(message, dT)
 			break;
 		case('Fall'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
 			]
 			base.log(message, dT)
 			break;
 		case('Cold'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : ''}
 			]
 			base.log(message, dT)
 			break;
 		case('Drowned'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'succumbed to the cold'}
 			]
 			base.log(message, dT)
 			break;
 		case('Hunger'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'forgot to eat'}
 			]
 			base.log(message, dT)
 			break;
 		case('Blunt'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'died by blunt trama'}
 			]
 			base.log(message, dT)
 			break;
 		case(''):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : ''}
 			]
 			base.log(message, dT)
 			break;
@@ -208,128 +208,128 @@ gotKilled = function (line, name, how, byWhat) {
 	switch(byWhat){
 		case ('bear'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'was mauled by a bear'}
 			]
 			base.log(message, dT)
 			break;
 		case ('landmine'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'stepped on a landmine'}
 			]
 			base.log(message, dT)
 			break;
 		case ('Drowned'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'darkgreen', 'text': name},
+				{'color' : 'default', 'text' : 'went for a swim and never came back'}
 			]
 			base.log(message, dT)
 			break;
 		case ('patrolhelicopter'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'fought the heli, the heli won'}
 			]
 			base.log(message, dT)
 			break;
 		case ('barricade'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'was playing on a barricade and died'}
 			]
 			base.log(message, dT)
 			break;
 		case ('autoturret_deployed'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'got blasted by an autoturret'}
 			]
 			base.log(message, dT)
 			break;
 		case ('Blunt'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'died by blunt trama'}
 			]
 			base.log(message, dT)
 			break;
 		case ('Hunger'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'forgot to eat'}
 			]
 			base.log(message, dT)
 			break;
 		case ('wall'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'tried jumping over a wall but died instead'}
 			]
 			base.log(message, dT)
 			break;
 		case ('cactus'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'had sex with a cactus'}
 			]
 			base.log(message, dT)
 			break;
 		case ('Poison'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'ate some bad food and died'}
 			]
 			base.log(message, dT)
 			break;
 		case ('wolf'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'was eaten by a wolf'}
 			]
 			base.log(message, dT)
 			break;
 		case ('Cold'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'froze to death'}
 			]
 			base.log(message, dT)
 			break;
 		case ('fall'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
 			]
 			base.log(message, dT)
 			break;
 		case('spikes'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'impaled by floor spikes'}
 			]
 			base.log(message, dT)
 			break;
 		case('campfire'):
 			var message = [
-				{'color' : 'black', 'text': 'Jack be Nimble Jack be quick'},
+				{'color' : 'default', 'text': 'Jack be Nimble Jack be quick'},
 				{'color' : 'red', 'text' : name},
-				{'color' : 'black', 'text' : 'sat on the candle stick'}
+				{'color' : 'default', 'text' : 'sat on the candle stick'}
 			]
 			base.log(message, dT)
 			break;
 		case('oilfireballsmall'):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : 'burnt alive'}
 			]
 			base.log(message, dT)
 			break;
 		case(''):
 			var message = [
-				{'color' : 'black', 'text': name},
-				{'color' : 'black', 'text' : ''}
+				{'color' : 'default', 'text': name},
+				{'color' : 'default', 'text' : ''}
 			]
 			base.log(message, dT)
 			break;

@@ -48,7 +48,14 @@ rconEnabled = config.rconEnabled
 //##################################################//
 
 discordMessage = function(msg){
-    bot.channels.get(bot.channels.first().id).sendMessage(msg);
+    chanAr = bot.channels.array()    
+    // bot.channels.get(bot.channels.first().id).sendMessage(msg);
+
+    function findChannel(channel) { 
+        return channel.name === 'test';
+    }
+
+    bot.channels.get(chanAr.find(findChannel).id).sendMessage(msg);
 }
 
 //##################################################//
@@ -95,7 +102,7 @@ for (var i = 0, len = config.logFiles.length; i < len; i++) {
 if(discordEnabled == 1) {
 	bot.on('ready', () => {
 		console.log('starting')
-		var inputlogfile = "./exLog/merged.log";
+		var inputlogfile = "./exLog/gamelog-2016-09-13-03-00-01.log";
 		var lineReader = require('readline').createInterface({
 		  terminal: false, input: fs.createReadStream(inputlogfile)
 		});
@@ -109,7 +116,7 @@ if(discordEnabled == 1) {
 };
 
 if(discordEnabled == 0) {
-	var inputlogfile = "./exLog/merged.log";
+	var inputlogfile = "./exLog/gamelog-2016-09-13-03-00-01.log";
 	
 	var lineReader = require('readline').createInterface({
 	  terminal: false, input: fs.createReadStream(inputlogfile)
