@@ -16,7 +16,7 @@ exports.arrayTypeIF = function(a){
 
 
 playerList = function(a){
-	playersOnline = '[' + a.length + ']'
+	playersOnline = '[**' + a.length + '**]'
 	for(var i in a) {
 		finalMessage = '[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ']'
 	}
