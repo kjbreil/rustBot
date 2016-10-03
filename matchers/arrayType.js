@@ -7,9 +7,10 @@ const base = require("./../lib/base");
 
 exports.arrayTypeIF = function(a){
 	// console.log(a)
-	if (a[0].SteamID) {playerList(a)}
-	else {base.log('### NFA ###\n' + a, 'lc')}
-
+	if (a[0]){
+		if (a[0].SteamID) {playerList(a)}
+		else {base.log('### NFA ###\n' + a, 'lc')}
+	}
 	// base.log('### IAF ###\n' + a[0], 'lc', 'rustbot.log', 'bot')
 }
 
