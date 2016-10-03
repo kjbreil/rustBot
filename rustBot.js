@@ -8,17 +8,23 @@ const config = require('./config.js')
 
 //Base Libraries - things that are called from everwhere
 const base = require('./lib/base');
+const dR = require('./lib/discordRcon')
 
 //discord bot load and initialize
 const Discord = require("discord.js");
 const bot = new Discord.Client();
 //filesystem manipulation
 const fs = require('fs');
+// dateFormat to format dates (der)
+const dateFormat  = require("dateformat");
 
 const clientDataCon = require("./matchers/clientData");
 const deathMessageCon = require("./matchers/deathMessage");
 const chatCon = require("./matchers/chat");
 const serverMessageCon = require("./matchers/serverMessage");
+const arrayTypeCon = require("./matchers/arrayType");
+const fpsCon = require("./matchers/fps");
+
 
 
 //##################################################//
@@ -26,20 +32,23 @@ const serverMessageCon = require("./matchers/serverMessage");
 //##################################################//
 
 
-// Rust log file date format (why am i keeping this???)
-var date = new Date().toISOString()
-                        .replace(/T/, ' ')
-                        .replace(/\..+/, '');
-//set the variables for filedates 
-var rightnow = new Date(),
-	year = rightnow.getFullYear(),
-	month = rightnow.getMonth(),
-	day = rightnow.getDay()
-	hour = rightnow.getHours()
-	minute = rightnow.getMinutes()
-	seconds = rightnow.getSeconds();
-// fileDate format - YYYYMMDD_HHMM
-var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
+// // Rust log file date format (why am i keeping this???)
+// var date = new Date().toISOString()
+//                         .replace(/T/, ' ')
+//                         .replace(/\..+/, '');
+// //set the variables for filedates 
+// var rightnow = new Date(),
+// 	year = rightnow.getFullYear(),
+// 	month = rightnow.getMonth(),
+// 	day = rightnow.getDay()
+// 	hour = rightnow.getHours()
+// 	minute = rightnow.getMinutes()
+// 	seconds = rightnow.getSeconds();
+// // fileDate format - YYYYMMDD_HHMM
+// var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
+
+var rightNow = new Date();
+var fileDate = dateFormat(rightNow, "yyyymmdd_hhMMss");
 
 discordEnabled = config.discordEnabled
 rconEnabled = config.rconEnabled
@@ -48,19 +57,24 @@ rconEnabled = config.rconEnabled
 //					THE Functions					//
 //##################################################//
 
-findChannel = function(channel) { 
-    return channel.name === 'chat';
-}
-
-discordMessage = function(msg){
-    chanAr = bot.channels.array()    
-    // bot.channels.get(bot.channels.first().id).sendMessage(msg);
-
+discordMessage = function(msg, pChannel){
+    var rightNow = new Date();
+    var date = dateFormat(rightNow, "[mm-dd-yy hh:MM:ss]");
+    chanAr = bot.channels.array() 
+    if ( pChannel == null ){pChannel = 'bot'}; 
     function findChannel(channel) { 
-        return channel.name === 'chat';
+        return channel.name === pChannel;
     }
 
-    bot.channels.get(chanAr.find(findChannel).id).sendMessage(msg);
+    switch (pChannel){
+    	case ('bot'):
+    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(date + ' ' + msg);
+    		return;
+    	default:
+    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(msg);
+
+    }
+    
 }
 
 //##################################################//
@@ -113,23 +127,52 @@ for (var i = 0, len = config.logFiles.length; i < len; i++) {
 // });
 
 
+		// else if(Array.isArray(line)) {
+		// 	base.log('### NFA ###\n' + line, 'lc', 'rustbot.log', 'bot')
+		// }
+
 bot.on('ready', () => {
-	console.log('starting')
-	discordMessage('BOT CONNECTED')
+	// console.log('starting')
+	// discordMessage('BOT CONNECTED')
 	function iffer(line) {
-		if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
+		aline = null
+		if (line){
+		    try{
+		        aline = JSON.parse(line)
+		        // base.log('### TIA ###\n' + aline, 'lc', 'rustbot.log', 'bot');
+		    }catch(e){
+		        // base.log('### NTA ###\n' + line, 'lc', 'rustbot.log', 'bot')
+		        
+		    }
+		}
+
+
+		// test = JSON.parse(line)
+		// base.log(aline, 'lc')
+
+		if (Array.isArray(aline)){arrayTypeCon.arrayTypeIF(aline);}
+		else if (clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
 		else if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
 		else if(chatRE.test(line)) {chatCon.chatIF(line);}
 		else if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
 		else if(serverArrayRE.test(line)) {serverMessageCon.serverArrayIF(line);}
-		else  base.log('### NF' + line, 'l')
+		else if(fpsRE.test(line)) {fpsCon.fpsIF(line);}
+		else  {base.log('### NF ###\n' + line, 'lc', 'rustbot.log', 'bot')}
 	}
+	
+	bot.on("message", msg => {
+		dR.discordRcon(msg)
+		// rcon.Command('say ' + msg);
+		// base.log(msg, 'lcr')
+	});
 
 	rcon = new base.RconService(config);
 	rcon.defaultListener = function(msg) {iffer(msg)};
 	rcon.Connect();
 
 });
+
+
 
 
 // rcon = new base.RconService(rconData);

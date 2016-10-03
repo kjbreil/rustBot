@@ -19,5 +19,5 @@ exports.serverArrayIF = function (line) {
 
 	colorMsgRE = RegExp(/^<color\=\#.{1,6}\>/)
 	if (colorMsgRE.test(message[2])) {base.log(message[6] + ': ' + message[2], 'l')}
-	else if (message[4] == 0) {base.log(message[6] + ': ' + message[2], 'ld', 'chat.log')}
+	else if (message[4] == 0) {base.log(message[6] + ': ' + message[2], 'ld', 'chat.log', 'chat')}
 }
