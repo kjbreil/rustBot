@@ -59,7 +59,8 @@ rconEnabled = config.rconEnabled
 
 discordMessage = function(msg, pChannel){
     var rightNow = new Date();
-    var date = dateFormat(rightNow, "[mm-dd-yy hh:MM:ss]");
+    var date = dateFormat(rightNow, "[mm-dd-yy hh:MM:ss] ");
+    var time = dateFormat(rightNow, '[HH:MM:ss] ')
     chanAr = bot.channels.array() 
     if ( pChannel == null ){pChannel = 'bot'}; 
     function findChannel(channel) { 
@@ -68,10 +69,10 @@ discordMessage = function(msg, pChannel){
 
     switch (pChannel){
     	case ('bot'):
-    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(date + ' ' + msg);
+    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(date + msg);
     		return;
     	default:
-    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(msg);
+    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(time + msg);
 
     }
     
