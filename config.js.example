@@ -1,0 +1,23 @@
+// Sample for config.js - adjust settings as needed
+
+var config = {};
+
+//Enable RCON
+config.rconEnabled = 0
+config.addr = '127.0.0.1'
+config.port = '28016'
+config.pass = 'mypassword'
+
+config.discordEnabled = 0
+config.discordAPI = 'myApplicationApiDiscordKey'
+config.discordID = 'myApplicationDiscordID'
+
+// Needed Directorys - don't edit yet, soon to be configurable
+config.reDir = ['logs','exLog','lib','matchers']
+
+// Chat location - Don't edit yet, soon to be configurable
+config.logFileLocation = './logs/'
+// Log file names - Don't edit yet, soon to be configurable
+config.logFiles = ['rustbot','chat','rcon', 'discord']
+
+module.exports = config;
