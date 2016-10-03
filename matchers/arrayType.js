@@ -18,7 +18,7 @@ exports.arrayTypeIF = function(a){
 playerList = function(a){
 	playersOnline = '[' + a.length + ']'
 	for(var i in a) {
-		finalMessage = '__[' + a[i].DisplayName + '__ : ' + a[i].SteamID + ']'
+		finalMessage = '[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ']'
 	}
 	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', 'rcon')
 }
