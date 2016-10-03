@@ -115,7 +115,7 @@ gotFedUp = function (line, name, how, byWhat){
 		case('Stab'): // how is suicide - I really don't know how this happens
 			var message = [
 				{'color' : 'default', 'text': name},
-				{'color' : 'default', 'text' : 'stabbed himself to death'}
+				{'color' : 'default', 'text' : 'was going for the darwin award, just might win it with that death'}
 			]
 			base.log(message, dT, null, 'chat')
 			break;
