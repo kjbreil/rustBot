@@ -49,7 +49,7 @@ for (let i in config.reDir) {
 }
 
 
-for (var i = 0, len = config.logFiles.length; i < len; i++) {
+for (let i = 0, len = config.logFiles.length; i < len; i++) {
 	try {
 	    let stats = fs.lstatSync(config.logFileLocation + config.logFiles[i] + '.log')
 	    if (stats.isFile()) {

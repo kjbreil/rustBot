@@ -11,6 +11,7 @@ config.pass = 'mypassword'
 config.discordEnabled = 0
 config.discordAPI = 'myApplicationApiDiscordKey'
 config.discordID = 'myApplicationDiscordID'
+config.discordRooms = {"chat" : "chat", "rcon" : "rcon", "bot" : "bot", "general" : "general"}
 
 // Needed Directorys - don't edit yet, soon to be configurable
 config.reDir = ['logs','exLog','lib','matchers']
