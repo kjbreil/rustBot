@@ -1,7 +1,7 @@
 // serverMessage.js
 
 const base = require("./../lib/base");
-const config = require('./../config.js')
+const config = require('./../config.js');
 
 // Regex for matcher
 serverMessageRE = RegExp(/\[RCON\]\[\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}:\d{1,}\] say (.+)/);

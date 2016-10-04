@@ -12,7 +12,7 @@ const dR = require('./lib/discordRcon')
 
 //discord bot load and initialize
 const Discord = require("discord.js");
-const bot = new Discord.Client();
+bot = new Discord.Client();
 //filesystem manipulation
 const fs = require('fs');
 // dateFormat to format dates (der)
