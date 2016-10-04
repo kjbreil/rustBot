@@ -1,6 +1,7 @@
 // serverMessage.js
 
 const base = require("./../lib/base");
+const config = require('./../config.js')
 
 // Regex for matcher
 serverMessageRE = RegExp(/\[RCON\]\[\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}:\d{1,}\] say (.+)/);
@@ -19,5 +20,5 @@ exports.serverArrayIF = function (line) {
 
 	colorMsgRE = RegExp(/^<color\=\#.{1,6}\>/)
 	if (colorMsgRE.test(message[2])) {base.log(message[6] + ': ' + message[2], 'l')}
-	else if (message[4] == 0) {base.log(message[6] + ': ' + message[2], 'ld', 'chat.log', 'chat')}
+	else if (message[4] == 0) {base.log(message[6] + ': ' + message[2], 'ld', 'chat.log', config.discordRooms.chat)}
 }

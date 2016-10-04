@@ -31,22 +31,6 @@ const fpsCon = require("./matchers/fps");
 //					THE Variables					//
 //##################################################//
 
-
-// // Rust log file date format (why am i keeping this???)
-// var date = new Date().toISOString()
-//                         .replace(/T/, ' ')
-//                         .replace(/\..+/, '');
-// //set the variables for filedates 
-// var rightnow = new Date(),
-// 	year = rightnow.getFullYear(),
-// 	month = rightnow.getMonth(),
-// 	day = rightnow.getDay()
-// 	hour = rightnow.getHours()
-// 	minute = rightnow.getMinutes()
-// 	seconds = rightnow.getSeconds();
-// // fileDate format - YYYYMMDD_HHMM
-// var fileDate = String(year) + String(month) + String(day) + '_' + String(hour) + String(minute);
-
 var rightNow = new Date();
 var fileDate = dateFormat(rightNow, "yyyymmdd_hhMMss");
 
@@ -62,7 +46,7 @@ discordMessage = function(msg, pChannel){
     var date = dateFormat(rightNow, "[mm-dd-yy hh:MM:ss] ");
     var time = dateFormat(rightNow, '[HH:MM:ss] ')
     chanAr = bot.channels.array() 
-    if ( pChannel == null ){pChannel = 'bot'}; 
+    if ( pChannel == null ){pChannel = config.discordRooms.bot}; 
     function findChannel(channel) { 
         return channel.name === pChannel;
     }
@@ -158,7 +142,7 @@ bot.on('ready', () => {
 		else if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
 		else if(serverArrayRE.test(line)) {serverMessageCon.serverArrayIF(line);}
 		else if(fpsRE.test(line)) {fpsCon.fpsIF(line);}
-		else  {base.log('### NF ###\n' + line, 'lc', 'rustbot.log', 'bot')}
+		else  {base.log('### NF ###\n' + line, 'lc', 'rustbot.log', config.discordRooms.bot)}
 	}
 	
 	bot.on("message", msg => {

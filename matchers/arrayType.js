@@ -4,6 +4,8 @@
 // base.log('### IAF ###\n' + aline[0].SteamID, 'lc', 'rustbot.log', 'bot')
 
 const base = require("./../lib/base");
+const config = require('./../config.js');
+
 
 exports.arrayTypeIF = function(a){
 	// console.log(a)
@@ -21,5 +23,5 @@ playerList = function(a){
 	for(var i in a) {
 		finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ']'
 	}
-	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', 'rcon')
+	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', config.discordRooms.rcon)
 }
