@@ -34,8 +34,6 @@ const fpsCon = require("./matchers/fps");
 var rightNow = new Date();
 var fileDate = dateFormat(rightNow, "yyyymmdd_hhMMss");
 
-discordEnabled = config.discordEnabled
-rconEnabled = config.rconEnabled
 
 //##################################################//
 //					THE Functions					//
@@ -164,4 +162,4 @@ bot.on('ready', () => {
 // rcon.defaultListener = function(msg) {iffer(msg)};
 // rcon.Connect();
 
-if(discordEnabled == 1) {bot.login(config.discordAPI)}
+if(config.discordEnabled == 1) {bot.login(config.discordAPI)}
