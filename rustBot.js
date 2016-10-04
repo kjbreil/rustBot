@@ -1,48 +1,31 @@
 #!/usr/bin
 
-//##################################################//
-//					THE Constructs					//
-//##################################################//
-
-const config = require('./config.js')
+global.config = require('./config.js')
 
 //Base Libraries - things that are called from everwhere
-const base = require('./lib/base');
+global.base = require('./lib/base');
 const dR = require('./lib/discordRcon')
 
 //discord bot load and initialize
-const Discord = require("discord.js");
-bot = new Discord.Client();
+global.Discord = require("discord.js");
+global.bot = new Discord.Client();
 //filesystem manipulation
-const fs = require('fs');
+global.fs = require('fs');
 // dateFormat to format dates (der)
-const dateFormat  = require("dateformat");
+global.dateFormat  = require("dateformat");
 
-const clientDataCon = require("./matchers/clientData");
-const deathMessageCon = require("./matchers/deathMessage");
-const chatCon = require("./matchers/chat");
-const serverMessageCon = require("./matchers/serverMessage");
-const arrayTypeCon = require("./matchers/arrayType");
-const fpsCon = require("./matchers/fps");
-
-
-
-//##################################################//
-//					THE Variables					//
-//##################################################//
-
-var rightNow = new Date();
-var fileDate = dateFormat(rightNow, "yyyymmdd_hhMMss");
+global.clientDataCon = require("./matchers/clientData");
+global.deathMessageCon = require("./matchers/deathMessage");
+global.chatCon = require("./matchers/chat");
+global.serverMessageCon = require("./matchers/serverMessage");
+global.arrayTypeCon = require("./matchers/arrayType");
+global.fpsCon = require("./matchers/fps");
 
 
-//##################################################//
-//					THE Functions					//
-//##################################################//
 
-discordMessage = function(msg, pChannel){
-    var rightNow = new Date();
-    var date = dateFormat(rightNow, "[mm-dd-yy hh:MM:ss] ");
-    var time = dateFormat(rightNow, '[HH:MM:ss] ')
+discordMessage = function(msg, pChannel){ 
+    let date = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
+    let time = dateFormat(new Date(), '[HH:MM:ss] ')
     // chanAr = bot.channels.array() 
     // if ( pChannel == null ){pChannel = config.discordRooms.bot}; 
     // function findChannel(channel) { 
@@ -51,72 +34,37 @@ discordMessage = function(msg, pChannel){
     channel = bot.channels.find('name', pChannel)
     switch (pChannel){
     	case (config.discordRooms.bot):
-    		channel.sendMessage(date + msg);
-    		return;
+    		channel.sendMessage(date + msg)
+    		return
     	default:
-    		channel.sendMessage(time + msg);
-
+    		channel.sendMessage(time + msg)
     }
-    
 }
 
 //##################################################//
 //					THE Code						//
 //##################################################//
 
-
-for (var i = 0, len = config.reDir.length; i < len; i++) {
+for (let i in config.reDir) {
 	try {
-	    stats = fs.lstatSync('.\/' + config.reDir[i]);
-	    if (stats.isDirectory()) {
-	    }
-	}
-	catch (e) {
-	    fs.mkdirSync('.\/' + config.reDir[i]);
-	}
+	    let stats = fs.lstatSync('.\/' + config.reDir[i])
+	    if (stats.isDirectory()) {}
+	} catch (e) { fs.mkdirSync('.\/' + config.reDir[i]) }
 }
 
 
 for (var i = 0, len = config.logFiles.length; i < len; i++) {
 	try {
-	    stats = fs.lstatSync(config.logFileLocation + config.logFiles[i] + '.log')
+	    let stats = fs.lstatSync(config.logFileLocation + config.logFiles[i] + '.log')
 	    if (stats.isFile()) {
+	    	let fileDate = dateFormat(new Date(), "yyyymmdd_hhMMss")
 	    	fs.rename(config.logFileLocation + config.logFiles[i] + '.log',config.logFileLocation +  fileDate + '_' + config.logFiles[i] + '.log')
 	    }
-	}
-	catch (e) {
-	    ;
-	}
+	} catch (e) {}
 }
 
-//Rename the old log file - fuck this for right now, will be implemented when live
-// fs.rename('logs/rustbot.log', 'logs/' + fileDate + '_rustbot.log');
-// fs.writeFile('logs/rustbot.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
-// fs.rename('logs/chat.log', 'logs/' + fileDate + '_chat.log');
-// fs.writeFile('logs/chat.log','['+date+'] ' + 'RCON SCRIPT STARTED' + '\n');
-
-//initialize linereader - this is a copy/paste and should figure out how to do with const
-
-
-
-// TODO: Make array from list of files in matchers with js extension
-// use list in for statement to create if statement below keeping this at a couple lines
-// NOTE: ATM Regex not working with switch statements has to be if statements
-// Also does not look promising on the array, fuck
-
-// lineReader.on('line', function (line) {
-//   if(clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
-//   if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
-// });
-
-
-		// else if(Array.isArray(line)) {
-		// 	base.log('### NFA ###\n' + line, 'lc', 'rustbot.log', 'bot')
-		// }
-
 bot.on('ready', () => {
-	// console.log('starting')
-	// discordMessage('BOT CONNECTED')
+
 	function iffer(line) {
 		aline = null
 		if (line){
@@ -145,8 +93,6 @@ bot.on('ready', () => {
 	
 	bot.on("message", msg => {
 		dR.discordRcon(msg)
-		// rcon.Command('say ' + msg);
-		// base.log(msg, 'lcr')
 	});
 
 	rcon = new base.RconService(config);
@@ -162,4 +108,6 @@ bot.on('ready', () => {
 // rcon.defaultListener = function(msg) {iffer(msg)};
 // rcon.Connect();
 
-if(config.discordEnabled == 1) {bot.login(config.discordAPI)}
+if(config.discordEnabled == 1) {
+	bot.login(config.discordAPI)
+}
