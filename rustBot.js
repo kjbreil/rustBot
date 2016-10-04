@@ -24,17 +24,13 @@ global.fpsCon = require("./matchers/fps");
 
 
 discordMessage = function(msg, pChannel){ 
-    let date = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
+    let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
     let time = dateFormat(new Date(), '[HH:MM:ss] ')
-    // chanAr = bot.channels.array() 
-    // if ( pChannel == null ){pChannel = config.discordRooms.bot}; 
-    // function findChannel(channel) { 
-    //     return channel.name === pChannel;
-    // }
+
     channel = bot.channels.find('name', pChannel)
     switch (pChannel){
     	case (config.discordRooms.bot):
-    		channel.sendMessage(date + msg)
+    		channel.sendMessage(datetime + msg)
     		return
     	default:
     		channel.sendMessage(time + msg)
@@ -63,24 +59,12 @@ for (var i = 0, len = config.logFiles.length; i < len; i++) {
 	} catch (e) {}
 }
 
+// Once discord connects start the magic
 bot.on('ready', () => {
-
-	function iffer(line) {
+	base.log('Discord Connected', 'lc', 'rustbot.log')
+	let iffer = function(line) {
 		aline = null
-		if (line){
-		    try{
-		        aline = JSON.parse(line)
-		        // base.log('### TIA ###\n' + aline, 'lc', 'rustbot.log', 'bot');
-		    }catch(e){
-		        // base.log('### NTA ###\n' + line, 'lc', 'rustbot.log', 'bot')
-		        
-		    }
-		}
-
-
-		// test = JSON.parse(line)
-		// base.log(aline, 'lc')
-
+		if (line){try{aline = JSON.parse(line)}catch(e) {}}
 		if (Array.isArray(aline)){arrayTypeCon.arrayTypeIF(aline);}
 		else if (clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
 		else if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
@@ -90,24 +74,17 @@ bot.on('ready', () => {
 		else if(fpsRE.test(line)) {fpsCon.fpsIF(line);}
 		else  {base.log('### NF ###\n' + line, 'lc', 'rustbot.log', config.discordRooms.bot)}
 	}
-	
+	// On discord message run discord function
 	bot.on("message", msg => {
 		dR.discordRcon(msg)
-	});
-
-	rcon = new base.RconService(config);
-	rcon.defaultListener = function(msg) {iffer(msg)};
-	rcon.Connect();
-
-});
-
-
-
-
-// rcon = new base.RconService(rconData);
-// rcon.defaultListener = function(msg) {iffer(msg)};
-// rcon.Connect();
-
+	})
+	// Connect to RCON - need to edit for enabled/disabled config option
+	rcon = new base.RconService(config)
+	rcon.defaultListener = function(msg) {iffer(msg)}
+	rcon.Connect()
+})
+// If discord is enabled then connect to discord, if its not enabled nothing will happen ATM
 if(config.discordEnabled == 1) {
+	base.log('Discord Connecting', 'lc', 'rustbot.log')
 	bot.login(config.discordAPI)
 }
