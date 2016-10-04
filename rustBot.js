@@ -45,18 +45,18 @@ discordMessage = function(msg, pChannel){
     var rightNow = new Date();
     var date = dateFormat(rightNow, "[mm-dd-yy hh:MM:ss] ");
     var time = dateFormat(rightNow, '[HH:MM:ss] ')
-    chanAr = bot.channels.array() 
-    if ( pChannel == null ){pChannel = config.discordRooms.bot}; 
-    function findChannel(channel) { 
-        return channel.name === pChannel;
-    }
-
+    // chanAr = bot.channels.array() 
+    // if ( pChannel == null ){pChannel = config.discordRooms.bot}; 
+    // function findChannel(channel) { 
+    //     return channel.name === pChannel;
+    // }
+    channel = bot.channels.find('name', pChannel)
     switch (pChannel){
-    	case ('bot'):
-    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(date + msg);
+    	case (config.discordRooms.bot):
+    		channel.sendMessage(date + msg);
     		return;
     	default:
-    		bot.channels.get(chanAr.find(findChannel).id).sendMessage(time + msg);
+    		channel.sendMessage(time + msg);
 
     }
     
