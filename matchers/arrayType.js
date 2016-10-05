@@ -22,11 +22,9 @@ playerList = function(a){
 	console.log(a)
 	playersOnline = '[**' + a.length + '**][***lp***][DisplayName : SteamID : Ping]'
 	finalMessage = ''
-
 	for(var i in a) {
 		finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' : ' + a[i].Ping + ']'
 	}
-
 	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', config.discordRooms.rcon)
 }
 
