@@ -21,6 +21,7 @@ global.serverMessageCon = require("./matchers/serverMessage");
 global.arrayTypeCon = require("./matchers/arrayType");
 global.fpsCon = require("./matchers/fps");
 
+global.playerListWait = null
 
 
 discordMessage = function(msg, pChannel){ 

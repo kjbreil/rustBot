@@ -17,14 +17,22 @@ exports.arrayTypeIF = function(a){
 }
 
 
-playerList = function(a){
+exports.playerList = function(a){
+	playerListWait = 1
 	console.log(a)
 	playersOnline = '[**' + a.length + '**][***lp***][DisplayName : SteamID : Ping]'
 	finalMessage = ''
+
 	for(var i in a) {
 		finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' : ' + a[i].Ping + ']'
 	}
+
 	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', config.discordRooms.rcon)
+}
+
+exports.playerListBlank = function() {
+	playersOnline = '[**0**][***lp***][DisplayName : SteamID : Ping]'
+	base.log(playersOnline, 'lcd', 'rustbot.log', config.discordRooms.rcon)
 }
 
 /*
