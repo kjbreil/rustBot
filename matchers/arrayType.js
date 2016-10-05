@@ -10,7 +10,7 @@ const config = require('./../config.js');
 exports.arrayTypeIF = function(a){
 	// console.log(a)
 	if (a[0]){
-		if (a[0].SteamID) {playerList(a)}
+		if (a[0].SteamID) {arrayType.playerList(a)}
 		else {base.log('### NFA ###\n' + a, 'lc')}
 	}
 	// base.log('### IAF ###\n' + a[0], 'lc', 'rustbot.log', 'bot')
