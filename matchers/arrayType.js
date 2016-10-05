@@ -18,6 +18,7 @@ exports.arrayTypeIF = function(a){
 
 
 playerList = function(a){
+	console.log(a)
 	playersOnline = '[**' + a.length + '**][***lp***]'
 	finalMessage = ''
 	for(var i in a) {
