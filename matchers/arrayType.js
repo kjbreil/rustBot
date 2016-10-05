@@ -19,10 +19,25 @@ exports.arrayTypeIF = function(a){
 
 playerList = function(a){
 	console.log(a)
-	playersOnline = '[**' + a.length + '**][***lp***]'
+	playersOnline = '[**' + a.length + '**][***lp***][DisplayName : SteamID : Ping]'
 	finalMessage = ''
 	for(var i in a) {
-		finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ']'
+		finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' : ' + a[i].Ping + ']'
 	}
 	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', config.discordRooms.rcon)
 }
+
+/*
+
+[ { SteamID: '76561198014626147',
+    OwnerSteamID: '0',
+    DisplayName: 'Otto the Caddy',
+    Ping: 9,
+    Address: '71.37.35.118:26892',
+    ConnectedSeconds: 812,
+    VoiationLevel: 0,
+    CurrentLevel: 3,
+    UnspentXp: 5,
+    Health: 0 } ]
+
+*/
