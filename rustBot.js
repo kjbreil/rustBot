@@ -5,6 +5,7 @@ global.config = require('./config.js')
 //Base Libraries - things that are called from everwhere
 global.base = require('./lib/base');
 const dR = require('./lib/discordRcon')
+global.displayPlayers = require('./lib/displayPlayers')
 
 //discord bot load and initialize
 global.Discord = require("discord.js");
