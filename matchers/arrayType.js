@@ -19,7 +19,6 @@ exports.arrayTypeIF = function(a){
 
 playerList = function(a){
 	playerListWait = 1
-	console.log(a)
 	playersOnline = '[**' + a.length + '**][***lp***][DisplayName : SteamID : Ping]'
 	finalMessage = ''
 	for(var i in a) {
@@ -28,10 +27,7 @@ playerList = function(a){
 	base.log(playersOnline + finalMessage, 'lcd', 'rustbot.log', config.discordRooms.rcon)
 }
 
-exports.playerListBlank = function() {
-	playersOnline = '[**0**][***lp***][DisplayName : SteamID : Ping]'
-	base.log(playersOnline, 'lcd', 'rustbot.log', config.discordRooms.rcon)
-}
+
 
 /*
 
