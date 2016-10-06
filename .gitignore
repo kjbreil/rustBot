@@ -6,3 +6,4 @@ exLog/
 config.js
 test.js
 **.DS_Store
+test/
