@@ -1,9 +1,8 @@
 node_modules/
-rcon.log
 logs/
-settings.js
 exLog/
 config.js
 test.js
 **.DS_Store
 test/
+rustBot.sublime-project
