@@ -13,7 +13,6 @@ exports.serverMessageIF = function (line) {
 	message = serverMessageRE.exec(line)
 	base.log('SERVER: ' + message[1], 'lcd', 'chat.log')
 }
-
 exports.serverArrayIF = function (line) {
 	// base.log(line, 'l');
 	message = serverArrayRE.exec(line)
