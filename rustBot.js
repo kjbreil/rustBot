@@ -31,9 +31,12 @@ discordMessage = function(msg, pChannel){
 
     channel = bot.channels.find('name', pChannel)
     switch (pChannel){
+    	case (config.discordRooms.log):
+    		channel.sendMessage(datetime + msg)
+    		break;
     	case (config.discordRooms.bot):
     		channel.sendMessage(datetime + msg)
-    		return
+    		break;
     	default:
     		channel.sendMessage(time + msg)
     }
