@@ -24,6 +24,9 @@ global.arrayTypeCon = require("./matchers/arrayType");
 global.fpsCon = require("./matchers/fps");
 global.clientDataCon = require("./matchers/clientData");
 
+global.playersConnected = null
+global.playersQueued = null
+global.playersJoining = null
 
 discordMessage = function(msg, pChannel){ 
     let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
@@ -41,10 +44,6 @@ discordMessage = function(msg, pChannel){
     		channel.sendMessage(time + msg)
     }
 }
-
-//##################################################//
-//					THE Code						//
-//##################################################//
 
 for (let i in config.reDir) {
 	try {
