@@ -5,5 +5,3 @@
 **/node_modules/**
 **/test/**
 
-# Restart only when js files are changed.
-!*.js
