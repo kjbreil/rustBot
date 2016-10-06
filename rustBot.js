@@ -22,7 +22,6 @@ global.arrayTypeCon = require("./matchers/arrayType");
 global.fpsCon = require("./matchers/fps");
 global.clientDataCon = require("./matchers/clientData");
 
-global.playerListWait = null
 
 discordMessage = function(msg, pChannel){ 
     let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
@@ -86,6 +85,10 @@ bot.on('ready', () => {
 	rcon = new base.RconService(config)
 	rcon.defaultListener = function(msg) {iffer(msg)}
 	rcon.Connect()
+
+	setInterval(function () { 
+	    rcon.Command('global.playerlist', 'displayPlayers.discordDisplayPlayers'); 
+	}, 60000); 
 })
 // If discord is enabled then connect to discord, if its not enabled nothing will happen ATM
 if(config.discordEnabled == 1) {
