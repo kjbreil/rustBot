@@ -2,6 +2,7 @@
 
 global.config = require('./config.js')
 
+
 //Base Libraries - things that are called from everwhere
 // Scheduled Commands file - WIP
 global.schCmds = require('./schCmds');
