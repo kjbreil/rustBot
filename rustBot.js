@@ -15,15 +15,14 @@ global.fs = require('fs');
 // dateFormat to format dates (der)
 global.dateFormat  = require("dateformat");
 
-global.clientDataCon = require("./matchers/clientData");
 global.deathMessageCon = require("./matchers/deathMessage");
 global.chatCon = require("./matchers/chat");
 global.serverMessageCon = require("./matchers/serverMessage");
 global.arrayTypeCon = require("./matchers/arrayType");
 global.fpsCon = require("./matchers/fps");
+global.clientDataCon = require("./matchers/clientData");
 
 global.playerListWait = null
-
 
 discordMessage = function(msg, pChannel){ 
     let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
