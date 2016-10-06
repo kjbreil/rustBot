@@ -7,6 +7,7 @@ global.schCmds = require('./schCmds');
 global.base = require('./lib/base');
 const dR = require('./lib/discordRcon')
 global.displayPlayers = require('./lib/displayPlayers')
+global.rconResponse = require('./lib/rconResponse')
 
 //discord bot load and initialize
 global.Discord = require("discord.js");

@@ -3,7 +3,7 @@
 
 let playerListSCH = setInterval(function () { 
     rcon.Command('global.playerlist', 'displayPlayers.discordDisplayPlayers'); 
-}, 60000); 
+}, 600000); 
 
 exports.startSchCmds = function() {
 	playerListSCH
