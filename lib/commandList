@@ -1,0 +1,276 @@
+ ai.think                 no description (True)
+ ai.move                  no description (True)
+ ai.sensetime             no description (1)
+ ai.frametime             no description (5)
+ ai.tickrate              no description (5)
+ antihack.enabled         is antihack enabled at all (True)
+ antihack.admincheat      are admins allowed to use their admin cheat (True)
+ antihack.objectplacement use antihack to verify object placement by players (True)
+ antihack.modelstate      use antihack to verify model state sent by players (True)
+ antihack.userlevel       0 == users, 1 == admins, 2 == developers (2)
+ antihack.enforcementlevel 0 == no enforcement, 1 == kick, 2 == ban (DISABLED) (1)
+ antihack.maxdesync       max allowed client desync, lower value = more false positives (1)
+ antihack.relaxationrate  the rate at which violation values go back down (0.1)
+ antihack.relaxationpause the time before violation values go back down (10)
+ antihack.maxviolation    violation value above this results in enforcement (100)
+ antihack.noclip_protection 0 == disabled, 1 == ray, 2 == sphere, 3 == curve (3)
+ antihack.noclip_reject   whether or not to reject movement when noclip is detected (True)
+ antihack.noclip_penalty  violation penalty to hand out when noclip is detected (0)
+ antihack.noclip_stepsize movement curve step size, lower value = less false positives (0.1)
+ antihack.noclip_maxsteps movement curve max steps, lower value = more false positives (5)
+ antihack.speedhack_protection 0 == disabled, 1 == enabled (1)
+ antihack.speedhack_reject whether or not to reject movement when speedhack is detected (False)
+ antihack.speedhack_penalty violation penalty to hand out when speedhack is detected (50)
+ antihack.speedhack_forgiveness speed threshold to assume speedhacking, lower value = more false positives (2)
+ antihack.speedhack_deltatime time interval to calculate speed in, lower value = more false positives (0.2)
+ antihack.speedhack_tickets required number of speeding tickets to trigger a violation (15)
+ antihack.speedhack_history speeding ticket history length (20)
+ antihack.flyhack_protection 0 == disabled, 1 == simple, 2 == advanced (2)
+ antihack.flyhack_reject  whether or not to reject movement when flyhack is detected (False)
+ antihack.flyhack_penalty violation penalty to hand out when flyhack is detected (50)
+ antihack.flyhack_forgiveness distance threshold to assume flyhacking, lower value = more false positives (2)
+ antihack.projectile_protection 0 == disabled, 1 == speed, 2 == speed + entity, 3 == speed + entity + LOS (3)
+ antihack.projectile_penalty violation penalty to hand out when projectile hack is detected (0)
+ antihack.projectile_forgiveness projectile speed forgiveness in percent, lower value = more false positives (0.5)
+ antihack.projectile_padding projectile hit distance padding in meters, lower value = more false positives (5)
+ antihack.projectile_serverframes projectile server frames to include in delay, lower value = more false positives (2)
+ antihack.projectile_clientframes projectile client frames to include in delay, lower value = more false positives (2)
+ antihack.projectile_tickets required number of projectile line of sight tickets to trigger a violation (10)
+ antihack.melee_protection 0 == disabled, 1 == initiator, 2 == initiator + target, 3 == initiator + target + LOS (3)
+ antihack.melee_penalty   violation penalty to hand out when melee hack is detected (0)
+ antihack.melee_forgiveness melee distance forgiveness in percent, lower value = more false positives (0.5)
+ antihack.melee_padding   melee hit distance padding in meters, lower value = more false positives (2)
+ antihack.melee_serverframes melee server frames to include in delay, lower value = more false positives (2)
+ antihack.melee_clientframes melee client frames to include in delay, lower value = more false positives (2)
+ antihack.melee_tickets   required number of melee line of sight tickets to trigger a violation (2)
+ antihack.eye_protection  0 == disabled, 1 == distance, 2 == distance + LOS (2)
+ antihack.eye_penalty     violation penalty to hand out when eye hack is detected (0)
+ antihack.debuglevel      0 == silent, 1 == print max violation, 2 == print every violation (1)
+ batching.colliders       no description (True)
+ batching.collider_vertices no description (10000)
+ batching.collider_submeshes no description (1)
+ batching.verbose         no description (0)
+ chat.enabled             Enable or disable chat displaying (True)
+ chat.serverlog           no description (True)
+ construct.frameminutes   How many minutes before a placed frame gets destroyed (30)
+ craft.instant            no description (False)
+ debug.checktriggers      Debug triggers (False)
+ decay.tick               no description (600)
+ decay.scale              no description (0)
+ decay.debug              no description (False)
+ env.time                 no description (0.356925)
+ env.day                  no description (7)
+ env.month                no description (7)
+ env.year                 no description (2026)
+ fps.limit                The maximum number of frames to render per second (256)
+ gc.interval              no description (-1)
+ global.safemode          no description (False)
+ global.debugmode         no description (False)
+ global.maxthreads        no description (8)
+ global.perf              Show frames per second (fps) (0)
+ global.timewarning       no description (False)
+ global.developer         no description (0)
+ heli.lifetimeminutes     no description (60)
+ heli.guns                no description (1)
+ heli.bulletdamagescale   no description (1)
+ heli.bulletaccuracy      no description (2)
+ net.visdebug             Turns on debug display of network visibility (False)
+ physics.droppedmode      The physics mode that dropped items and corpses should use. good, tempgood or fast. fast + tempgood might cause objects to fall through other objects. (good)
+ physics.sendeffects      Send effects to clients when physics objects collide (True)
+ physics.bouncethreshold  no description (2)
+ physics.sleepthreshold   no description (0.005)
+ physics.solveriterationcount The default solver iteration count permitted for any rigid bodies (default 7). Must be positive (3)
+ physics.steps            The amount of physics steps per second (16)
+ pool.skins               no description (False)
+ pool.entities            no description (False)
+ sentry.targetall         target everyone regardless of authorization (False)
+ sentry.hostileduration   how long until something is considered hostile after it attacked (120)
+ server.ip                no description (107.191.112.62)
+ server.port              no description (28015)
+ server.maxplayers        no description (69)
+ server.hostname          no description (Awesomeland)
+ server.identity          no description (rust-server)
+ server.level             no description (Procedural Map)
+ server.seed              no description (666)
+ server.salt              no description (769230299)
+ server.worldsize         no description (4000)
+ server.saveinterval      no description (300)
+ server.secure            no description (True)
+ server.tickrate          no description (30)
+ server.entityrate        no description (16)
+ server.cycletime         no description (500)
+ server.official          no description (False)
+ server.globalchat        no description (True)
+ server.stability         no description (True)
+ server.radiation         no description (False)
+ server.itemdespawn       no description (180)
+ server.pve               no description (False)
+ server.description       no description (No Decay | Next XP/Map Wipe: 10/6/2016\n\nAdmin:\nOtto the Caddy\nRules:\nNo KOS\Killing is allowed during raids/Airdrops/Heli Crash/Running Pumpjacks\nCarebears will be banned\nDon't be a Dick\n***Admins cannot Raid***)
+ server.headerimage       no description (http://i.imgur.com/lUGPVD8.png)
+ server.url               no description (http://www.awesomeland.org)
+ server.branch            no description ()
+ server.eac               no description (1)
+ server.queriespersecond  no description (2000)
+ server.ipqueriespermin   no description (30)
+ server.meleedamage       no description (1)
+ server.arrowdamage       no description (1)
+ server.bulletdamage      no description (1)
+ server.bleedingdamage    no description (1)
+ server.meleearmor        no description (1)
+ server.arrowarmor        no description (1)
+ server.bulletarmor       no description (1)
+ server.bleedingarmor     no description (1)
+ server.updatebatch       How many entity updates should we send per loop. Setting this > 1000 might cause lag when a player first joins your server. (128)
+ server.planttick         Plants tick every x seconds. This is how many seconds between ticks. (60)
+ server.planttickscale    Setting this to 2 will make plants grow, fruit and die two times faster than normal. (1)
+ server.respawnresetrange Distance from sleeping bag to reset other sleeping bags/beds. (50)
+ server.maxunack          Max amount of unacknowledged messages before we assume we're congested (4)
+ server.maxflood          Max amount of ticks to receive per second before we assume a client is flooding us (1000)
+ server.netcache          Use network caching (True)
+ server.netcachesize      Informational, the size of the network cache (in bytes) (2592681)
+ server.savecachesize     Informational, the size of the save cache (in bytes) (4226749)
+ server.combatlogsize     The size of the combat log (100)
+ server.idlekick          Number of minutes until idle players are kicked (30)
+ server.idlekickmode      0 = no idle kick, 1 = kick if server full, 2 = always kick (1)
+ server.idlekickadmins    1 = admins can get idle kicked (0)
+ server.maxreceivetime    no description (20)
+ server.compression       no description (False)
+ server.netlog            no description (False)
+ spawn.min_rate           no description (0.1)
+ spawn.max_rate           no description (1)
+ spawn.min_density        no description (0.1)
+ spawn.max_density        no description (1)
+ stability.verbose        no description (0)
+ stability.strikes        no description (10)
+ stability.collapse       no description (0.05)
+ stability.accuracy       no description (0.001)
+ stability.stabilityqueue no description (9)
+ stability.surroundingsqueue no description (3)
+ time.fixeddelta          Fixed delta time in seconds (0.0625)
+ time.maxdelta            The minimum amount of times to tick per frame (0.33)
+ vis.damage               Turns on debug display of damages (False)
+ vis.attack               Turns on debug display of attacks (False)
+ vis.protection           Turns on debug display of protection (False)
+ vis.weakspots            Turns on debug display of weakspots (False)
+ vis.triggers             Show trigger entries (False)
+ vis.hitboxes             Turns on debug display of hitboxes (False)
+ vis.lineofsight          Turns on debug display of line of sight checks (False)
+ xmas.enabled             no description (True)
+ xmas.spawnrange          no description (50)
+ xmas.giftsperplayer      no description (2)
+ rcon.port                no description (28017)
+ rcon.ip                  no description (107.191.112.62)
+ rcon.web                 If set to true, use websocket rcon. If set to false use legacy, source engine rcon. (True)
+ rcon.print               If true, rcon commands etc will be printed in the console (False)
+
+Commands:
+ global.find( string Name ) Search for a command
+ global.echo( string output ) Prints something to the debug output
+ global.status(  ) Print out currently connected clients
+ global.stats(  ) Print out stats of currently connected clients
+ global.kick( void ) no description
+ global.kickall( void ) no description
+ global.ban( void ) no description
+ global.moderatorid( void ) no description
+ global.ownerid( void ) no description
+ global.removemoderator( void ) no description
+ global.removeowner( void ) no description
+ global.banid( void ) no description
+ global.unban( void ) no description
+ global.players(  ) Print out currently connected clients etc
+ global.say(  ) Sends a message in chat
+ global.users(  ) Show user info for players on server.
+ global.banlist(  ) List of banned users (sourceds compat)
+ global.banlistex(  ) List of banned users - shows reasons and usernames
+ global.listid(  ) List of banned users, by ID (sourceds compat)
+ global.mutevoice( void ) no description
+ global.unmutevoice( void ) no description
+ global.mutechat( void ) no description
+ global.unmutechat( void ) no description
+ global.clientperf( void ) no description
+ global.entid( void ) no description
+ global.playerlist(  ) Get a list of players
+ global.bans(  ) List of banned users
+ global.serverinfo(  ) Get a list of information about the server
+ batching.refresh_colliders( void ) no description
+ batching.status( void ) no description
+ chat.tail(  ) Return the last x lines of the console. Default is 200
+ chat.search(  ) Search the console for a particular string
+ console.tail(  ) Return the last x lines of the console. Default is 200
+ console.search(  ) Search the console for a particular string
+ data.export( void ) no description
+ debug.flushgroup(  ) Takes you in and out of your current network group, causing you to delete and then download all entities in your PVS again
+ debug.breakheld(  ) Break the current held object
+ debug.breakitem(  ) Break all the items in your inventory whose name match the passed string
+ debug.hurt( void ) no description
+ entity.debug_toggle( void ) no description
+ entity.nudge( void ) no description
+ entity.create( void ) no description
+ env.addtime( void ) no description
+ gc.collect( void ) no description
+ gc.unload( void ) no description
+ global.restart(  ) Restart the server - with x seconds warning
+ global.quit(  ) Leave the game
+ global.report( void ) no description
+ global.objects( void ) no description
+ global.textures( void ) no description
+ global.colliders( void ) no description
+ global.error( void ) no description
+ global.queue( void ) no description
+ global.sleep( void ) no description
+ global.injure( void ) no description
+ global.spectate( void ) no description
+ global.teleport( void ) no description
+ global.teleport2me( void ) no description
+ global.teleportany( void ) no description
+ global.teleportpos( void ) no description
+ global.cleanup( void ) no description
+ global.version( void ) no description
+ global.sysinfo( void ) no description
+ global.breakitem( void ) no description
+ global.givebp( void ) no description
+ heli.drop( void ) no description
+ heli.calltome( void ) no description
+ heli.call( void ) no description
+ heli.strafe( void ) no description
+ hierarchy.ls( void ) no description
+ hierarchy.cd( void ) no description
+ hierarchy.del( void ) no description
+ inventory.give( void ) no description
+ inventory.resetbp( void ) no description
+ inventory.giveall( void ) no description
+ inventory.givebpall( void ) no description
+ inventory.giveto( void ) no description
+ inventory.giveid( void ) no description
+ inventory.givearm( void ) no description
+ inventory.givebp( void ) no description
+ pool.print_memory( void ) no description
+ pool.print_prefabs( void ) no description
+ pool.print_assets( void ) no description
+ pool.clear_memory( void ) no description
+ pool.clear_prefabs( void ) no description
+ pool.clear_assets( void ) no description
+ server.stop( string DisconnectMessage ) Stops a server
+ server.backup(  ) Backup server folder
+ server.writecfg(  ) Writes config files
+ server.fps( void ) no description
+ server.save(  ) Force save the current game
+ server.readcfg( void ) no description
+ spawn.fill_populations( void ) no description
+ spawn.fill_groups( void ) no description
+ spawn.report( void ) no description
+ stability.refresh_stability( void ) no description
+ weather.clouds( void ) no description
+ weather.fog( void ) no description
+ weather.wind( void ) no description
+ weather.rain( void ) no description
+ xmas.refill( void ) no description
+ xp.reroll(  ) Refund all spent xp and relock all blueprints, must type 'confirm' after command - no going back!
+ xp.randomowner( void ) no description
+ xp.randomowners( void ) no description
+ xp.add( void ) no description
+ xp.reset( void ) no description
+ xp.setlevel( void ) no description
+ xp.addlevel( void ) no description
+ xp.history( void ) no description
+ global.dump( void ) no description
