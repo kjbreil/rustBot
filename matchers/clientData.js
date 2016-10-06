@@ -5,8 +5,11 @@
 const base = require("./../lib/base");
 const config = require('./../config.js');
 
-clientDataRE  = new RegExp(/^([0-9.]{7,15})\:([0-9]*)\/([0-9]*)\/(.*)/);
+clientDataRE  = new RegExp(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:\d{1,6})\/(\d+?)\/(.+)/);
 
 exports.clientDataIF = function (line) {
-	base.log(line, 1);
+	base.log(line, 'lcd', 'connect.log', config.discordRooms.log);
 }
+
+
+
