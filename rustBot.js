@@ -3,6 +3,7 @@
 global.config = require('./config.js')
 
 //Base Libraries - things that are called from everwhere
+global.schCmds = require('./schCmds');
 global.base = require('./lib/base');
 const dR = require('./lib/discordRcon')
 global.displayPlayers = require('./lib/displayPlayers')
@@ -86,9 +87,8 @@ bot.on('ready', () => {
 	rcon.defaultListener = function(msg) {iffer(msg)}
 	rcon.Connect()
 
-	setInterval(function () { 
-	    rcon.Command('global.playerlist', 'displayPlayers.discordDisplayPlayers'); 
-	}, 60000); 
+	schCmds.startSchCmds()
+
 })
 // If discord is enabled then connect to discord, if its not enabled nothing will happen ATM
 if(config.discordEnabled == 1) {
