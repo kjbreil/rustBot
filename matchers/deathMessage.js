@@ -10,7 +10,7 @@ const config = require('./../config.js');
 
 deathMessageRE = new RegExp(/^[^[](.+?)\[\d+?\/(\d+?\]) /)
 
-dT = 'lr'
+dT = 'lrd'
 
 exports.deathMessageIF = function (line) {
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
