@@ -6,7 +6,6 @@
   ],
   "verbose": true,
   "watch": [
-    "./",
     "lib/",
     "matchers/",
     "utils/"
