@@ -10,5 +10,6 @@
     "matchers/",
     "utils/"
   ],
-  "ext": "js json"
+  "ext": "js json",
+  "delay": 60
 }
