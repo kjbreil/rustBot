@@ -12,22 +12,21 @@ const dateFormat  = require('dateformat');
 
 const fs = require('fs')
 
-var bot = require('auto-loader').load(__dirname +'/bot')
+var rustBot = require('auto-loader').load(__dirname +'/rustBot')
 var discord = require('auto-loader').load(__dirname +'/discord')
-var rust = require('auto-loader').load(__dirname +'/rcon')
+var rust = require('auto-loader').load(__dirname +'/rust')
 
-bot.fsUtils.createDirectories()
-bot.fsUtils.renameLogFiles()
+rustBot.fsUtils.createDirectories()
+rustBot.fsUtils.renameLogFiles()
 
 rcon.on('connect', () => {
-    console.log('CONNECTED')
+    console.log('CONNECTED RCON')
 
- //    global.bot = new Discord.Client();
+	bot.on('ready', () => {
+		console.log('CONNECTED DISCORD')
+	})
 
-	// bot.on('ready', () => {
-	// })
-
-	// bot.login(config.discordAPI)
+	bot.login(config.discordAPI)
 })
 rcon.on('disconnect', () => {
     console.log('DISCONNECTED')
