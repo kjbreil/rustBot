@@ -2,7 +2,7 @@
 
 exports.rustBotLog = function(msg, type, file, channel) {
 	if(file == null){file = logFile.rustbot};
-	file = config.logFileLocation + file
+	file = config.logFileLocation + file + '.log'
 	
     let colorMsg = null
     if (RegExp(/o/).test(type)) {
