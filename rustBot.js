@@ -2,34 +2,6 @@
 
 global.config = require('./config.js')
 
-
-//Base Libraries - things that are called from everwhere
-// Scheduled Commands file - WIP
-global.schCmds = require('./schCmds');
-global.base = require('./lib/base');
-const dR = require('./lib/discordRcon')
-global.displayPlayers = require('./lib/displayPlayers')
-global.rconResponse = require('./lib/rconResponse')
-
-//discord bot load and initialize
-global.Discord = require("discord.js");
-global.bot = new Discord.Client();
-//filesystem manipulation
-global.fs = require('fs');
-// dateFormat to format dates (der)
-global.dateFormat  = require("dateformat");
-
-global.deathMessageCon = require("./matchers/deathMessage");
-global.chatCon = require("./matchers/chat");
-global.serverMessageCon = require("./matchers/serverMessage");
-global.arrayTypeCon = require("./matchers/arrayType");
-global.fpsCon = require("./matchers/fps");
-global.clientDataCon = require("./matchers/clientData");
-
-global.playersConnected = null
-global.playersQueued = null
-global.playersJoining = null
-
 discordMessage = function(msg, pChannel){ 
     let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
     let time = dateFormat(new Date(), '[HH:MM:ss] ')
