@@ -9,7 +9,7 @@ global.dateFormat  = require('dateformat');
 global.bot = new Discord.Client();
 global.rcon = new WebRcon(config.addr, config.port)
 
-const fs = require('fs')
+global.fs = require('fs')
 
 
 global.cpu = require('auto-loader').load(__dirname +'/cpu')
@@ -17,8 +17,8 @@ global.discord = require('auto-loader').load(__dirname +'/discord')
 global.rust = require('auto-loader').load(__dirname +'/rust')
 
 global.log = cpu.logger.rustBotLog
-global.logFile = config.logFiles
-global.discordRoom = config.discordRooms
+global.logFile = config.logFiles[0]
+global.discordRoom = config.discordRooms[0]
 
 cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()
@@ -31,7 +31,7 @@ rcon.on('connect', () => {
 
 	})
 	rcon.on('message', (msg) => {
-    	cpu.rconMessage.rconMessageGate(msg)
+    	rust.rconMessage.rconMessageGate(msg)
 	})
 	bot.on('message', (msg) => {
 		discord.discordMessage.discordMessageGate(msg)

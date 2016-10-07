@@ -3,25 +3,35 @@
 exports.discordMessageGate = function(msg) {
 	if(msg.author.id == config.discordID) {return;}
 	switch (msg.channel.name) {
-		case (config.discordRooms.general):
-			return;
-		case (config.discordRooms.chat):
-			return;
-		case (config.discordRooms.rcon):
-			return;
-		case (config.discordRooms.log):
-			return;
-		case (config.discordRooms.bot):
-			return;
+		case (discordRoom.general):
+			discordDeleteMessage(msg)
+			break;
+		case (discordRoom.chat):
+			log(msg.author.username + ': ' + msg.content, 'lr', logFile.rcon, config.discordRooms.bot)
+			discordDeleteMessage(msg)
+			break;
+		case (discordRoom.rcon):
+			discord.discordRcon.discordRconGate(msg).then(function(m){
+				discordDeleteMessage(msg)
+			}).catch(function (err) {
+
+		    })
+			break;
+		case (discordRoom.log):
+			discordDeleteMessage(msg)
+			break;
+		case (discordRoom.bot):
+			discordSendMessage('I deleted you', discordRoom.bot)
+			discordDeleteMessage(msg)
+			break;
 		default:
 	}
 }
 
-discordMessage = function(msg, pChannel){ 
+exports.discordSendMessage = function(msg, pChannel){ 
     let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
     let time = dateFormat(new Date(), '[HH:MM:ss] ')
-
-    channel = bot.channels.find('name', pChannel)
+    let channel = bot.channels.find('name', pChannel)
     switch (pChannel){
     	case (config.discordRooms.log):
     		channel.sendMessage(datetime + msg)
@@ -32,4 +42,40 @@ discordMessage = function(msg, pChannel){
     	default:
     		channel.sendMessage(time + msg)
     }
+}
+
+discordDeleteMessage = function(message) {
+    setTimeout(function () {
+        message.delete()
+            .then(msg => log(`${msg} by ${msg.author.username} deleted from ${msg.channel.name}`, 'l', logFile.discord, null))
+            .catch(log('Delete message failed'), 'l', 'discord', null);
+    }, 250);    
+}
+
+discordDeleteAllMessages = function(pChannel) {
+    let channel = bot.channels.find('name', pChannel)
+    channel.sendMessage('Gonna delete some stuff')
+    channel.fetchMessages({limit : 100}).then(function (m) {
+        channel.bulkDelete(m)
+    }).catch(function (err) {
+        console.log('## ' + err);
+    });
+}
+
+
+discordDeleteMessageType = function(channel, type) {
+    return new Promise(function (resolve, reject) {
+        let channel = bot.channels.find('name', channel)
+        channel.fetchMessages({limit : 100}).then(function (m) {
+            filteredMessages = m.filter(findMessage.bind(this, type))
+            filteredMessages.deleteAll()
+            resolve()
+        }).catch(function (err) {
+            console.log('## ' + err)
+        })
+    })
+}
+
+findMessage = function(r, f) { 
+    if(r.test(f.content)) {return f}
 }
