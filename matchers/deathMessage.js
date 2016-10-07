@@ -189,13 +189,13 @@ gotFedUp = function (line, name, how, byWhat){
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
-		case(''):
-			var message = [
-				{'color' : 'default', 'text': name},
-				{'color' : 'default', 'text' : ''}
-			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
-			break;
+		// case(''):
+		// 	var message = [
+		// 		{'color' : 'default', 'text': name},
+		// 		{'color' : 'default', 'text' : ''}
+		// 	]
+		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+		// 	break;
 		default:
 			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
 	}
@@ -326,13 +326,13 @@ gotKilled = function (line, name, how, byWhat) {
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
-		case(''):
-			var message = [
-				{'color' : 'default', 'text': name},
-				{'color' : 'default', 'text' : ''}
-			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
-			break;
+		// case(''):
+		// 	var message = [
+		// 		{'color' : 'default', 'text': name},
+		// 		{'color' : 'default', 'text' : ''}
+		// 	]
+		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+		// 	break;
 		default:
 			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
 	}
