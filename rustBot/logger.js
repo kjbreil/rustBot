@@ -4,7 +4,8 @@ exports.log = function(msg, type, file, channel) {
 	if(file == null){file = config.logFiles.rustbot};
 	file = "logs/" + file
 	let colorMsg = null
-    let rconColorized = new RegExp(/o/) // o for colorize
+
+    if (RegExp(/o/).test(msg)) {correctSpaces()}
 
 	let date = dateFormat(Date(), "[mm-dd-yy hh:MM:ss]")
 	// Log to console
@@ -24,3 +25,25 @@ exports.log = function(msg, type, file, channel) {
 
 }
 
+correctSpaces = function (msg) {
+	    plMsg = ''
+        for (let i in msg) {
+            msg[i].text = msg[i].text.trim()
+            plMsg = plMsg + msg[i].text + ' '
+        }
+        colorMsg = colorizeMessage(msg)
+        msg = plMsg
+}
+
+colorizeMessage = function (a){
+    var finalText = ''
+    for (var i = 0, len = a.length; i < len; i++) {
+        a[i].text = a[i].text.trim()
+        a[i].color = a[i].color.trim()
+        a[i].color = convert.colorHex(a[i].color)
+        a[i].color = '<color=' + a[i].color + '>'
+        a[i].text = a[i].text + '</color> '
+        finalText = finalText + a[i].color + a[i].text;
+    }
+    return finalText;
+}
