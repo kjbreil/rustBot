@@ -164,14 +164,14 @@ gotFedUp = function (line, name, how, byWhat){
 		case('Cold'):
 			var message = [
 				{'color' : 'default', 'text': name},
-				{'color' : 'default', 'text' : ''}
+				{'color' : 'default', 'text' : 'succumbed to the cold'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Drowned'):
 			var message = [
 				{'color' : 'default', 'text': name},
-				{'color' : 'default', 'text' : 'succumbed to the cold'}
+				{'color' : 'default', 'text' : 'Went for a swim and never came back'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
@@ -197,7 +197,7 @@ gotFedUp = function (line, name, how, byWhat){
 		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 		// 	break;
 		default:
-			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
+			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd', null, config.discordRooms.log)
 	}
 	
 	
@@ -334,7 +334,7 @@ gotKilled = function (line, name, how, byWhat) {
 		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 		// 	break;
 		default:
-			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd')
+			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd', null, config.discordRooms.log)
 	}
 }
 
