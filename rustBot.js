@@ -9,25 +9,30 @@ global.dateFormat  = require('dateformat');
 global.bot = new Discord.Client();
 global.rcon = new WebRcon(config.addr, config.port)
 
-
-
 const fs = require('fs')
 
-global.rustBot = require('auto-loader').load(__dirname +'/rustBot')
+
+
+global.cpu = require('auto-loader').load(__dirname +'/cpu')
 global.discord = require('auto-loader').load(__dirname +'/discord')
 global.rust = require('auto-loader').load(__dirname +'/rust')
 
-rustBot.fsUtils.createDirectories()
-rustBot.fsUtils.renameLogFiles()
+cpu.fsUtils.createDirectories()
+cpu.fsUtils.renameLogFiles()
+
+global.log = cpu.logger.rustBotLog
 
 rcon.on('connect', () => {
     console.log('CONNECTED RCON')
 	bot.on('ready', () => {
 		console.log('CONNECTED DISCORD')
-		rcon.run('say test', 1000)
+		rcon.run('say test').then(function(msg){
+			console.log('Promise Returned')
+			console.log(msg)
+		})
 	})
 	rcon.on('message', (msg) => {
-    	rustBot.rconMessage.rconMessageGate(msg)
+    	cpu.rconMessage.rconMessageGate(msg)
 	})
 	bot.login(config.discordAPI)
 })
@@ -41,3 +46,10 @@ rcon.on('error', (err) => {
  
 
 rcon.connect(config.pass)
+
+/*
+rcon.run('say test', 1000).then(function(msg){
+	console.log('Promise Returned')
+	console.log(msg)
+})
+*/
