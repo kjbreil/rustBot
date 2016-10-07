@@ -4,12 +4,11 @@ exports.log = function(msg, type, file, channel) {
 	if(file == null){file = config.logFiles.rustbot};
 	file = "logs/" + file
 	let colorMsg = null
-
-    if (RegExp(/o/).test(msg)) {correctSpaces()}
+    if (RegExp(/o/).test(type)) {correctSpaces()}
 
 	let date = dateFormat(Date(), "[mm-dd-yy hh:MM:ss]")
 	// Log to console
-    if(RegExp(/c/).test(type)) {process.stdout.write(date + ' ' + msg + '\n')}
+    if(RegExp(/c/).test(type)) {console.log(date + ' ' + JSON.stringify(msg) + '\n')}
 	// Log to file
     if(RegExp(/l/).test(type)) {fs.appendFile(file, date + ' ' + msg + '\n')} 
 
