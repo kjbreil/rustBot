@@ -31,6 +31,7 @@ rcon.on('connect', () => {
 
 	})
 	rcon.on('message', (msg) => {
+
     	rust.rconMessage.rconMessageGate(msg)
 	})
 	bot.on('message', (msg) => {
