@@ -7,7 +7,6 @@ exports.discordRconGate = function(msg) {
 		let msgArray = RegExp(/(^\S+)\s?(.*?)?\s?(\S*)?$/).exec(msg.content)
 		let cmd = msgArray[1]
 		let commandArray = discord.discordResponders.rconChannelCommands.find(findCommand.bind(this, cmd))
-		
 		if(commandArray) {
 
 			if(commandArray.rcon) {
@@ -30,7 +29,7 @@ findCommand = function(cmd, f) {
 rconCommandSwitch = function(ma, ca) {
 	switch(ca.cmd) {
 		case('listplayers'):
-			rust.displayPlayers.getAndDisplayPlayers()
+			rust.rconListPlayers.getAndDisplayPlayers(ma)
 			break;
 		default:
 			console.log('something went wrong')

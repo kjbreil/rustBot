@@ -1,7 +1,6 @@
 // playerList.js
 
 /*
-
   {
     "SteamID": "76561198024599044",
     "OwnerSteamID": "0",
