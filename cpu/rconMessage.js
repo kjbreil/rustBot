@@ -6,7 +6,5 @@ exports.rconMessageGate = function(msg) {
 		// Message has an identifier, should've been returned by a promise
 	} else {
 		log(msg, 'l', logFile.rust, null)
-
 	}
-	
 }

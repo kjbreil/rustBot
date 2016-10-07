@@ -33,6 +33,10 @@ rcon.on('connect', () => {
 	rcon.on('message', (msg) => {
     	cpu.rconMessage.rconMessageGate(msg)
 	})
+	bot.on('message', (msg) => {
+		discord.discordMessage.discordMessageGate(msg)
+	})
+
 	bot.login(config.discordAPI)
 })
 rcon.on('disconnect', () => {
