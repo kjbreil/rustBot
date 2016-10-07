@@ -2,27 +2,19 @@
 
 global.config = require('./config.js')
 global.rcon = require('webrconjs')
+global.dateFormat  = require('dateformat');
 
 const fs = require('fs')
 
-for (let i in config.reDir) {
-	try {
-	    let stats = fs.lstatSync('.\/' + config.reDir[i])
-	    if (stats.isDirectory()) {}
-	} catch (e) { fs.mkdirSync('.\/' + config.reDir[i]) }
-}
+var bot = require('auto-loader').load(__dirname +'/bot')
+var discord = require('auto-loader').load(__dirname +'/discord')
+var rcon = require('auto-loader').load(__dirname +'/rcon')
+// console.log(bot)
+
+bot.fsUtils.createDirectories()
+bot.fsUtils.renameLogFiles()
 
 
-for (let i in config.logFiles) {
-	console.log(i)
-	try {
-	    let stats = fs.lstatSync(config.logFileLocation + i + '.log')
-	    if (stats.isFile()) {
-	    	let fileDate = dateFormat(new Date(), "yyyymmdd_hhMMss")
-	    	fs.rename(config.logFileLocation + i + '.log',config.logFileLocation +  fileDate + '_' + i + '.log')
-	    }
-	} catch (e) {}
-}
 
 // // Once discord connects start the magic
 // bot.on('ready', () => {
