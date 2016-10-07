@@ -1,40 +1,43 @@
 #!/usr/bin
 
 global.config = require('./config.js')
-global.rcon = require('webrconjs')
 
+global.WebRcon = require('webrconjs')
 global.Discord = require("discord.js");
+
 global.bot = new Discord.Client();
- 
+global.rcon = new WebRcon(config.addr, config.port)
+
 const dateFormat  = require('dateformat');
 
 const fs = require('fs')
 
 var bot = require('auto-loader').load(__dirname +'/bot')
 var discord = require('auto-loader').load(__dirname +'/discord')
-var rcon = require('auto-loader').load(__dirname +'/rcon')
+var rust = require('auto-loader').load(__dirname +'/rcon')
 
 bot.fsUtils.createDirectories()
 bot.fsUtils.renameLogFiles()
 
-global.rcon = new WebRcon(config.addr, config.port)
-
-rcon.on('connect', function() {
+rcon.on('connect', () => {
     console.log('CONNECTED')
-    
+
+ //    global.bot = new Discord.Client();
+
+	// bot.on('ready', () => {
+	// })
+
+	// bot.login(config.discordAPI)
 })
-rcon.on('disconnect', function() {
+rcon.on('disconnect', () => {
     console.log('DISCONNECTED')
 })
-rcon.on('message', function(msg) {
+rcon.on('message', (msg) => {
     console.log('MESSAGE:', msg)
 })
-rcon.on('error', function(err) {
+rcon.on('error', (err) => {
     console.log('ERROR:', err)
 })
  
-// Connect by providing the server's rcon.password: 
-rcon.connect(config.pass)
-
 
 rcon.connect(config.pass)
