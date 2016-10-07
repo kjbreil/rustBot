@@ -12,7 +12,7 @@ exports.createDirectories = function() {
 }
 
 exports.renameLogFiles = function() {
-	for (let i in config.logFiles) {
+	for (let i in logFile) {
 		try {
 		    let stats = fs.lstatSync(config.logFileLocation + i + '.log')
 		    if (stats.isFile()) {

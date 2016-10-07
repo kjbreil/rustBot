@@ -12,24 +12,23 @@ global.rcon = new WebRcon(config.addr, config.port)
 const fs = require('fs')
 
 
-
 global.cpu = require('auto-loader').load(__dirname +'/cpu')
 global.discord = require('auto-loader').load(__dirname +'/discord')
 global.rust = require('auto-loader').load(__dirname +'/rust')
 
+global.log = cpu.logger.rustBotLog
+global.logFile = config.logFiles
+global.discordRoom = config.discordRooms
+
 cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()
 
-global.log = cpu.logger.rustBotLog
 
 rcon.on('connect', () => {
     console.log('CONNECTED RCON')
 	bot.on('ready', () => {
 		console.log('CONNECTED DISCORD')
-		rcon.run('say test').then(function(msg){
-			console.log('Promise Returned')
-			console.log(msg)
-		})
+
 	})
 	rcon.on('message', (msg) => {
     	cpu.rconMessage.rconMessageGate(msg)

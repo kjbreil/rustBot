@@ -1,8 +1,8 @@
 // logger.js
 
 exports.rustBotLog = function(msg, type, file, channel) {
-	if(file == null){file = config.logFiles.rustbot};
-	file = "logs/" + file
+	if(file == null){file = logFile.rustbot};
+	file = config.logFileLocation + file
 	
     let colorMsg = null
     if (RegExp(/o/).test(type)) {
