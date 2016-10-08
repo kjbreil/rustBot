@@ -7,7 +7,6 @@ exports.rustBotLog = function(msg, type, file, channel) {
     let colorMsg = null
     if (RegExp(/o/).test(type)) {
         colorMsg = correctSpaces(msg)
-        console.log(colorMsg)
         msg = colorMsg.plMsg
     }
 
@@ -15,7 +14,7 @@ exports.rustBotLog = function(msg, type, file, channel) {
 	// Log to console
     if(RegExp(/c/).test(type)) {console.log(date + ' ' + JSON.stringify(msg) + '\n')}
 	// Log to file
-    if(RegExp(/l/).test(type)) {fs.appendFile(file, date + ' ' + msg + '\n')} 
+    if(RegExp(/l/).test(type)) {fs.appendFile(file, date + ' ' + JSON.stringify(msg) + '\n')} 
     // Log to Rcon
     if(colorMsg && RegExp(/r/).test(type)) {
         rcon.run('say ' + colorMsg.colorMsg)
@@ -101,7 +100,13 @@ colorHex  = function(color)
         "steelblue":"#4682b4","tan":"#d2b48c","teal":"#008080","thistle":"#d8bfd8",
         "tomato":"#ff6347","turquoise":"#40e0d0","violet":"#ee82ee","wheat":"#f5deb3",
         "white":"#ffffff","whitesmoke":"#f5f5f5","yellow":"#ffff00","yellowgreen":"#9acd32",
-        "default":"#eee"};
+        "default":"#eee",
+        "red":"#FF0000",
+        "green":"#00FF00",
+        "blue":"#0000FF",
+        "yellow":"#FFFF00",
+        "purple":"#FF00FF"
+    };
 
     if (typeof colors[color.toLowerCase()] != 'undefined')
          return colors[color.toLowerCase()];

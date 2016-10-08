@@ -10,16 +10,30 @@ ServerMessage {
 */
 
 exports.rconMessageGate = function(msg) {
-	log(JSON.stringify(msg), 'l', logFile.rcon, null)
+	log(msg, 'l', logFile.rcon, null)
 	if(msg.identity > 1000) {
 		// Message has an identifier, should've been returned by a promise
 	} else {
-		log(msg, 'l', logFile.rust, null)
-		if(msg.type == 'Chat') {rconChatMessage(msg)}
+		if((/^\[.+\] /).test(msg.message)) {return;}
+		switch(msg.type) {
+			case('Chat'):
+				rconChatMessage(msg)
+				break;
+			case('Generic'):
+				rust.rustGeneric.rustGenericGate(msg)
+				break;
+			default:
+				break;
+		}
 	}
 }
 
+
 rconChatMessage = function(msg) {
 	msg = JSON.parse(msg.message)
-	log(msg.Username + ': ' + msg.Message, 'ld', logFile.chat, discordRoom.chat)
+	if(msg.Username === 'SERVER' && RegExp(/^<color=#/).test(msg.Message)){
+		log(msg.Username + ': ' + msg.Message, 'l', logFile.chat, discordRoom.chat)
+	} else {
+		log(msg.Username + ': ' + msg.Message, 'ld', logFile.chat, discordRoom.chat)		
+	}
 }
