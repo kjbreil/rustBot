@@ -339,6 +339,6 @@ gotKilled = function (line, name, how, byWhat) {
 }
 
 function pvp(line, name, killer){
-	base.log(killer + ' killed ' + name, '')
+	base.log(killer + ' killed ' + name, 'lr', 'rustboc.log', null)
 	base.log(line, '')	
 }
