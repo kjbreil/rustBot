@@ -17,6 +17,7 @@ exports.rconMessageGate = function(msg) {
 		if((/^\[.+\] /).test(msg.message)) {return;}
 		switch(msg.type) {
 			case('Chat'):
+				// console.log('inside chat')
 				rconChatMessage(msg)
 				break;
 			case('Generic'):
