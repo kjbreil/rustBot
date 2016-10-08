@@ -70,7 +70,7 @@ The arrage is called message, below is a very basic one which passes the name of
 block, it would look like this 'SERVER Otto the Caddy' and in default text.
 
 var message = [
-	{'color' : 'default', 'text': name},
+	{'color' : 'green', 'text': name},
 	{'color' : 'default', 'text' : ''}
 ]
 
@@ -98,7 +98,7 @@ gotFedUp = function (line, name, how, byWhat){
 	switch (byWhat){
 		case ('Generic'): // when an Admin goes into spectate mode
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : ''}
 			]
 			base.log(message, 'l', 'rcon.log', config.discordRooms.chat)
@@ -114,84 +114,84 @@ gotFedUp = function (line, name, how, byWhat){
 			break;
 		case('Stab'): // how is suicide - I really don't know how this happens
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was going for the darwin award, just might win it with that death'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Suicide'): // f1 - kill how is suicide
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'just couldn\'t take it anymore'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Heat'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was just too hot for this world'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Bleeding'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'bled out'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Slash'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was slashed into pieces'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Bite'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'should\'ve bit back'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Fall'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Cold'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'succumbed to the cold'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Drowned'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'Went for a swim and never came back'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Hunger'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'forgot to eat'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('Blunt'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'died by blunt trama'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		// case(''):
 		// 	var message = [
-		// 		{'color' : 'default', 'text': name},
+		// 		{'color' : 'green', 'text': name},
 		// 		{'color' : 'default', 'text' : ''}
 		// 	]
 		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
@@ -208,14 +208,14 @@ gotKilled = function (line, name, how, byWhat) {
 	switch(byWhat){
 		case ('bear'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was mauled by a bear'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('landmine'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'stepped on a landmine'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
@@ -229,84 +229,84 @@ gotKilled = function (line, name, how, byWhat) {
 			break;
 		case ('patrolhelicopter'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'fought the heli, the heli won'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('barricade'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was playing on a barricade and died'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('autoturret_deployed'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'got blasted by an autoturret'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('Blunt'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'died by blunt trama'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('Hunger'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'forgot to eat'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('wall'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'tried jumping over a wall but died instead'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('cactus'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'had sex with a cactus'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('Poison'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'ate some bad food and died'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('wolf'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was eaten by a wolf'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('Cold'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'froze to death'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case ('fall'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		case('spikes'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'impaled by floor spikes'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
@@ -321,14 +321,14 @@ gotKilled = function (line, name, how, byWhat) {
 			break;
 		case('oilfireballsmall'):
 			var message = [
-				{'color' : 'default', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'burnt alive'}
 			]
 			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 			break;
 		// case(''):
 		// 	var message = [
-		// 		{'color' : 'default', 'text': name},
+		// 		{'color' : 'green', 'text': name},
 		// 		{'color' : 'default', 'text' : ''}
 		// 	]
 		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
@@ -339,6 +339,12 @@ gotKilled = function (line, name, how, byWhat) {
 }
 
 function pvp(line, name, killer){
-	base.log(killer + ' killed ' + name, 'lr', 'chat.log', null)
-	base.log(line, '')	
+	// base.log(killer + ' killed ' + name, 'lr', 'chat.log', null)
+	// base.log(line, '')
+	var message = [
+		{'color' : 'red', 'text': killer},
+		{'color' : 'default', 'text' : 'killed '},
+		{'color' : 'purple', 'text' : name}
+	]
+	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
 }
