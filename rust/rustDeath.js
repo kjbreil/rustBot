@@ -8,7 +8,7 @@
 
 
 
-dT = 'lrod'
+let dT = 'lrod'
 
 exports.deathMessageIF = function (line) {
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
@@ -348,5 +348,10 @@ gotKilled = function (line, name, how, byWhat) {
 }
 
 function pvp(line, name, killer){
-	log(killer + ' killed ' + name, 'lr', logFile.rcon, null)
+	var message = [
+		{'color' : 'red', 'text': killer},
+		{'color' : 'default', 'text' : 'killed '},
+		{'color' : 'purple', 'text' : name}
+	]
+	log(message, dT, logFile.rcon, discordRoom.chat)
 }

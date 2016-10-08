@@ -10,4 +10,9 @@
 "disabledCommands": [
 	{"cmd" : "say" , "scmd" : "s" , "rcon" : "say", "help" : "say something in chat"},
     {"cmd" : "give", "rcon" : "giveCommand()", "help" : "Give kits to single players, give help for more info"}
-] }
+],
+"botChannelCommands": [
+	{"cmd" : "clear", "dcmd" : "discordDeleteAllMessages"},
+	{"cmd" : "dm", "dcmd" : "discordDeleteMessageType"}
+]
+}

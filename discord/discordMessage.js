@@ -14,15 +14,18 @@ exports.discordMessageGate = function(msg) {
 			discord.discordRcon.discordRconGate(msg).then(function(m){
 				discordDeleteMessage(msg)
 			}).catch(function (err) {
-
+                console.log(err)
 		    })
 			break;
 		case (discordRoom.log):
 			discordDeleteMessage(msg)
 			break;
 		case (discordRoom.bot):
-			discordSendMessage('I deleted you', discordRoom.bot)
-			discordDeleteMessage(msg)
+            discord.discordBot.discordBotGate(msg).then(function(m){
+                discordDeleteMessage(msg)
+            }).catch(function (err) {
+                console.log(err)
+            })
 			break;
 		default:
 	}
@@ -52,7 +55,7 @@ discordDeleteMessage = function(message) {
     }, 250);    
 }
 
-discordDeleteAllMessages = function(pChannel) {
+exports.discordDeleteAllMessages = function(pChannel) {
     let channel = bot.channels.find('name', pChannel)
     channel.sendMessage('Gonna delete some stuff')
     channel.fetchMessages({limit : 100}).then(function (m) {
