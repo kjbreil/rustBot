@@ -20,10 +20,11 @@ exports.getAndDisplayPlayers = function() {
     	a = msg.message
         let plRE = new RegExp(/^.+ \[__\*\*\d{1,2}\*\*__\]\[\*listplayers\*\:\*\*\*lp\*\*\*\]/)
         discord.discordMessage.discordDeleteMessageType(discordRoom.rcon, plRE).then(function (z) {
+            console.log(a)
     		if (a !== '\[\]') {
-    			playersOnline = '[__**' + a.length + '**__][*listplayers*:***lp***][DisplayName : SteamID : Ping : Level : XP : Health]'
-    			finalMessage = ''
-    			for(var i in a) {
+    			let playersOnline = '[__**' + a[1].length + '**__][*listplayers*:***lp***][DisplayName : SteamID : Ping : Level : XP : Health]'
+    			let finalMessage = ''
+    			for(var i in a[1]) {
     				finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' | P:' + a[i].Ping + ' | L:'
     				finalMessage = finalMessage + a[i].CurrentLevel + ' | X:' + a[i].UnspentXp + ' | H:' + a[i].Health + ']'
     			}

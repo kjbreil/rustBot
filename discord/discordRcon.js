@@ -6,9 +6,9 @@ exports.discordRconGate = function(msg) {
 	return new Promise(function (resolve, reject) {
 		let msgArray = RegExp(/(^\S+)\s?(.*?)?\s?(\S*)?$/).exec(msg.content)
 		let cmd = msgArray[1]
+
 		let commandArray = discord.discordResponders.rconChannelCommands.find(findCommand.bind(this, cmd))
 		if(commandArray) {
-
 			if(commandArray.rcon) {
 				rconCommandSwitch(msgArray, commandArray)
 			} else if (commandArray.cmd === 'help') {
@@ -17,7 +17,7 @@ exports.discordRconGate = function(msg) {
 		} else {
 			log(msg.author.username + ' tried command \"' + cmd + '\" it was not found', 'l', logFile.discord, null)
 		}
-		resolve()
+		resolve(msg)
     })
 }
 
