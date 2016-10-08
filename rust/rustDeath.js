@@ -348,5 +348,5 @@ gotKilled = function (line, name, how, byWhat) {
 }
 
 function pvp(line, name, killer){
-	log(killer + ' killed ' + name, 'lcr', logFile.rcon, null)
+	log(killer + ' killed ' + name, 'lr', logFile.rcon, null)
 }
