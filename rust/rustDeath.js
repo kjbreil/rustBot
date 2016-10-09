@@ -6,7 +6,8 @@
 
 // Regex for matcher
 
-
+// PVP Regex (^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$
+// Atrix Tussand[203840/76561198006975241] was killed by Laughing Riot[341718/76561198117634809]
 
 let dT = 'lrod'
 

@@ -2,17 +2,18 @@
 
 /*
   {
-    "SteamID": "76561198024599044",
+    "SteamID": "76561198024129044",
     "OwnerSteamID": "0",
-    "DisplayName": "Feral Terrel",
+    "DisplayName": "Herro",
     "Ping": 37,
-    "Address": "71.56.155.10:56814",
+    "Address": "123.123.321.31:56814",
     "ConnectedSeconds": 463,
     "VoiationLevel": 0.0,
     "CurrentLevel": 4.0,
     "UnspentXp": 5.0,
     "Health": 59.7555847
   }
+
 
 */
 exports.getAndDisplayPlayers = function() {
@@ -36,3 +37,30 @@ exports.getAndDisplayPlayers = function() {
         })
     })
 }
+
+exports.getPlayerArray = function() {
+    return new Promise(function (resolve, reject) {
+        rcon.run('global.playerlist').then(function(msg){
+            resolve(msg.message)
+        })
+    })
+}
+
+exports.getPlayerIsOnline = function(si) {
+    return new Promise(function (resolve, reject) {
+        rust.rconListPlayers.getPlayerArray().then(function (po) {
+            po = JSON.parse(po)
+            resolve(po.find(findBySteamId.bind(this, si)));
+        })
+    })
+}
+
+
+// let commandArray = po.find(onlineCheck.bind(this, si))
+
+findBySteamId = function(si, po) { 
+    return (po.SteamID === si )
+}
+
+
+
