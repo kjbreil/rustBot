@@ -21,7 +21,7 @@ exports.rustGenericGate = function(msg) {
 			setTimeout(function(){
 				rust.rconListPlayers.getAndDisplayPlayers()
 				listPlayersUnlock = 1
-			}, 5000)
+			}, 10000)
 		}
 		
 	} else {

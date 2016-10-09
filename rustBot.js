@@ -32,7 +32,7 @@ rcon.on('connect', () => {
 		console.log('CONNECTED: DISCORD')
 		setTimeout(function(){
 			rust.rconListPlayers.getAndDisplayPlayers()
-		}, 5000)
+		}, 10000)
 		process.on('SIGUSR2', () => {
 			console.log('SIGUSR2: DISCONNECTING: DISCORD, RCON')
 			bot.destroy().then(function() {
