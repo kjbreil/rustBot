@@ -1,4 +1,6 @@
-// Sample for config.js - adjust settings as needed
+// Sample for config.js
+
+// copy to config.js and edit settings as needed
 
 var config = {};
 
@@ -11,14 +13,12 @@ config.pass = 'mypassword'
 config.discordEnabled = 0
 config.discordAPI = 'myApplicationApiDiscordKey'
 config.discordID = 'myApplicationDiscordID'
-config.discordRooms = {"chat" : "chat", "rcon" : "rcon", "bot" : "bot", "general" : "general"}
+config.discordRooms = [{general : "general", chat : "chat", rcon : "rcon", bot : "bot", log : "log"}]
 
-// Needed Directorys - don't edit yet, soon to be configurable
+// Dont fuck with these unless you know what you are doing
+config.logFiles = [{rustbot: "rustbot", chat: "chat", rcon: "rcon", discord: "discord", connect: "connect", websocket: "websocket", rust: "rust"}]
 config.reDir = ['logs','exLog','lib','matchers']
-
-// Chat location - Don't edit yet, soon to be configurable
 config.logFileLocation = './logs/'
-// Log file names - Don't edit yet, soon to be configurable
-config.logFiles = ['rustbot','chat','rcon', 'discord']
+config.reDir = ["logs","lib","matchers","websocket"]
 
 module.exports = config;

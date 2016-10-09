@@ -20,6 +20,8 @@ exports.rconStatus = function(m, r) {
     text = text + ' : **' + e[6] + '** Connected : ' + e[9] + ' Joining : ' + e[8] + ' Queued'
     discordDeleteMessageType(config.discordRooms.rcon, RE).then(function (z) {
 		base.log('[*status*:***st***] ' + text, 'lcd', null, config.discordRooms.rcon)
+    }).catch(function (err) {
+        console.log(err)
     })
 }
 

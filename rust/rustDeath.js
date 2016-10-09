@@ -4,13 +4,12 @@
 
 // Set the regex matching, must be same name as file
 
-const base = require("./../lib/base");
-const config = require('./../config.js');
 // Regex for matcher
 
-deathMessageRE = new RegExp(/^[^[](.+?)\[\d+?\/(\d+?\]) /)
+// PVP Regex (^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$
+// SomeName[203850/76561198006975221] was killed by Laughing Riot[341768/76561198177634809]
 
-dT = 'lrd'
+let dT = 'lrod'
 
 exports.deathMessageIF = function (line) {
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
@@ -24,34 +23,34 @@ exports.deathMessageIF = function (line) {
 					var oo = new RegExp(/(.+?)\[\d+\/\d+\] \w+ (\w+) \w+ (\w+)/)
 					if(p = pp.exec(line)){pvp(line, p[1], p[2])}
 					else if(o = oo.exec(line)){gotKilled(line, o[1], o[2], o[3])}
-					else base.log(line, 'l')
+					else log(line, 'l', logFile.chat, null)
 					break;
 				case ('suicide'):
 					var oo = new RegExp(/(.+?)\[\d+\/\d+\] \w+ (\w+) \w+ (\w+)/)
 					if(o = oo.exec(line)){gotFedUp(line, o[1], o[2], o[3])}
-					else base.log(line, 'l')
+					else log(line, 'l', logFile.chat, null)
 					break;
 				default:
-					base.log(k[1], 'l')
+					log(k[1], 'l', logFile.chat, null)
 			}
 			break;
 		case ('died'):
 			var oo = new RegExp(/(.+?)\[\d+\/\d+\] (\w+) \((\w+)\)/)
 			if(o = oo.exec(line)){gotFedUp(line, o[1], o[2], o[3])}
-			else base.log(line, '')
-			base.log(line, '')
+			else log(line, 'l', logFile.rust, null)
+			log(line, 'l', logFile.rust, null)
 			break;
 		case ('fired'): // Fired Bad projectile, will be logged soon
-			base.log(line, '')
+			log(line, 'l', logFile.rust, null)
 			break;
 		case ('sent'): // Sent bad packed, will be logged soon
-			base.log(line, '')
+			log(line, 'l', logFile.rust, null)
 			break;
 		case ('is'): // only seen this so far 'is inside an out of range building privilege.' but will be logged soon
-			base.log(line, '')
+			log(line, 'l', logFile.rust, null)
 			break;
 		default:
-			base.log(('########## || ' + line), 'lc')
+			log('########## || ' + line, 'l', logFile.rust, null)
 	}
 	
 }
@@ -101,7 +100,7 @@ gotFedUp = function (line, name, how, byWhat){
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : ''}
 			]
-			base.log(message, 'l', 'rcon.log', config.discordRooms.chat)
+			log(message, 'l', logFile.chat, null)
 			break;
 		case('Explosion'):  // how is suicide
 			var message = [
@@ -110,99 +109,122 @@ gotFedUp = function (line, name, how, byWhat){
 				{'color' : 'red', 'text' : 'explosives'},
 				{'color' : 'default', 'text' : 'it did not go well'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Stab'): // how is suicide - I really don't know how this happens
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was going for the darwin award, just might win it with that death'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Suicide'): // f1 - kill how is suicide
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'just couldn\'t take it anymore'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Heat'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was just too hot for this world'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Bleeding'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'bled out'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Slash'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was slashed into pieces'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Bite'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'should\'ve bit back'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Fall'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Cold'):
 			var message = [
 				{'color' : 'green', 'text': name},
+<<<<<<< HEAD:matchers/deathMessage.js
 				{'color' : 'default', 'text' : 'succumbed to the cold'}
+=======
+				{'color' : 'default', 'text' : ''}
+>>>>>>> v1:rust/rustDeath.js
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Drowned'):
 			var message = [
 				{'color' : 'green', 'text': name},
+<<<<<<< HEAD:matchers/deathMessage.js
 				{'color' : 'default', 'text' : 'Went for a swim and never came back'}
+=======
+				{'color' : 'default', 'text' : 'succumbed to the cold'}
+>>>>>>> v1:rust/rustDeath.js
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Hunger'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'forgot to eat'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Blunt'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'died by blunt trama'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		// case(''):
 		// 	var message = [
 		// 		{'color' : 'green', 'text': name},
 		// 		{'color' : 'default', 'text' : ''}
 		// 	]
-		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+		// 	log(message, dT, logFile.rcon, discordRoom.chat)
 		// 	break;
 		default:
+<<<<<<< HEAD:matchers/deathMessage.js
 			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd', null, config.discordRooms.log)
+=======
+			log('########## || ' + how + ' || ' +  byWhat, 'lcd')
+>>>>>>> v1:rust/rustDeath.js
 	}
 	
 	
-	// base.log(line, 'l')
+	// log(line, 'l')
 }
+
+/*
+
+				{'color' : 'red', 'text' : 'red'},
+				{'color' : 'green', 'text' : 'green'},
+				{'color' : 'blue', 'text' : 'blue'},
+				{'color' : 'yellow', 'text' : 'yellow'},
+				{'color' : 'purple', 'text' : 'purple'},
+
+*/
+
 
 gotKilled = function (line, name, how, byWhat) {
 	switch(byWhat){
@@ -211,105 +233,111 @@ gotKilled = function (line, name, how, byWhat) {
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was mauled by a bear'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('landmine'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'stepped on a landmine'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('Drowned'):
 			var message = [
-				{'color' : 'darkgreen', 'text': name},
+				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'went for a swim and never came back'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('patrolhelicopter'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'fought the heli, the heli won'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('barricade'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was playing on a barricade and died'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('autoturret_deployed'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'got blasted by an autoturret'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('Blunt'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'died by blunt trama'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('Hunger'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'forgot to eat'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('wall'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'tried jumping over a wall but died instead'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('cactus'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'had sex with a cactus'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('Poison'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'ate some bad food and died'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('wolf'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'was eaten by a wolf'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('Cold'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'froze to death'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case ('fall'):
 			var message = [
 				{'color' : 'green', 'text': name},
+<<<<<<< HEAD:matchers/deathMessage.js
 				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
+=======
+				{'color' : 'default', 'text' : 'tried to '},
+				{'color' : 'blue', 'text' : ' fly '},
+				{'color' : 'default', 'text' : 'but faceplanted into the ground'}
+>>>>>>> v1:rust/rustDeath.js
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('spikes'):
 			var message = [
 				{'color' : 'green', 'text': name},
 				{'color' : 'default', 'text' : 'impaled by floor spikes'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('campfire'):
 			var message = [
@@ -317,28 +345,38 @@ gotKilled = function (line, name, how, byWhat) {
 				{'color' : 'red', 'text' : name},
 				{'color' : 'default', 'text' : 'sat on the candle stick'}
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('oilfireballsmall'):
 			var message = [
 				{'color' : 'green', 'text': name},
+<<<<<<< HEAD:matchers/deathMessage.js
 				{'color' : 'default', 'text' : 'burnt alive'}
+=======
+				{'color' : 'red', 'text' : 'burnt'},
+				{'color' : 'default', 'text' : 'alive'}
+>>>>>>> v1:rust/rustDeath.js
 			]
-			base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		// case(''):
 		// 	var message = [
 		// 		{'color' : 'green', 'text': name},
 		// 		{'color' : 'default', 'text' : ''}
 		// 	]
-		// 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+		// 	log(message, dT, logFile.rcon, discordRoom.chat)
 		// 	break;
 		default:
+<<<<<<< HEAD:matchers/deathMessage.js
 			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd', null, config.discordRooms.log)
+=======
+			log('########## || ' + how + ' || ' +  byWhat, 'lcd')
+>>>>>>> v1:rust/rustDeath.js
 	}
 }
 
 function pvp(line, name, killer){
+<<<<<<< HEAD:matchers/deathMessage.js
 	// base.log(killer + ' killed ' + name, 'lr', 'chat.log', null)
 	// base.log(line, '')
 	var message = [
@@ -347,4 +385,28 @@ function pvp(line, name, killer){
 		{'color' : 'purple', 'text' : name}
 	]
 	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
+=======
+	// 1:Victim 2:? 3:Victim SteamID 4:Killer 5:? 6:Killer SteamID
+	line = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
+    rust.rconListPlayers.getPlayerIsOnline(line[3]).then(function (pa) {
+    	if(pa) {
+			var message = [
+				{'color' : 'red', 'text': killer},
+				{'color' : 'default', 'text' : 'killed'},
+				{'color' : 'green', 'text' : name}
+			]
+			log(message, dT, logFile.rcon, discordRoom.chat)
+    	} else {
+			var message = [
+				{'color' : 'red', 'text': killer},
+				{'color' : 'default', 'text' : 'harvested '},
+				{'color' : 'green', 'text' : name}
+			]
+			log(message, dT, logFile.rcon, discordRoom.chat)
+    	}
+    }).catch(function (err) {
+        console.log(err)
+    })
+
+>>>>>>> v1:rust/rustDeath.js
 }

@@ -2,98 +2,80 @@
 
 global.config = require('./config.js')
 
-
-//Base Libraries - things that are called from everwhere
-// Scheduled Commands file - WIP
-global.schCmds = require('./schCmds');
-global.base = require('./lib/base');
-const dR = require('./lib/discordRcon')
-global.displayPlayers = require('./lib/displayPlayers')
-global.rconResponse = require('./lib/rconResponse')
-
-//discord bot load and initialize
+global.WebRcon = require('webrconjs')
 global.Discord = require("discord.js");
+global.dateFormat  = require('dateformat');
+
 global.bot = new Discord.Client();
-//filesystem manipulation
-global.fs = require('fs');
-// dateFormat to format dates (der)
-global.dateFormat  = require("dateformat");
+global.rcon = new WebRcon(config.addr, config.port)
 
-global.deathMessageCon = require("./matchers/deathMessage");
-global.chatCon = require("./matchers/chat");
-global.serverMessageCon = require("./matchers/serverMessage");
-global.arrayTypeCon = require("./matchers/arrayType");
-global.fpsCon = require("./matchers/fps");
-global.clientDataCon = require("./matchers/clientData");
-
-global.playersConnected = null
-global.playersQueued = null
-global.playersJoining = null
-
-discordMessage = function(msg, pChannel){ 
-    let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
-    let time = dateFormat(new Date(), '[HH:MM:ss] ')
-
-    channel = bot.channels.find('name', pChannel)
-    switch (pChannel){
-    	case (config.discordRooms.log):
-    		channel.sendMessage(datetime + msg)
-    		break;
-    	case (config.discordRooms.bot):
-    		channel.sendMessage(datetime + msg)
-    		break;
-    	default:
-    		channel.sendMessage(time + msg)
-    }
-}
-
-for (let i in config.reDir) {
-	try {
-	    let stats = fs.lstatSync('.\/' + config.reDir[i])
-	    if (stats.isDirectory()) {}
-	} catch (e) { fs.mkdirSync('.\/' + config.reDir[i]) }
-}
+const fs = require('fs')
 
 
-for (let i = 0, len = config.logFiles.length; i < len; i++) {
-	try {
-	    let stats = fs.lstatSync(config.logFileLocation + config.logFiles[i] + '.log')
-	    if (stats.isFile()) {
-	    	let fileDate = dateFormat(new Date(), "yyyymmdd_hhMMss")
-	    	fs.rename(config.logFileLocation + config.logFiles[i] + '.log',config.logFileLocation +  fileDate + '_' + config.logFiles[i] + '.log')
-	    }
-	} catch (e) {}
-}
+global.cpu = require('auto-loader').load(__dirname +'/cpu')
+global.discord = require('auto-loader').load(__dirname +'/discord')
+global.rust = require('auto-loader').load(__dirname +'/rust')
 
-// Once discord connects start the magic
-bot.on('ready', () => {
-	base.log('Discord Connected', 'lc', 'rustbot.log')
-	let iffer = function(line) {
-		aline = null
-		if (line){try{aline = JSON.parse(line)}catch(e) {}}
-		if (Array.isArray(aline)){arrayTypeCon.arrayTypeIF(aline);}
-		else if (clientDataRE.test(line)) {clientDataCon.clientDataIF(line);}
-		else if(deathMessageRE.test(line)) {deathMessageCon.deathMessageIF(line);}
-		else if(chatRE.test(line)) {chatCon.chatIF(line);}
-		else if(serverMessageRE.test(line)) {serverMessageCon.serverMessageIF(line);}
-		else if(serverArrayRE.test(line)) {serverMessageCon.serverArrayIF(line);}
-		else if(fpsRE.test(line)) {fpsCon.fpsIF(line);}
-		else  {base.log('### NF ###\n' + line, 'lc', 'rustbot.log', config.discordRooms.bot)}
-	}
-	// On discord message run discord function
-	bot.on("message", msg => {
-		dR.discordRcon(msg)
+global.log = cpu.logger.rustBotLog
+global.logFile = config.logFiles[0]
+global.discordRoom = config.discordRooms[0]
+
+
+
+cpu.fsUtils.createDirectories()
+cpu.fsUtils.renameLogFiles()
+
+
+rcon.on('connect', () => {
+    console.log('CONNECTED: RCON')
+	bot.on('ready', () => {
+		console.log('CONNECTED: DISCORD')
+		setTimeout(function(){
+			rust.rconListPlayers.getAndDisplayPlayers()
+		}, 10000)
+		process.on('SIGUSR2', () => {
+			console.log('SIGUSR2: DISCONNECTING: DISCORD, RCON')
+			bot.destroy().then(function() {
+				console.log('DISCONNECTED: DISCORD')
+				rcon.disconnect()
+				console.log('DISCONNECTED: RCON')
+				process.exit(1)
+			}).catch(function (err) {
+		        console.log(err)
+		    })
+		})
 	})
-	// Connect to RCON - need to edit for enabled/disabled config option
-	rcon = new base.RconService(config)
-	rcon.defaultListener = function(msg) {iffer(msg)}
-	rcon.Connect()
+	rcon.on('message', (msg) => {
+		// console.log('RCON MESSAGE')
+    	rust.rconMessage.rconMessageGate(msg)
+	})
+	bot.on('message', (msg) => {
+		// console.log('DISCORD MESSAGE')
+		discord.discordMessage.discordMessageGate(msg)
+	})
+	rcon.on('disconnect', () => {
+	    console.log('RCON DISCONNECTED')
+	    process.exit()
+	})
+	bot.on('disconnect', () => {
+	    console.log('DISCONNECTED: DISCORD CONNECTION LOST')
+	    process.exit(2)
+	});
 
-	schCmds.startSchCmds()
-
-})
-// If discord is enabled then connect to discord, if its not enabled nothing will happen ATM
-if(config.discordEnabled == 1) {
-	base.log('Discord Connecting', 'lc', 'rustbot.log')
 	bot.login(config.discordAPI)
-}
+})
+
+rcon.on('error', (err) => {
+    console.log('ERROR:', err)
+})
+ 
+rcon.connect(config.pass)
+
+
+
+/*
+rcon.run('say test', 1000).then(function(msg){
+	console.log('Promise Returned')
+	console.log(msg)
+})
+*/
