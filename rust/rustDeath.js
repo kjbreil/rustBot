@@ -12,6 +12,7 @@
 let dT = 'lrod'
 
 exports.deathMessageIF = function (line) {
+	console.log(line)
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
 	var d = d[3]
 	switch (d) {
@@ -163,22 +164,14 @@ gotFedUp = function (line, name, how, byWhat){
 		case('Cold'):
 			var message = [
 				{'color' : 'green', 'text': name},
-<<<<<<< HEAD:matchers/deathMessage.js
 				{'color' : 'default', 'text' : 'succumbed to the cold'}
-=======
-				{'color' : 'default', 'text' : ''}
->>>>>>> v1:rust/rustDeath.js
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
 		case('Drowned'):
 			var message = [
 				{'color' : 'green', 'text': name},
-<<<<<<< HEAD:matchers/deathMessage.js
 				{'color' : 'default', 'text' : 'Went for a swim and never came back'}
-=======
-				{'color' : 'default', 'text' : 'succumbed to the cold'}
->>>>>>> v1:rust/rustDeath.js
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
@@ -204,11 +197,7 @@ gotFedUp = function (line, name, how, byWhat){
 		// 	log(message, dT, logFile.rcon, discordRoom.chat)
 		// 	break;
 		default:
-<<<<<<< HEAD:matchers/deathMessage.js
-			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd', null, config.discordRooms.log)
-=======
-			log('########## || ' + how + ' || ' +  byWhat, 'lcd')
->>>>>>> v1:rust/rustDeath.js
+			base.log('########## || ' + how + ' || ' +  byWhat, 'l', null, discordRoom.chat)
 	}
 	
 	
@@ -322,13 +311,9 @@ gotKilled = function (line, name, how, byWhat) {
 		case ('fall'):
 			var message = [
 				{'color' : 'green', 'text': name},
-<<<<<<< HEAD:matchers/deathMessage.js
-				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
-=======
 				{'color' : 'default', 'text' : 'tried to '},
 				{'color' : 'blue', 'text' : ' fly '},
 				{'color' : 'default', 'text' : 'but faceplanted into the ground'}
->>>>>>> v1:rust/rustDeath.js
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
@@ -350,12 +335,8 @@ gotKilled = function (line, name, how, byWhat) {
 		case('oilfireballsmall'):
 			var message = [
 				{'color' : 'green', 'text': name},
-<<<<<<< HEAD:matchers/deathMessage.js
-				{'color' : 'default', 'text' : 'burnt alive'}
-=======
 				{'color' : 'red', 'text' : 'burnt'},
 				{'color' : 'default', 'text' : 'alive'}
->>>>>>> v1:rust/rustDeath.js
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
@@ -367,25 +348,11 @@ gotKilled = function (line, name, how, byWhat) {
 		// 	log(message, dT, logFile.rcon, discordRoom.chat)
 		// 	break;
 		default:
-<<<<<<< HEAD:matchers/deathMessage.js
-			base.log('########## || ' + how + ' || ' +  byWhat, 'lcd', null, config.discordRooms.log)
-=======
-			log('########## || ' + how + ' || ' +  byWhat, 'lcd')
->>>>>>> v1:rust/rustDeath.js
+			base.log('########## || ' + how + ' || ' +  byWhat, 'l', null, discordRoom.chat)
 	}
 }
 
 function pvp(line, name, killer){
-<<<<<<< HEAD:matchers/deathMessage.js
-	// base.log(killer + ' killed ' + name, 'lr', 'chat.log', null)
-	// base.log(line, '')
-	var message = [
-		{'color' : 'red', 'text': killer},
-		{'color' : 'default', 'text' : 'killed '},
-		{'color' : 'purple', 'text' : name}
-	]
-	base.log(message, dT, 'rcon.log', config.discordRooms.chat)
-=======
 	// 1:Victim 2:? 3:Victim SteamID 4:Killer 5:? 6:Killer SteamID
 	line = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
     rust.rconListPlayers.getPlayerIsOnline(line[3]).then(function (pa) {
@@ -407,6 +374,4 @@ function pvp(line, name, killer){
     }).catch(function (err) {
         console.log(err)
     })
-
->>>>>>> v1:rust/rustDeath.js
 }

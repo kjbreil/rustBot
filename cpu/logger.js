@@ -118,4 +118,4 @@ colorHex  = function(color)
 
     return colors['default'];
 }
->>>>>>> v1:cpu/logger.js
+
