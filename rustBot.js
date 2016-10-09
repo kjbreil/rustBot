@@ -20,6 +20,8 @@ global.log = cpu.logger.rustBotLog
 global.logFile = config.logFiles[0]
 global.discordRoom = config.discordRooms[0]
 
+
+
 cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()
 
@@ -28,7 +30,9 @@ rcon.on('connect', () => {
     console.log('CONNECTED: RCON')
 	bot.on('ready', () => {
 		console.log('CONNECTED: DISCORD')
-
+		setTimeout(function(){
+			rust.rconListPlayers.getAndDisplayPlayers()
+		}, 5000)
 		process.on('SIGUSR2', () => {
 			console.log('SIGUSR2: DISCONNECTING: DISCORD, RCON')
 			bot.destroy().then(function() {
@@ -40,17 +44,17 @@ rcon.on('connect', () => {
 		})
 	})
 	rcon.on('message', (msg) => {
-
+		// console.log('RCON MESSAGE')
     	rust.rconMessage.rconMessageGate(msg)
 	})
 	bot.on('message', (msg) => {
+		// console.log('DISCORD MESSAGE')
 		discord.discordMessage.discordMessageGate(msg)
 	})
 	rcon.on('disconnect', () => {
 	    console.log('RCON DISCONNECTED')
 	    process.exit()
 	})
-
 	bot.on('disconnect', () => {
 	    console.log('DISCONNECTED: DISCORD CONNECTION LOST')
 	    process.exit(2)
