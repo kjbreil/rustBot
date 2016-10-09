@@ -9,7 +9,8 @@
     "dateformat": "^1.0.12",
     "discord.js": "^9.2.0",
     "request": "^2.75.0",
-    "webrcon": "git://github.com/kjbreil/WebRcon.git#master"
+    "webrcon": "git://github.com/kjbreil/WebRcon.git#master",
+    "forever": "^0.15.2"
   },
   "directories": {
     "test": "test"

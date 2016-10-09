@@ -9,7 +9,7 @@ global.dateFormat  = require('dateformat');
 global.bot = new Discord.Client();
 global.rcon = new WebRcon(config.addr, config.port)
 
-global.fs = require('fs')
+const fs = require('fs')
 
 
 global.cpu = require('auto-loader').load(__dirname +'/cpu')
@@ -25,10 +25,19 @@ cpu.fsUtils.renameLogFiles()
 
 
 rcon.on('connect', () => {
-    console.log('CONNECTED RCON')
+    console.log('CONNECTED: RCON')
 	bot.on('ready', () => {
-		console.log('CONNECTED DISCORD')
+		console.log('CONNECTED: DISCORD')
 
+		process.on('SIGUSR2', () => {
+			console.log('SIGUSR2: DISCONNECTING: DISCORD, RCON')
+			bot.destroy().then(function() {
+				console.log('DISCONNECTED: DISCORD')
+				rcon.disconnect()
+				console.log('DISCONNECTED: RCON')
+				process.exit(1)
+			})
+		})
 	})
 	rcon.on('message', (msg) => {
 
@@ -37,19 +46,26 @@ rcon.on('connect', () => {
 	bot.on('message', (msg) => {
 		discord.discordMessage.discordMessageGate(msg)
 	})
+	rcon.on('disconnect', () => {
+	    console.log('RCON DISCONNECTED')
+	    process.exit()
+	})
+
+	bot.on('disconnect', () => {
+	    console.log('DISCONNECTED: DISCORD CONNECTION LOST')
+	    process.exit(2)
+	});
 
 	bot.login(config.discordAPI)
 })
-rcon.on('disconnect', () => {
-    console.log('DISCONNECTED')
-})
 
 rcon.on('error', (err) => {
-    console.log('ERROR:', err)
+    console.log('ERROR:', err.code)
 })
  
-
 rcon.connect(config.pass)
+
+
 
 /*
 rcon.run('say test', 1000).then(function(msg){

@@ -310,7 +310,9 @@ gotKilled = function (line, name, how, byWhat) {
 		case ('fall'):
 			var message = [
 				{'color' : 'green', 'text': name},
-				{'color' : 'default', 'text' : 'tried to fly but faceplanted into the ground'}
+				{'color' : 'default', 'text' : 'tried to '},
+				{'color' : 'blue', 'text' : ' fly '},
+				{'color' : 'default', 'text' : 'but faceplanted into the ground'}
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;
@@ -332,7 +334,8 @@ gotKilled = function (line, name, how, byWhat) {
 		case('oilfireballsmall'):
 			var message = [
 				{'color' : 'green', 'text': name},
-				{'color' : 'default', 'text' : 'burnt alive'}
+				{'color' : 'red', 'text' : 'burnt'},
+				{'color' : 'default', 'text' : 'alive'}
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
 			break;

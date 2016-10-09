@@ -1,5 +1,7 @@
 // logger.js
 
+const fs = require('fs')
+
 exports.rustBotLog = function(msg, type, file, channel) {
 	if(file == null){file = logFile.rustbot};
 	file = config.logFileLocation + file + '.log'
