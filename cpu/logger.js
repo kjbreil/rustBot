@@ -22,7 +22,7 @@ exports.rustBotLog = function(msg, type, file, channel) {
         rcon.run('say ' + msg)
     }
     // Log to discord
-    if(RegExp(/r/).test(type) && RegExp(/d/).test(type)&& channel) {
+    if(RegExp(/o/).test(type) && RegExp(/d/).test(type)&& channel) {
         discord.discordMessage.discordSendMessage('SERVER: ' + msg, channel)
     } else if(RegExp(/d/).test(type) && channel) {
         discord.discordMessage.discordSendMessage(msg, channel)
