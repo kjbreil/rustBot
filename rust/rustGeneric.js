@@ -1,7 +1,7 @@
 // rustGeneric.js
-
+// ^(.+)\[(\d+)\/(\d+)\] was killed by (.+) \(entity\)
 global.listPlayersUnlock = 1
-let deathRE = new RegExp(/.*\[\d{1,5}\/\d{15,18}\]/)
+let deathRE = new RegExp(/.*\[\d+\/\d+\]/)
 let eventRE = new RegExp(/^\[event\] (.+?) (.+?)$/)
 let clientRE  = new RegExp(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:\d{1,6})\/(\d+?)\/(.+)/);
 
