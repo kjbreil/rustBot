@@ -40,7 +40,9 @@ rcon.on('connect', () => {
 				rcon.disconnect()
 				console.log('DISCONNECTED: RCON')
 				process.exit(1)
-			})
+			}).catch(function (err) {
+		        console.log(err)
+		    })
 		})
 	})
 	rcon.on('message', (msg) => {
@@ -64,7 +66,7 @@ rcon.on('connect', () => {
 })
 
 rcon.on('error', (err) => {
-    console.log('ERROR:', err.code)
+    console.log('ERROR:', err)
 })
  
 rcon.connect(config.pass)

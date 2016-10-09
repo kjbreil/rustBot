@@ -35,13 +35,18 @@ exports.getAndDisplayPlayers = function() {
     			log('[__**0**__][*listplayers*:***lp***][DisplayName | SteamID | Ping | Level | XP | Health]', 'ld', logFile.rustbot, discordRoom.rcon)
     		}
         })
+    }).catch(function (err) {
+        console.log(err)
     })
+
 }
 
 exports.getPlayerArray = function() {
     return new Promise(function (resolve, reject) {
         rcon.run('global.playerlist').then(function(msg){
             resolve(msg.message)
+        }).catch(function (err) {
+            console.log(err)
         })
     })
 }
@@ -51,6 +56,8 @@ exports.getPlayerIsOnline = function(si) {
         rust.rconListPlayers.getPlayerArray().then(function (po) {
             po = JSON.parse(po)
             resolve(po.find(findBySteamId.bind(this, si)));
+        }).catch(function (err) {
+            console.log(err)
         })
     })
 }

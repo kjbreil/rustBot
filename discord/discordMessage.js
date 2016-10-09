@@ -74,7 +74,7 @@ exports.discordDeleteMessageType = function(pChannel, type) {
             filteredMessages.deleteAll()
             resolve()
         }).catch(function (err) {
-            console.log('## ' + err)
+            console.log('### ' + err)
         })
     })
 }

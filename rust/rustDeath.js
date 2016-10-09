@@ -370,6 +370,8 @@ function pvp(line, name, killer){
 			]
 			log(message, dT, logFile.rcon, discordRoom.chat)
     	}
+    }).catch(function (err) {
+        console.log(err)
     })
 
 }
