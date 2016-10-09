@@ -14,4 +14,5 @@ exports.rustGenericGate = function(msg) {
 	} else {
 		log('Generic Nothing' + msg.message, 'l', logFile.rustbot, null)
 	}
+
 }

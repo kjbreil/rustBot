@@ -3,5 +3,3 @@
 // [event] assets/prefabs/npc/patrol helicopter/patrolhelicopter.prefab
 // [event] assets/prefabs/npc/cargo plane/cargo_plane.prefab
 
-const base = require("./../lib/base");
-const config = require('./../config.js');

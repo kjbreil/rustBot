@@ -7,7 +7,7 @@
 // Regex for matcher
 
 // PVP Regex (^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$
-// Atrix Tussand[203840/76561198006975241] was killed by Laughing Riot[341718/76561198117634809]
+// SomeName[203850/76561198006975221] was killed by Laughing Riot[341768/76561198177634809]
 
 let dT = 'lrod'
 
@@ -349,10 +349,24 @@ gotKilled = function (line, name, how, byWhat) {
 }
 
 function pvp(line, name, killer){
-	var message = [
-		{'color' : 'red', 'text': killer},
-		{'color' : 'default', 'text' : 'killed '},
-		{'color' : 'purple', 'text' : name}
-	]
-	log(message, dT, logFile.rcon, discordRoom.chat)
+	// 1:Victim 2:? 3:Victim SteamID 4:Killer 5:? 6:Killer SteamID
+	line = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
+    rust.rconListPlayers.getPlayerIsOnline(line[3]).then(function (pa) {
+    	if(pa) {
+			var message = [
+				{'color' : 'red', 'text': killer},
+				{'color' : 'default', 'text' : 'killed'},
+				{'color' : 'green', 'text' : name}
+			]
+			log(message, dT, logFile.rcon, discordRoom.chat)
+    	} else {
+			var message = [
+				{'color' : 'red', 'text': killer},
+				{'color' : 'default', 'text' : 'harvested '},
+				{'color' : 'green', 'text' : name}
+			]
+			log(message, dT, logFile.rcon, discordRoom.chat)
+    	}
+    })
+
 }
