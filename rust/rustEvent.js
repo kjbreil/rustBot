@@ -5,12 +5,12 @@
 
 // (/^\[event\] (.+) (.+)$/)
 
-let dT = 'rod'
+let dT = 'lrod'
 
 exports.rustEventGate = function(msg) {
 	msg = RegExp(/^\[event\] (.+) (.+)$/).exec(msg)
 	if(msg[2] === 'helicopter/patrolhelicopter.prefab') {
-		console.log(heli)
+		console.log('heli')
 		var message = [
 			{'color' : 'default', 'text': 'get naked or kiss your ass goodbye, the '},
 			{'color' : 'red', 'text' : 'heli '},
