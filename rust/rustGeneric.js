@@ -8,10 +8,11 @@ let clientRE  = new RegExp(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:\d{1,6})\/(\d+
 
 exports.rustGenericGate = function(msg) {
 	// msg.message | msg.time
+	console.log('Generic Gate ' + msg.message)
 	if(deathRE.test(msg.message)) {
 		rust.rustDeath.deathMessageIF(msg.message)
 	} else if (eventRE.test(msg.message)) { 
-		console.log('event RE match' + msg.message)
+		console.log('event RE match ' + msg.message)
 		rust.rustEvent.rustEventGate(msg.message)
 		log('GenericEvent ' + msg.message, 'l', logFile.rustbot, null)
 	} else if (clientRE.test(msg.message)) {
