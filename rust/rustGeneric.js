@@ -11,6 +11,7 @@ exports.rustGenericGate = function(msg) {
 	if(deathRE.test(msg.message)) {
 		rust.rustDeath.deathMessageIF(msg.message)
 	} else if (eventRE.test(msg.message)) { 
+		console.log('event RE match' + msg.message)
 		rust.rustEvent.rustEventGate(msg.message)
 		log('GenericEvent ' + msg.message, 'l', logFile.rustbot, null)
 	} else if (clientRE.test(msg.message)) {
