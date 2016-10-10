@@ -9,7 +9,7 @@
 // PVP Regex (^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$
 // SomeName[203850/76561198006975221] was killed by Laughing Riot[341768/76561198177634809]
 
-let dT = 'lrod'
+let dT = 'rod'
 
 exports.deathMessageIF = function (line) {
 	console.log(line)
