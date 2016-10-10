@@ -8,7 +8,6 @@
 let dT = 'lrod'
 
 exports.rustEventGate = function(msg) {
-	console.log('event ' + msg)
 	msg = RegExp(/^\[event\] (.+) (.+)$/).exec(msg)
 	if(msg[2] === 'helicopter/patrolhelicopter.prefab') {
 		var message = [
@@ -19,6 +18,6 @@ exports.rustEventGate = function(msg) {
 		]
 		log(message, dT, logFile.rcon, discordRoom.chat)
 	} else if (msg[2] === 'plane/cargo_plane.prefab') {
-		// Airdrop incomming
+		console.log('EVENT: AD')
 	}
 }
