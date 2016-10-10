@@ -16,6 +16,7 @@ exports.rustGenericGate = function(msg) {
 	} else if (clientRE.test(msg.message)) {
 		// console.log(msg)
 		log(msg.message, 'ld', logFile.connect, discordRoom.log)
+		cpu.sql.sqlInserters.sqlInsertersGate(msg.message, 'connect')
 		if (listPlayersUnlock) {
 			listPlayersUnlock = null
 			setTimeout(function(){

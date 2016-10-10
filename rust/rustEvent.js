@@ -5,11 +5,12 @@
 
 // (/^\[event\] (.+) (.+)$/)
 
-let dT = 'lrod'
+let dT = 'rod'
 
 exports.rustEventGate = function(msg) {
 	msg = RegExp(/^\[event\] (.+) (.+)$/).exec(msg)
 	if(msg[2] === 'helicopter/patrolhelicopter.prefab') {
+		console.log(heli)
 		var message = [
 			{'color' : 'default', 'text': 'get naked or kiss your ass goodbye, the '},
 			{'color' : 'red', 'text' : 'heli '},
@@ -19,5 +20,7 @@ exports.rustEventGate = function(msg) {
 		log(message, dT, logFile.rcon, discordRoom.chat)
 	} else if (msg[2] === 'plane/cargo_plane.prefab') {
 		// Airdrop incomming
+	} else {
+		console.log('event error' + msg)
 	}
 }

@@ -9,4 +9,5 @@ clientDataRE  = new RegExp(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:\d{1,6})\/(\d+
 
 exports.clientDataIF = function (line) {
 	base.log(line, 'lcd', 'connect.log', config.discordRooms.log);
+	cpu.sql.sqlInserters.sqlInsertersGate(line, 'connect')
 }

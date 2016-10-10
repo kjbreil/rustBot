@@ -5,9 +5,12 @@ global.config = require('./config.js')
 global.WebRcon = require('webrconjs')
 global.Discord = require("discord.js");
 global.dateFormat  = require('dateformat');
+global.knex = require('knex')(config.knex)
 
 global.bot = new Discord.Client();
 global.rcon = new WebRcon(config.addr, config.port)
+
+
 
 const fs = require('fs')
 
@@ -25,6 +28,7 @@ global.discordRoom = config.discordRooms[0]
 cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()
 
+cpu.sql.sqlCreateTables.sqlCreateTablesGate()
 
 rcon.on('connect', () => {
     console.log('CONNECTED: RCON')
