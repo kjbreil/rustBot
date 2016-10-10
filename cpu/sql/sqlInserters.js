@@ -17,6 +17,12 @@ exports.sqlInsertersGate = function(line, type) {
 
 			})
 			break;
+		case('chat'):
+			chatLogToSQL(line).then(function() {
+				console.log(line)
+			}).catch(function(err) {
+
+			})
 		default:
 			log(type + ' is not a defined type for ' + line, 'l', logFile.sql, null)
 	}
@@ -35,7 +41,7 @@ deathToSql = function(line) {
 		    rust.rconListPlayers.getPlayerIsOnline(pvp[3]).then(function (pa) {
 		    	console.log(pa)
 		    	if(pa) {
-					knex('death_log').insert( {
+					knex(config.dbTables.death).insert( {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
 						killer_steamid: pvp[6],
@@ -48,7 +54,7 @@ deathToSql = function(line) {
 						reject()
 					})
 		    	} else {
-					knex('death_log').insert( {
+					knex(config.dbTables.death).insert( {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
 						killer_steamid: pvp[6],
@@ -63,7 +69,7 @@ deathToSql = function(line) {
 		    })
 
 		} else if (killed = killedRE.exec(line)) {
-			knex('death_log').insert( {
+			knex(config.dbTables.death).insert( {
 					victim_steamid: killed[3],
 					victim_name: killed[1],
 					killer_name: killed[5],
@@ -74,7 +80,7 @@ deathToSql = function(line) {
 					reject()
 				})
 		} else if (suicide = suicideRE.exec(line)) {
-			knex('death_log').insert( {
+			knex(config.dbTables.death).insert( {
 					victim_steamid: suicide[3],
 					victim_name: suicide[1],
 					killer_name: suicide[5],
@@ -85,7 +91,7 @@ deathToSql = function(line) {
 					reject()
 				})
 		} else if (suicide = diedRE.exec(line)) {
-			knex('death_log').insert( {
+			knex(config.dbTables.death).insert( {
 					victim_steamid: suicide[3],
 					victim_name: suicide[1],
 					killer_name: suicide[5],
@@ -107,7 +113,7 @@ connectLogToSQL = function(line) {
 	let authRE = RegExp(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\:(\d{1,6})\/(\d+?)\/(.+) has auth level (\d)/)
 	return new Promise(function(resolve, reject) {
 		if(dis = disconnectRE.exec(line)) {
-			knex('connect_log').insert( {
+			knex(config.dbTables.connect).insert( {
 				ip: dis[1],
 				port: dis[2],
 				line: line,
@@ -121,7 +127,7 @@ connectLogToSQL = function(line) {
 			})
 				// console.log(dis)
 		} else if (join = joinedRE.exec(line)) {
-			knex('connect_log').insert( {
+			knex(config.dbTables.connect).insert( {
 				ip: join[1],
 				port: join[2],
 				line: line,
@@ -135,7 +141,7 @@ connectLogToSQL = function(line) {
 				reject()
 			})
 		} else if (auth = authRE.exec(line)) {
-			knex('connect_log').insert( {
+			knex(config.dbTables.connect).insert( {
 				ip: auth[1],
 				port: auth[2],
 				line: line,
@@ -151,4 +157,21 @@ connectLogToSQL = function(line) {
 			resolve(line)
 		}
 	})
+}
+chatLogToSQL = function(line) {
+	console.log('CHAT: ' + line)
+	// let chatRE = RegExp(/^\[CHAT\] (.+)\[(\d+)\/(\d+)\] : (.+)$/)
+	return new Promise(function(resolve, reject) {
+		// chat = chatRE.exec(line.message)
+		msg = JSON.parse(line)
+		knex(config.dbTables.chat).insert( {
+					steamid: msg.UserId,
+					name: msg.Username,
+					message: msg.Message,
+					json: msg
+				}).then(function() {
+					console.log('chat inserted')
+					reject()
+				})
+		})
 }

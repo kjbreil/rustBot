@@ -31,6 +31,7 @@ exports.rconMessageGate = function(msg) {
 
 
 rconChatMessage = function(msg) {
+	cpu.sql.sqlInserters.sqlInsertersGate(msg.message, 'chat')
 	if((/^\[.+\] /).test(msg.message)) {
 		console.log('Event in Chat')
 		return
