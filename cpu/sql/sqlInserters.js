@@ -159,7 +159,7 @@ connectLogToSQL = function(line) {
 	})
 }
 chatLogToSQL = function(line) {
-	console.log('CHAT: ' + line)
+	// console.log('CHAT: ' + line)
 	// let chatRE = RegExp(/^\[CHAT\] (.+)\[(\d+)\/(\d+)\] : (.+)$/)
 	return new Promise(function(resolve, reject) {
 		// chat = chatRE.exec(line.message)
