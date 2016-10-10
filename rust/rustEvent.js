@@ -8,6 +8,7 @@
 let dT = 'lrod'
 
 exports.rustEventGate = function(msg) {
+	console.log('EVENT: ' + msg)
 	msg = RegExp(/^\[event\] (.+) (.+)$/).exec(msg)
 	if(msg[2] === 'helicopter/patrolhelicopter.prefab') {
 		var message = [
