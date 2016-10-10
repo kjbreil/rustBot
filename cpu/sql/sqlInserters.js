@@ -29,7 +29,7 @@ exports.sqlInsertersGate = function(line, type) {
 }
 
 deathToSql = function(line) {
-	let pvpRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] \w+ (killed) \w+? (.+?)\[\d+\/(\d+?)\]$/)
+	let pvpRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] \w+ (killed) \w+? (.+?)\[(\d+)\/(\d+?)\]$/)
 	let killedRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] was (killed) by (\w+)/)
 	let suicideRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] was (\w+) by (\w+)/)
 	let diedRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] (died) \((.+)\)$/)
@@ -45,13 +45,15 @@ deathToSql = function(line) {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
 						killer_steamid: pvp[6],
-						killer_name: pvp[5],
+						killer_name: pvp[4],
 						pvp: true,
-						sleeper: true,
+						sleeper: false,
 						line: line
 					}).then(function() {
 						console.log('sleeper inserted')
 						reject()
+					}).catch(function(err) {
+						console.log('sleeper insert failed')
 					})
 		    	} else {
 					knex(config.dbTables.death).insert( {
@@ -60,10 +62,13 @@ deathToSql = function(line) {
 						killer_steamid: pvp[6],
 						killer_name: pvp[5],
 						pvp: true,
+						sleeper: true,
 						line: line
 					}).then(function() {
 						console.log('pvp inserted')
 						reject()
+					}).catch(function(err) {
+						console.log('pvp insert failed')
 					})
 		    	}
 		    })
@@ -78,6 +83,8 @@ deathToSql = function(line) {
 				}).then(function() {
 					console.log('killed inserted')
 					reject()
+				}).catch(function(err) {
+					console.log('killed insert failed')
 				})
 		} else if (suicide = suicideRE.exec(line)) {
 			knex(config.dbTables.death).insert( {
@@ -89,6 +96,8 @@ deathToSql = function(line) {
 				}).then(function() {
 					console.log('suicide inserted')
 					reject()
+				}).catch(function(err) {
+					console.log('suicide insert failed')
 				})
 		} else if (died = diedRE.exec(line)) {
 			knex(config.dbTables.death).insert( {
@@ -100,6 +109,8 @@ deathToSql = function(line) {
 				}).then(function() {
 					console.log('died inserted')
 					reject()
+				}).catch(function(err) {
+					console.log('died insert failed')
 				})
 		} else {
 			resolve(line)
