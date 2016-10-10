@@ -31,6 +31,10 @@ exports.rconMessageGate = function(msg) {
 
 
 rconChatMessage = function(msg) {
+	if((/^\[.+\] /).test(msg.message)) {
+		console.log('Event in Chat')
+		return
+	}
 	msg = JSON.parse(msg.message)
 	if(msg.Username === 'SERVER' && RegExp(/^<color=#/).test(msg.Message)){
 		log(msg.Username + ': ' + msg.Message, 'l', logFile.chat, discordRoom.chat)
