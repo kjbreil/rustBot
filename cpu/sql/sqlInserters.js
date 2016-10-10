@@ -5,21 +5,21 @@ exports.sqlInsertersGate = function(line, type) {
 		case('death'):
 
 			deathToSql(line).then(function() {
-				console.log(line)
+				log('DEATH INSERTED: ' + line, 'l', logFile.sql, null)
 			}).catch(function(err) {
 
 			})
 			break;
 		case('connect'):
 			connectLogToSQL(line).then(function() {
-				console.log(line)
+				log('CONNECT INSERTED: ' + line, 'l', logFile.sql, null)
 			}).catch(function(err) {
 
 			})
 			break;
 		case('chat'):
 			chatLogToSQL(line).then(function() {
-				console.log(line)
+				log('CHAT INSERTED: ' + line, 'l', logFile.sql, null)
 			}).catch(function(err) {
 
 			})
@@ -50,7 +50,7 @@ deathToSql = function(line) {
 						sleeper: true,
 						line: line
 					}).then(function() {
-						console.log('pvp inserted')
+						console.log('sleeper inserted')
 						reject()
 					})
 		    	} else {
