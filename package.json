@@ -13,6 +13,7 @@
     "request": "^2.75.0",
     "knex": "^0.12.3",
     "async": "^2.0.1",
+    "node-cron": "^1.1.2",
     "webrcon": "git://github.com/kjbreil/WebRcon.git#master"
   },
   "directories": {
