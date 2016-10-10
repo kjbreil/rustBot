@@ -44,8 +44,8 @@ deathToSql = function(line) {
 					knex(config.dbTables.death).insert( {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
-						killer_steamid: pvp[6],
-						killer_name: pvp[4],
+						killer_steamid: pvp[7],
+						killer_name: pvp[5],
 						pvp: true,
 						sleeper: false,
 						line: line
@@ -59,7 +59,7 @@ deathToSql = function(line) {
 					knex(config.dbTables.death).insert( {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
-						killer_steamid: pvp[6],
+						killer_steamid: pvp[7],
 						killer_name: pvp[5],
 						pvp: true,
 						sleeper: true,
