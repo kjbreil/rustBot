@@ -28,8 +28,6 @@ global.discordRoom = config.discordRooms[0]
 cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()
 
-cpu.sql.sqlCreateTables.sqlCreateTablesGate()
-
 rcon.on('connect', () => {
     console.log('CONNECTED: RCON')
 	bot.on('ready', () => {
@@ -37,6 +35,16 @@ rcon.on('connect', () => {
 		setTimeout(function(){
 			rust.rconListPlayers.getAndDisplayPlayers()
 		}, 10000)
+		cpu.scheduledCommands.runScheduledCommands()
+
+		rcon.on('disconnect', () => {
+		    console.log('RCON DISCONNECTED')
+		    bot.destroy().then(function() {
+				console.log('DISCONNECTED: DISCORD')
+				process.exit()
+			})
+		})
+
 		process.on('SIGUSR2', () => {
 			console.log('SIGUSR2: DISCONNECTING: DISCORD, RCON')
 			bot.destroy().then(function() {
@@ -57,12 +65,11 @@ rcon.on('connect', () => {
 		// console.log('DISCORD MESSAGE')
 		discord.discordMessage.discordMessageGate(msg)
 	})
-	rcon.on('disconnect', () => {
-	    console.log('RCON DISCONNECTED')
-	    process.exit()
-	})
+
 	bot.on('disconnect', () => {
 	    console.log('DISCONNECTED: DISCORD CONNECTION LOST')
+	    rcon.disconnect()
+	    console.log('DISCONNECTED: RCON')
 	    process.exit(2)
 	});
 
@@ -71,6 +78,8 @@ rcon.on('connect', () => {
 
 rcon.on('error', (err) => {
     console.log('ERROR:', err)
+    process.exit(2)
 })
  
+cpu.sql.sqlCreateTables.sqlCreateTablesGate()
 rcon.connect(config.pass)

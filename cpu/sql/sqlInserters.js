@@ -84,18 +84,18 @@ deathToSql = function(line) {
 					victim_steamid: suicide[3],
 					victim_name: suicide[1],
 					killer_name: suicide[5],
-					died: true,
+					suicide: true,
 					line: line
 				}).then(function() {
 					console.log('suicide inserted')
 					reject()
 				})
-		} else if (suicide = diedRE.exec(line)) {
+		} else if (died = diedRE.exec(line)) {
 			knex(config.dbTables.death).insert( {
-					victim_steamid: suicide[3],
-					victim_name: suicide[1],
-					killer_name: suicide[5],
-					suicide: true,
+					victim_steamid: died[3],
+					victim_name: died[1],
+					killer_name: died[5],
+					died: true,
 					line: line
 				}).then(function() {
 					console.log('died inserted')
