@@ -14,7 +14,7 @@ exports.rconMessageGate = function(msg) {
 	if(msg.identity > 1000) {
 		// Message has an identifier, should've been returned by a promise
 	} else {
-		if((/^\[.+\] /).test(msg.message)) {return;}
+		// if((/^\[.+\] /).test(msg.message)) {return;}
 		switch(msg.type) {
 			case('Chat'):
 				// console.log('inside chat')
@@ -31,6 +31,10 @@ exports.rconMessageGate = function(msg) {
 
 
 rconChatMessage = function(msg) {
+	if((/^\[.+\] /).test(msg.message)) {
+		console.log('Event in Chat')
+		return
+	}
 	msg = JSON.parse(msg.message)
 	if(msg.Username === 'SERVER' && RegExp(/^<color=#/).test(msg.Message)){
 		log(msg.Username + ': ' + msg.Message, 'l', logFile.chat, discordRoom.chat)

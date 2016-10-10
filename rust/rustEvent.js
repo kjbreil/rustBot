@@ -1,3 +1,4 @@
+
 // event.js
 
 // [event] assets/prefabs/npc/patrol helicopter/patrolhelicopter.prefab
@@ -8,9 +9,9 @@
 let dT = 'lrod'
 
 exports.rustEventGate = function(msg) {
+	console.log('EVENT: ' + msg)
 	msg = RegExp(/^\[event\] (.+) (.+)$/).exec(msg)
 	if(msg[2] === 'helicopter/patrolhelicopter.prefab') {
-		console.log('heli')
 		var message = [
 			{'color' : 'default', 'text': 'get naked or kiss your ass goodbye, the '},
 			{'color' : 'red', 'text' : 'heli '},
@@ -19,7 +20,7 @@ exports.rustEventGate = function(msg) {
 		]
 		log(message, dT, logFile.rcon, discordRoom.chat)
 	} else if (msg[2] === 'plane/cargo_plane.prefab') {
-		// Airdrop incomming
+		console.log('EVENT: AD')
 	} else {
 		console.log('event error' + msg)
 	}

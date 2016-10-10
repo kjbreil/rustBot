@@ -1,19 +1,20 @@
 // sqlCreateTables.js
 
+
 exports.sqlCreateTablesGate = function() {
-	createConnectLogDB().then(function () {
-		createDeathLogDB().then(function() {
-			console.log('DB TABLE CHECK COMPLETE')
+	for(let i in config.dbTables) {
+		createTableFromConfig(i).then(function() {
+			console.log('DB TABLE ' + i + ' EXISTS')
 		})
-	})
+	}
 }
 
-createConnectLogDB = function() {
+createTableFromConfig = function(tableName) {
 	return new Promise(function(resolve, reject) {
-		knex.schema.hasTable('connect_log')
+		knex.schema.hasTable(tableName)
 		    .then(function(exists) {
 		    	if(!exists) {
-					knex.schema.createTable('connect_log',function(table){
+					knex.schema.createTable(tableName,function(table){
 						table.increments()
 						table.timestamps(true, true)
 						table.specificType('ip', 'inet')
@@ -29,36 +30,7 @@ createConnectLogDB = function() {
 						table.text('auth_level').nullable()
 						table.text('line')
 					}).then(function (make) {
-						console.log('Connect Table Made')
-						resolve()
-					})
-				} else {
-					resolve()
-				}
-			})
-	})
-}
-
-createDeathLogDB = function() {
-	return new Promise(function(resolve, reject) {
-		knex.schema.hasTable('death_log')
-		    .then(function(exists) {
-		    	if(!exists) {
-					knex.schema.createTable('death_log',function(table){
-						table.increments()
-						table.timestamps(true, true)
-						table.bigint('victim_steamid')
-						table.text('victim_name')
-						table.bigint('killer_steamid').nullable()
-						table.text('killer_name').nullable()
-						table.boolean('sleeper').nullable()
-						table.boolean('pvp').nullable()
-						table.boolean('died').nullable()
-						table.boolean('killed').nullable()
-						table.boolean('suicide').nullable()
-						table.text('line')
-					}).then(function (make) {
-						console.log('Death Table Made')
+						console.log('DB TABLE ' + tableName + ' CREATED')
 						resolve()
 					})
 				} else {

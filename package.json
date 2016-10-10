@@ -12,6 +12,7 @@
     "pg": "^6.1.0",
     "request": "^2.75.0",
     "knex": "^0.12.3",
+    "async": "^2.0.1",
     "webrcon": "git://github.com/kjbreil/WebRcon.git#master"
   },
   "directories": {

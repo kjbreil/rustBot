@@ -74,12 +74,3 @@ rcon.on('error', (err) => {
 })
  
 rcon.connect(config.pass)
-
-
-
-/*
-rcon.run('say test', 1000).then(function(msg){
-	console.log('Promise Returned')
-	console.log(msg)
-})
-*/
