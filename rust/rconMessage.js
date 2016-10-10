@@ -14,7 +14,7 @@ exports.rconMessageGate = function(msg) {
 	if(msg.identity > 1000) {
 		// Message has an identifier, should've been returned by a promise
 	} else {
-		if((/^\[.+\] /).test(msg.message)) {return;}
+		// if((/^\[.+\] /).test(msg.message)) {return;}
 		switch(msg.type) {
 			case('Chat'):
 				// console.log('inside chat')
