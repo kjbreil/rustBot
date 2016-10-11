@@ -10,7 +10,7 @@ global.knex = require('knex')(config.knex)
 global.bot = new Discord.Client();
 global.rcon = new WebRcon(config.addr, config.port)
 
-
+global.playersOnline = []
 
 const fs = require('fs')
 

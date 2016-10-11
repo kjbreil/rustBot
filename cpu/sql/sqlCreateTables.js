@@ -32,6 +32,11 @@ createTableFromConfig = function(tableName) {
 				console.log('DEATH DB: ' + tableName + ' CHECK COMPLETE')
 			})
 			break;
+		case(config.dbTables.connected):
+			createDeathLogDB(tableName).then(function(){
+				console.log('DEATH DB: ' + tableName + ' CHECK COMPLETE')
+			})
+			break;
 	}
 }
 
@@ -46,6 +51,35 @@ createConnectLogDB = function(tableName) {
 					knex.schema.createTable(tableName,function(table){
 						table.increments()
 						table.timestamps(true, true)
+						table.specificType('ip', 'inet')
+						table.integer('port')
+						table.bigint('steamid')
+						table.text('name')
+						table.boolean('connect').nullable()
+						table.text('os').nullable()
+						table.bigint('os_steamid').nullable()
+						table.boolean('disconnect').nullable()
+						table.text('disconnect_why').nullable()
+						table.boolean('auth').nullable()
+						table.text('auth_level').nullable()
+						table.text('line')
+					}).then(function (make) {
+						console.log('CONNECT DB: ' + tableName + ' CREATED')
+						resolve()
+					})
+				} else {
+					resolve()
+				}
+			})
+	})
+}
+
+createConnectedLogDB = function(tableName) {
+	return new Promise(function(resolve, reject) {
+		knex.schema.hasTable(tableName)
+		    .then(function(exists) {
+		    	if(!exists) {
+					knex.schema.createTable(tableName,function(table){
 						table.specificType('ip', 'inet')
 						table.integer('port')
 						table.bigint('steamid')

@@ -22,7 +22,7 @@ exports.rustGenericGate = function(msg) {
 			setTimeout(function(){
 				rust.rconListPlayers.getAndDisplayPlayers()
 				listPlayersUnlock = 1
-			}, 10000)
+			}, 15000)
 		}
 		
 	} else {
