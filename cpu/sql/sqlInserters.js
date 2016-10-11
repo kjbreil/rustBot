@@ -1,9 +1,9 @@
 // sqlInserters.js
 // cpu.sql.sqlInserters.sqlInsertersGate(line, type)
 exports.sqlInsertersGate = function(line, type) {
+	console.log(line)
 	switch(type) {
 		case('death'):
-
 			deathToSql(line).then(function() {
 				log('DEATH INSERTED: ' + line, 'l', logFile.sql, null)
 			}).catch(function(err) {
@@ -71,7 +71,9 @@ deathToSql = function(line) {
 						console.log('pvp insert failed')
 					})
 		    	}
-		    })
+		    }).catch(function(err) {
+				console.log('online check')
+			})
 
 		} else if (killed = killedRE.exec(line)) {
 			knex(config.dbTables.death).insert( {
