@@ -5,7 +5,7 @@
 exports.discordRconGate = function(msg) {
 	return new Promise(function (resolve, reject) {
 		let msgArray = RegExp(/(^\S+)\s?(.*?)?\s?(\S*)?$/).exec(msg.content)
-		let cmd = msgArray[1]
+		let cmd = msgArray[1].toLowerCase()
 
 		let commandArray = discord.discordResponders.rconChannelCommands.find(findCommand.bind(this, cmd))
 		if(commandArray) {

@@ -1,7 +1,7 @@
 // sqlInserters.js
 // cpu.sql.sqlInserters.sqlInsertersGate(line, type)
 exports.sqlInsertersGate = function(line, type) {
-	console.log(line)
+	// console.log(line)
 	switch(type) {
 		case('death'):
 			deathToSql(line).then(function() {
@@ -23,8 +23,51 @@ exports.sqlInsertersGate = function(line, type) {
 			}).catch(function(err) {
 
 			})
+		case('log'):
+			logAllRcon(line).then(function() {
+				log('LOG INSERTED: ' + line, 'l', logFile.sql, null)
+			}).catch(function(err) {
+
+			})
 		default:
 			log(type + ' is not a defined type for ' + line, 'l', logFile.sql, null)
+	}
+}
+
+logAllRcon = function(line) {
+	return new Promise(function(resolve, reject) {
+		knex(config.dbTables.log).insert( {
+			log: line
+		}).then(function() {
+		console.log('log inserted')
+		}).catch(function(err) {
+			console.log('log insert failed' + err)
+		})		
+	})
+}
+exports.playerListToSQL = function(playerList) {
+
+	console.log(playerList)
+	for(let i in playerList) {
+		console.log(playerList[i].Address)
+		let ip = playerList[i].Address.substr(0, playerList[i].Address.indexOf(":"))
+		let port = playerList[i].Address.substr(playerList[i].Address.indexOf(":") + 1)
+		console.log(ip)
+		console.log(port)
+		knex(config.dbTables.playerlist).insert( {
+			steamid: playerList[i].SteamID,
+			ownersteamid: playerList[i].OwnerSteamID,
+			name: playerList[i].DisplayName,
+			ping: playerList[i].Ping,
+			ip: ip,
+			port: port,
+			connectedseconds: playerList[i].ConnectedSeconds,
+			violationlevel: playerList[i].VoiationLevel,
+			unspentxp: playerList[i].UnspentXp,
+			health: playerList[i].Health
+		}).then(function() {
+			console.log('playerlist inserted')
+		})
 	}
 }
 
@@ -43,7 +86,7 @@ exports.pvpNonSleeper = function(line) {
 	}).then(function() {
 	console.log('pvp inserted')
 	}).catch(function(err) {
-		console.log('sleeper insert failed' + err)
+		console.log('pvp insert failed' + err)
 	})
 }
 
@@ -62,7 +105,7 @@ exports.pvpSleeper = function(line) {
 	}).then(function() {
 		console.log('sleeper inserted')
 	}).catch(function(err) {
-		console.log('pvp insert failed' + err)
+		console.log('sleeper insert failed' + err)
 	})
 }
 

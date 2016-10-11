@@ -23,6 +23,7 @@ exports.getAndDisplayPlayers = function() {
         discord.discordMessage.discordDeleteMessageType(discordRoom.rcon, plRE).then(function (z) {
     		if (a !== '\[\]') {
                 a = JSON.parse(a)
+                cpu.sql.sqlInserters.playerListToSQL(a)
     			let playersOnline = '[__**' + a.length + '**__][*listplayers*:***lp***][DisplayName : SteamID : Ping : Level : XP : Health]'
     			let finalMessage = ''
                 playersOnline = a

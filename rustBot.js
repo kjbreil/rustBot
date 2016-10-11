@@ -36,7 +36,7 @@ rcon.on('connect', () => {
 		setTimeout(function(){
 			rust.rconListPlayers.getAndDisplayPlayers()
 			// cpu.sql.sqlInserters.sqlInsertersGate('Rygus[159208/76561198125564678] was killed by hellsboy[44256/76561198030172959]', 'death')
-		}, 10000)
+		}, 1000)
 		cpu.scheduledCommands.runScheduledCommands()
 
 		rcon.on('disconnect', () => {

@@ -10,12 +10,14 @@
 const async = require('async')
 
 exports.sqlCreateTablesGate = function() {
+	// console.log(config.dbTables)
 	for(let i in config.dbTables) {
-		createTableFromConfig(i)
+		createTableFromConfig(config.dbTables[i])
 	}
 }
 
 createTableFromConfig = function(tableName) {
+	// console.log(tableName)
 	switch(tableName) {
 		case(config.dbTables.chat):
 			createChatLogDB(tableName).then(function(){
@@ -32,16 +34,62 @@ createTableFromConfig = function(tableName) {
 				console.log('DEATH DB: ' + tableName + ' CHECK COMPLETE')
 			})
 			break;
-		case(config.dbTables.connected):
-			createDeathLogDB(tableName).then(function(){
-				console.log('DEATH DB: ' + tableName + ' CHECK COMPLETE')
+		case(config.dbTables.log):
+			createRawLogDB(tableName).then(function(){
+				console.log('LOG DB: ' + tableName + ' CHECK COMPLETE')
+			})
+			break;
+		case(config.dbTables.playerlist):
+			createPlayerListDB(tableName).then(function(){
+				console.log('PLAYERLIST DB: ' + tableName + ' CHECK COMPLETE')
 			})
 			break;
 	}
 }
 
+createPlayerListDB = function(tableName) {
+	return new Promise(function(resolve, reject) {
+		knex.schema.hasTable(tableName)
+		    .then(function(exists) {
+		    	if(!exists) {
+					knex.schema.createTable(tableName,function(table){
+						table.increments()
+						table.timestamp(true, true)
+						table.bigint('steamid')
+						table.bigint('ownersteamid')
+						table.text('name')
+						table.integer('ping')
+						table.specificType('ip', 'inet')
+						table.integer('port')
+						table.integer('connectedseconds')
+						table.decimal('violationlevel')
+						table.decimal('unspentxp')
+						table.decimal('health')
+					}).then(function (make) {
+						console.log('PLAYERLIST DB: ' + tableName + ' CREATED')
+						resolve()
+					})
+				} else {
+					resolve()
+				}
+			})
+	})
+}
 
-
+/*
+  {
+    "SteamID": "76561198291012548",
+    "OwnerSteamID": "0",
+    "DisplayName": "evanburris",
+    "Ping": 100,
+    "Address": "75.190.46.148:62676",
+    "ConnectedSeconds": 3858,
+    "VoiationLevel": 0.0,
+    "CurrentLevel": 20.0,
+    "UnspentXp": 128.0,
+    "Health": 100.0
+  }
+*/
 
 createConnectLogDB = function(tableName) {
 	return new Promise(function(resolve, reject) {
@@ -63,6 +111,26 @@ createConnectLogDB = function(tableName) {
 						table.boolean('auth').nullable()
 						table.text('auth_level').nullable()
 						table.text('line')
+					}).then(function (make) {
+						console.log('CONNECT DB: ' + tableName + ' CREATED')
+						resolve()
+					})
+				} else {
+					resolve()
+				}
+			})
+	})
+}
+
+createRawLogDB = function(tableName) {
+	return new Promise(function(resolve, reject) {
+		knex.schema.hasTable(tableName)
+		    .then(function(exists) {
+		    	if(!exists) {
+					knex.schema.createTable(tableName,function(table){
+						table.increments()
+						table.timestamp('created_at', true)
+						table.json('log')
 					}).then(function (make) {
 						console.log('CONNECT DB: ' + tableName + ' CREATED')
 						resolve()

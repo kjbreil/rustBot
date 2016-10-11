@@ -10,6 +10,7 @@ ServerMessage {
 */
 
 exports.rconMessageGate = function(msg) {
+	cpu.sql.sqlInserters.sqlInsertersGate(msg, 'log')
 	log(msg, 'l', logFile.rcon, null)
 	if(msg.identity > 1000) {
 		// Message has an identifier, should've been returned by a promise
