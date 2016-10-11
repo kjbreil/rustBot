@@ -25,8 +25,7 @@ exports.getAndDisplayPlayers = function() {
                 a = JSON.parse(a)
                 cpu.sql.sqlInserters.playerListToSQL(a)
     			let playersOnline = '[__**' + a.length + '**__][*listplayers*:***lp***][DisplayName : SteamID : Ping : Level : XP : Health]'
-    			let finalMessage = ''
-                playersOnline = a
+                let finalMessage = ''
     			for(var i in a) {
     				finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' | P:' + a[i].Ping + ' | L:'
     				finalMessage = finalMessage + a[i].CurrentLevel + ' | X:' + a[i].UnspentXp + ' | H:' + a[i].Health + ']'
