@@ -28,6 +28,45 @@ exports.sqlInsertersGate = function(line, type) {
 	}
 }
 
+exports.pvpNonSleeper = function(line) {
+	let pvpRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] \w+ (killed) \w+? (.+?)\[(\d+)\/(\d+?)\]$/)
+	pvp = pvpRE.exec(line)
+	// console.log(pvp[3])
+	knex(config.dbTables.death).insert( {
+		victim_steamid: pvp[3],
+		victim_name: pvp[1],
+		killer_steamid: pvp[7],
+		killer_name: pvp[5],
+		pvp: true,
+		sleeper: false,
+		line: line
+	}).then(function() {
+	console.log('sleeper inserted')
+	}).catch(function(err) {
+		console.log('sleeper insert failed' + err)
+	})
+}
+
+exports.pvpSleeper = function(line) {
+	let pvpRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] \w+ (killed) \w+? (.+?)\[(\d+)\/(\d+?)\]$/)
+	pvp = pvpRE.exec(line)
+	// console.log('no pa found')
+	knex(config.dbTables.death).insert( {
+		victim_steamid: pvp[3],
+		victim_name: pvp[1],
+		killer_steamid: pvp[7],
+		killer_name: pvp[5],
+		pvp: true,
+		sleeper: true,
+		line: line
+	}).then(function() {
+		console.log('pvp inserted')
+	}).catch(function(err) {
+		console.log('pvp insert failed' + err)
+	})
+}
+
+
 deathToSql = function(line) {
 	let pvpRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] \w+ (killed) \w+? (.+?)\[(\d+)\/(\d+?)\]$/)
 	let killedRE = RegExp(/(.+?)\[(\d+)\/(\d+)\] was (killed) by (\w+)/)
@@ -37,43 +76,45 @@ deathToSql = function(line) {
 
 		if(pvp = pvpRE.exec(line)) {
 			// line = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
-			console.log(pvp[3])
-		    rust.rconListPlayers.getPlayerIsOnline(pvp[3]).then(function (pa) {
-		    	console.log('after get player' + pa)
-		    	if(pa) { console.log('pa found')
-					knex(config.dbTables.death).insert( {
-						victim_steamid: pvp[3],
-						victim_name: pvp[1],
-						killer_steamid: pvp[7],
-						killer_name: pvp[5],
-						pvp: true,
-						sleeper: false,
-						line: line
-					}).then(function() {
-						console.log('sleeper inserted')
-						reject()
-					}).catch(function(err) {
-						console.log('sleeper insert failed')
-					})
-		    	} else { console.log('no pa found')
-					knex(config.dbTables.death).insert( {
-						victim_steamid: pvp[3],
-						victim_name: pvp[1],
-						killer_steamid: pvp[7],
-						killer_name: pvp[5],
-						pvp: true,
-						sleeper: true,
-						line: line
-					}).then(function() {
-						console.log('pvp inserted')
-						reject()
-					}).catch(function(err) {
-						console.log('pvp insert failed')
-					})
-		    	}
-		    }).catch(function(err) {
-				console.log('online check')
-			})
+			// console.log('STEAMID: ' + pvp[3])
+		 //    rust.rconListPlayers.getPlayerIsOnline(pvp[3]).then(function (pa) {
+		 //    	console.log('after get player')
+		 //    	console.log(pa === undefined)
+		 //    	if(pa) { console.log('pa found')
+			// 		knex(config.dbTables.death).insert( {
+			// 			victim_steamid: pvp[3],
+			// 			victim_name: pvp[1],
+			// 			killer_steamid: pvp[7],
+			// 			killer_name: pvp[5],
+			// 			pvp: true,
+			// 			sleeper: false,
+			// 			line: line
+			// 		}).then(function() {
+			// 			console.log('sleeper inserted')
+			// 			reject()
+			// 		}).catch(function(err) {
+			// 			console.log('sleeper insert failed')
+			// 		})
+		 //    	} else { console.log('no pa found')
+			// 		knex(config.dbTables.death).insert( {
+			// 			victim_steamid: pvp[3],
+			// 			victim_name: pvp[1],
+			// 			killer_steamid: pvp[7],
+			// 			killer_name: pvp[5],
+			// 			pvp: true,
+			// 			sleeper: true,
+			// 			line: line
+			// 		}).then(function() {
+			// 			console.log('pvp inserted')
+			// 			reject()
+			// 		}).catch(function(err) {
+			// 			console.log('pvp insert failed')
+			// 		})
+		 //    	}
+		 //    }).catch(function(err) {
+			// 	console.log('online check')
+			// })
+			resolve()
 
 		} else if (killed = killedRE.exec(line)) {
 			knex(config.dbTables.death).insert( {
