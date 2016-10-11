@@ -46,14 +46,9 @@ logAllRcon = function(line) {
 	})
 }
 exports.playerListToSQL = function(playerList) {
-
-	console.log(playerList)
 	for(let i in playerList) {
-		console.log(playerList[i].Address)
 		let ip = playerList[i].Address.substr(0, playerList[i].Address.indexOf(":"))
 		let port = playerList[i].Address.substr(playerList[i].Address.indexOf(":") + 1)
-		console.log(ip)
-		console.log(port)
 		knex(config.dbTables.playerlist).insert( {
 			steamid: playerList[i].SteamID,
 			ownersteamid: playerList[i].OwnerSteamID,
@@ -66,7 +61,7 @@ exports.playerListToSQL = function(playerList) {
 			unspentxp: playerList[i].UnspentXp,
 			health: playerList[i].Health
 		}).then(function() {
-			console.log('playerlist inserted')
+			console.log('player inserted')
 		})
 	}
 }
