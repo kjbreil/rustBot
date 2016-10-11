@@ -53,8 +53,8 @@ exports.getPlayerArray = function() {
 
 exports.getPlayerIsOnline = function(si) {
     return new Promise(function (resolve, reject) {
-        console.log(si)
         rust.rconListPlayers.getPlayerArray().then(function (po) {
+            consol.log('get player array ' + po)
             po = JSON.parse(po)
             resolve(po.find(findBySteamId.bind(this, si)));
         }).catch(function (err) {

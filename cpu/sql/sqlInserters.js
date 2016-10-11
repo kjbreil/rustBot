@@ -39,8 +39,8 @@ deathToSql = function(line) {
 			// line = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
 			console.log(pvp[3])
 		    rust.rconListPlayers.getPlayerIsOnline(pvp[3]).then(function (pa) {
-		    	console.log(pa)
-		    	if(pa) {
+		    	console.log('after get player' + pa)
+		    	if(pa) { console.log('pa found')
 					knex(config.dbTables.death).insert( {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
@@ -55,7 +55,7 @@ deathToSql = function(line) {
 					}).catch(function(err) {
 						console.log('sleeper insert failed')
 					})
-		    	} else {
+		    	} else { console.log('no pa found')
 					knex(config.dbTables.death).insert( {
 						victim_steamid: pvp[3],
 						victim_name: pvp[1],
