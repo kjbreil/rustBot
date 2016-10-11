@@ -63,6 +63,7 @@ createPlayerListDB = function(tableName) {
 						table.integer('port')
 						table.integer('connectedseconds')
 						table.decimal('violationlevel')
+						table.decimal('currentlevel')
 						table.decimal('unspentxp')
 						table.decimal('health')
 					}).then(function (make) {

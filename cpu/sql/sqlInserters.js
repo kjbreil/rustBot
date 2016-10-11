@@ -57,6 +57,7 @@ exports.playerListToSQL = function(playerList) {
 			ip: ip,
 			port: port,
 			connectedseconds: playerList[i].ConnectedSeconds,
+			currentlevel: playerlist[i].CurrentLevel,
 			violationlevel: playerList[i].VoiationLevel,
 			unspentxp: playerList[i].UnspentXp,
 			health: playerList[i].Health
