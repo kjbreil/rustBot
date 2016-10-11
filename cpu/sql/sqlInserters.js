@@ -41,7 +41,7 @@ exports.pvpNonSleeper = function(line) {
 		sleeper: false,
 		line: line
 	}).then(function() {
-	console.log('sleeper inserted')
+	console.log('pvp inserted')
 	}).catch(function(err) {
 		console.log('sleeper insert failed' + err)
 	})
@@ -60,7 +60,7 @@ exports.pvpSleeper = function(line) {
 		sleeper: true,
 		line: line
 	}).then(function() {
-		console.log('pvp inserted')
+		console.log('sleeper inserted')
 	}).catch(function(err) {
 		console.log('pvp insert failed' + err)
 	})
