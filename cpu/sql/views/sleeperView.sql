@@ -9,8 +9,8 @@ SELECT
        klst.currentlevel as killer_level,
        klst.ping as killer_ping
 FROM death dt 
-JOIN laststats vlst ON dt.victim_steamid = vlst.steamid
-JOIN laststats klst ON dt.killer_steamid = klst.steamid
+CROSS JOIN laststats vlst ON dt.victim_steamid = vlst.steamid
+CROSS JOIN laststats klst ON dt.killer_steamid = klst.steamid
 WHERE dt.created_at > (now() - interval '36 hour')
   AND dt.pvp = TRUE
   AND dt.sleeper = TRUE
