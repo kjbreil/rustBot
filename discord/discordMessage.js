@@ -35,15 +35,19 @@ exports.discordSendMessage = function(msg, pChannel){
     let datetime = dateFormat(new Date(), "[mm-dd-yy hh:MM:ss] ")
     let time = dateFormat(new Date(), '[HH:MM:ss] ')
     let channel = bot.channels.find('name', pChannel)
+    // channel.startTyping()
     switch (pChannel){
     	case (config.discordRooms.log):
-    		channel.sendMessage(datetime + msg)
+    		channel.sendMessage(datetime + msg, split=1)
+            channel.stopTyping(true)
     		break;
     	case (config.discordRooms.bot):
-    		channel.sendMessage(datetime + msg)
+    		channel.sendMessage(datetime + msg, split=1)
+            channel.stopTyping(true)
     		break;
     	default:
-    		channel.sendMessage(time + msg)
+    		channel.sendMessage(time + msg, split=1)
+            channel.stopTyping(true)
     }
 }
 

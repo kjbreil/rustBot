@@ -64,7 +64,7 @@ rcon.on('connect', () => {
     	rust.rconMessage.rconMessageGate(msg)
 	})
 	bot.on('message', (msg) => {
-		// console.log('DISCORD MESSAGE')
+		// console.log(msg)
 		discord.discordMessage.discordMessageGate(msg)
 	})
 
