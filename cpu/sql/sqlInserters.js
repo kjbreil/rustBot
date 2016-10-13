@@ -367,7 +367,7 @@ insertUserServerStats = function(steamid) {
 			sql.push(msg.stats[i])
 		}
 		console.log('in user server')
-		sqlSelectSteamStatsLastConnect().then(function(sqlstats) {
+		sqlSelectSteamStatsLastConnect(steamid).then(function(sqlstats) {
 			knex(config.dbTables.steamstats_server).insert( {
 				steamid: (sqlstats[0].steamid),
 				deaths: (sql[1].value - sqlstats[0].deaths),
@@ -440,10 +440,11 @@ insertUserServerStats = function(steamid) {
 
 
 
-sqlSelectSteamStatsLastConnect = function() {
+sqlSelectSteamStatsLastConnect = function(steamid) {
 	return new Promise(function(resolve, reject) {
-		console.log('inside')
-		knex.select('*').from('vSteamStatsLastConnect').then(function(msg) {
+		// console.log('inside')
+		knex.select('*').from('steamstats_audit').where( {steamid: steamid} ).limit(1).orderBy('created_at', 'desc').then(function(msg) {
+			// console.log(msg)
 			resolve(msg)
 		}).catch(function(err) {
 		console.log(err)
