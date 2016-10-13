@@ -281,7 +281,7 @@ chatLogToSQL = function(line) {
 insertUserStats = function(steamid, connect) {
 	userStats.GetUserStatsForGame('252490', steamid).then(function(msg) {
 		let sql = []
-		sql.push({name: 'steamid', value: steamid})
+		sql.push({name: 'steamid', value: msg.steamID})
 		for(let i in msg.stats) {
 			sql.push(msg.stats[i])
 		}
@@ -363,7 +363,7 @@ insertUserStats = function(steamid, connect) {
 insertUserServerStats = function(steamidpass) {
 	userStats.GetUserStatsForGame('252490', steamidpass).then(function(msg) {
 		let sql = []
-		sql.push({name: 'steamid', value: steamidpass})
+		sql.push({name: 'steamid', value: msg.steamID})
 		for(let i in msg.stats) {
 			sql.push(msg.stats[i])
 		}
