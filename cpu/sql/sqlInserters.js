@@ -292,6 +292,7 @@ insertUserStats = function(steamid, connect) {
 			// console.log('in if')
 		}
 		// console.log(sql[0].value)
+		console.log(sql)
 		knex(config.dbTables.steamstats_audit).insert( {
 			onconnect: connect,
 			steamid: sql[0].value,
