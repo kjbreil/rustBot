@@ -10,6 +10,7 @@ SELECT victim_steamid,
 FROM death
 WHERE created_at > (now() - '24:00:00'::interval)
 GROUP BY victim_steamid,
-         victim_name
+         victim_name;
+         
 ALTER TABLE public."vDeathStats" OWNER TO rustbot;
 
