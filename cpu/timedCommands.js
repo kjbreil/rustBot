@@ -1,9 +1,13 @@
 // timedCommands.js
 
-let playerListSCH = setInterval(function () { 
-    rcon.Command('global.playerlist', 'displayPlayers.discordDisplayPlayers'); 
-}, 600000); 
+exports.runTimedCommands = function() {
+	setTimeout(function(){
+		rust.rconListPlayers.getAndDisplayPlayers()
+	}, 1000)
 
-exports.startSchCmds = function() {
-	playerListSCH
+	setTimeout(function(){
+		cpu.sql.sqlInserters.manualRefreshSteamStatsConnected()
+	}, 10000)
 }
+
+

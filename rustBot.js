@@ -33,11 +33,10 @@ rcon.on('connect', () => {
 	bot.on('ready', () => {
 		console.log('CONNECTED: DISCORD')
 		// rust.rconListPlayers.getPlayerIsOnline('76561198125564678').then(function (msg) {console.log(msg)})
-		setTimeout(function(){
-			rust.rconListPlayers.getAndDisplayPlayers()
-			// cpu.sql.sqlInserters.sqlInsertersGate('Rygus[159208/76561198125564678] was killed by hellsboy[44256/76561198030172959]', 'death')
-		}, 1000)
+
+
 		cpu.scheduledCommands.runScheduledCommands()
+		cpu.timedCommands.runTimedCommands()
 
 		rcon.on('disconnect', () => {
 		    console.log('RCON DISCONNECTED')

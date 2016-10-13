@@ -32,6 +32,7 @@ exports.getAndDisplayPlayers = function() {
     			}
     			log(playersOnline + finalMessage, 'ld', logFile.rustbot, discordRoom.rcon)
     		} else {
+                cpu.sql.sqlInserters.noPlayersToSql(a)
     			log('[__**0**__][*listplayers*:***lp***][DisplayName | SteamID | Ping | Level | XP | Health]', 'ld', logFile.rustbot, discordRoom.rcon)
     		}
         })

@@ -31,7 +31,18 @@ const CronJob = require('cron').CronJob
 exports.runScheduledCommands = function() {
 	console.log('INSERTING SCHEDULED COMMANDS')
 	rconRestartServer.start()
+	manualRefreshStats.start()
 }
+
+var manualRefreshStats = new CronJob({
+	cronTime: '0 */15 * * * *',
+	onTick: function() {
+		console.log('REFRESHING PLAYER STATS')
+		cpu.sql.sqlInserters.manualRefreshSteamStatsConnected()
+	},
+	start: false,
+	timeZone: 'America/Los_Angeles'
+})
 
 var rconRestartServer = new CronJob({
 	cronTime: '00 45 2 * * *',

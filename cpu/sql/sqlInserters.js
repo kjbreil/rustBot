@@ -43,9 +43,9 @@ logAllRcon = function(line) {
 		knex(config.dbTables.log).insert( {
 			log: line
 		}).then(function() {
-		console.log('log inserted')
+		// console.log('log inserted')
 		}).catch(function(err) {
-			console.log('log insert failed' + err)
+			console.log('LOG INSERT FAILED' + err)
 		})		
 	})
 }
@@ -66,9 +66,17 @@ exports.playerListToSQL = function(playerList) {
 			unspentxp: playerList[i].UnspentXp,
 			health: playerList[i].Health
 		}).then(function() {
-			console.log('player inserted')
+			console.log('PLAYER: ' + playerList[i].SteamID + ' INSERTED INTO PLAYER LIST')
 		})
 	}
+}
+exports.noPlayersToSql = function(playerList) {
+		knex(config.dbTables.playerlist).insert( {
+			steamid: 0,
+			ownersteamid: 0
+		}).then(function() {
+			console.log('NO PLAYERS ONLINE: PLAYERLIST UPDATED')
+		})
 }
 
 exports.pvpNonSleeper = function(line) {
@@ -84,9 +92,9 @@ exports.pvpNonSleeper = function(line) {
 		sleeper: false,
 		line: line
 	}).then(function() {
-	console.log('pvp inserted')
+	console.log('PVP EVENT INSERTED')
 	}).catch(function(err) {
-		console.log('pvp insert failed' + err)
+		console.log('PVP INSERT FAILED: ' + err)
 	})
 }
 
@@ -103,9 +111,9 @@ exports.pvpSleeper = function(line) {
 		sleeper: true,
 		line: line
 	}).then(function() {
-		console.log('sleeper inserted')
+		console.log('SLEEPER EVENT INSERTED')
 	}).catch(function(err) {
-		console.log('sleeper insert failed' + err)
+		console.log('SLEEPER INSERT FAILED: ' + err)
 	})
 }
 
@@ -118,47 +126,7 @@ deathToSql = function(line) {
 	return new Promise(function(resolve, reject) {
 
 		if(pvp = pvpRE.exec(line)) {
-			// line = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
-			// console.log('STEAMID: ' + pvp[3])
-		 //    rust.rconListPlayers.getPlayerIsOnline(pvp[3]).then(function (pa) {
-		 //    	console.log('after get player')
-		 //    	console.log(pa === undefined)
-		 //    	if(pa) { console.log('pa found')
-			// 		knex(config.dbTables.death).insert( {
-			// 			victim_steamid: pvp[3],
-			// 			victim_name: pvp[1],
-			// 			killer_steamid: pvp[7],
-			// 			killer_name: pvp[5],
-			// 			pvp: true,
-			// 			sleeper: false,
-			// 			line: line
-			// 		}).then(function() {
-			// 			console.log('sleeper inserted')
-			// 			reject()
-			// 		}).catch(function(err) {
-			// 			console.log('sleeper insert failed')
-			// 		})
-		 //    	} else { console.log('no pa found')
-			// 		knex(config.dbTables.death).insert( {
-			// 			victim_steamid: pvp[3],
-			// 			victim_name: pvp[1],
-			// 			killer_steamid: pvp[7],
-			// 			killer_name: pvp[5],
-			// 			pvp: true,
-			// 			sleeper: true,
-			// 			line: line
-			// 		}).then(function() {
-			// 			console.log('pvp inserted')
-			// 			reject()
-			// 		}).catch(function(err) {
-			// 			console.log('pvp insert failed')
-			// 		})
-		 //    	}
-		 //    }).catch(function(err) {
-			// 	console.log('online check')
-			// })
 			resolve()
-
 		} else if (killed = killedRE.exec(line)) {
 			knex(config.dbTables.death).insert( {
 					victim_steamid: killed[3],
@@ -277,85 +245,36 @@ chatLogToSQL = function(line) {
 		})
 }
 
-
-insertUserStats = function(steamid, connect) {
-	userStats.GetUserStatsForGame('252490', steamid).then(function(msg) {
-		let sql = []
-		sql.push({name: 'steamid', value: msg.steamID})
-		for(let i in msg.stats) {
-			sql.push(msg.stats[i])
+exports.manualRefreshSteamStatsConnected = function() {
+	knex.select('steamid').from('vConnectedPlayers').then(function(msg) {
+		for(i in msg) {
+			setTimeout(function() {
+				console.log('REFRESH STATS FOR: ' + msg[i].steamid)
+				insertUserStats(msg[i].steamid, false, true)
+			}, 3000 * i)
+			
 		}
-		console.log(!connect)
+	}).catch(function(err) {
+		console.log(err)
+	})
+}
+
+insertUserStats = function(si, connect, manual) {
+	userStats.GetUserStatsForGame('252490', si).then(function(steamStats) {
 		if(!connect) {
-			insertUserServerStats(sql[0].value)
-
-			// console.log('in if')
+			insertUserServerStats(si, steamStats)
 		}
-		// console.log(sql[0].value)
-		console.log(sql)
+		if(manual) {
+			connect = true
+		}
 		knex(config.dbTables.steamstats_audit).insert( {
-			onconnect: connect,
-			steamid: sql[0].value,
-			deaths: sql[1].value,
-			bulletfired: sql[2].value,
-			arrowfired: sql[3].value,
-			itemdrop: sql[4].value,
-			blueprintstudied:sql[5].value,
-			deathsuicide: sql[6].value,
-			deathfall: sql[7].value,
-			deathselfinflicted: sql[8].value,
-			killplayer: sql[9].value,
-			bullethitplayer: sql[10].value,
-			arrowhitentity: sql[11].value,
-			harvestfatanimal: sql[12].value,
-			harveststones: sql[13].value,
-			bullethitentity: sql[14].value,
-			harvestcloth: sql[15].value,
-			harvestwood: sql[16].value,
-			arrowhitbuilding: sql[17].value,
-			killbear: sql[18].value,
-			killboar: sql[19].value,
-			killstag: sql[20].value,
-			killchicken: sql[21].value,
-			killhorse: sql[22].value,
-			killwolf: sql[23].value,
-			harvestmetalore: sql[24].value,
-			headshot: sql[25].value,
-			harvestsulfurore: sql[26].value,
-			harvestbonefragments: sql[27].value,
-			harvesthumanmeatraw: sql[28].value,
-			arrowhitboar: sql[29].value,
-			arrowhitbear: sql[30].value,
-			arrowhitwolf: sql[31].value,
-			arrowhitstag: sql[32].value,
-			arrowhitchicke: sql[33].value,
-			bullethitbuilding: sql[33].value,
-			harvestwolfmeatraw: sql[34].value,
-			harvestskullhuma: sql[35].value,
-			harvestskullwolf: sql[36].value,
-			arrowhithorse: sql[37].value,
-			arrowhitplayer: sql[38].value,
-			deathentity: sql[39].value,
-			deathwolf: sql[40].value,
-			deathbear: sql[41].value,
-			shotgunfired: sql[42].value,
-			shotgunhitbuildin: sql[43].value,
-			bullethitbear: sql[44].value,
-			bullethithorse: sql[45].value,
-			bullethitstag: sql[46].value,
-			bullethitwolf: sql[47].value,
-			bullethitboar: sql[48].value,
-			bullethitsign: sql[49].value,
-			wounded: sql[50].value,
-			woundedassiste: sql[51].value,
-			woundedheale: sql[52].value,
-			bullethitplayercorpse: sql[53].value,
-			bullethitcorpse: sql[54].value
+			connect: connect,
+			steamid: steamStats.steamID,
+			stats: steamStats
 		}).then(function() {
-				console.log('holy shit it was inserted')
+				console.log('AUDIT STATS INSERTED')
 		}).catch(function(err) {
 			console.log(err)
-			console.log('PROFILE IS PRIVATE')
 		})
 	}).catch(function(err) {
 		// console.log(err)
@@ -363,97 +282,50 @@ insertUserStats = function(steamid, connect) {
 	})
 }
 
-insertUserServerStats = function(steamidpass) {
-	userStats.GetUserStatsForGame('252490', steamidpass).then(function(msg) {
-		let sql = []
-		sql.push({name: 'steamid', value: msg.steamID})
-		for(let i in msg.stats) {
-			sql.push(msg.stats[i])
+insertUserServerStats = function(si, steamStats) {
+	sqlSelectSteamStatsLastConnect(si).then(function(steamStatsAudit) {
+		// console.log(steamStats)
+		// console.log(steamStatsAudit)
+		let connectStats = steamStatsAudit[0].stats.stats
+		let currentStats = steamStats.stats
+		let statsJson = []
+		for(let i in connectStats) {
+			let valueName = connectStats[i].name
+			let connectValue = connectStats[i].value
+			let currentValue = currentStats.find(findName.bind(this, valueName)).value
+			// console.log(valueName + ': ' + (currentValue - connectValue))
+			statsJson.push({name: valueName, value: (currentValue - connectValue)})
+
 		}
-		// console.log('in user server')
-		sqlSelectSteamStatsLastConnect(steamidpass).then(function(sqlstats) {
-			knex(config.dbTables.steamstats_server).insert( {
-				steamid: (sqlstats[0].steamid),
-				deaths: (sql[1].value - sqlstats[0].deaths),
-				bulletfired: (sql[2].value - sqlstats[0].bulletfired),
-				arrowfired: (sql[3].value - sqlstats[0].arrowfired),
-				itemdrop: (sql[4].value - sqlstats[0].itemdrop),
-				blueprintstudied:(sql[5].value - sqlstats[0].blueprintstudied),
-				deathsuicide: (sql[6].value - sqlstats[0].deathsuicide),
-				deathfall: (sql[7].value - sqlstats[0].deathfall),
-				deathselfinflicted: (sql[8].value - sqlstats[0].deathselfinflicted),
-				killplayer: (sql[9].value - sqlstats[0].killplayer),
-				bullethitplayer: (sql[10].value - sqlstats[0].bullethitplayer),
-				arrowhitentity: (sql[11].value - sqlstats[0].arrowhitentity),
-				harvestfatanimal: (sql[12].value - sqlstats[0].harvestfatanimal),
-				harveststones: (sql[13].value - sqlstats[0].harveststones),
-				bullethitentity: (sql[14].value - sqlstats[0].bullethitentity),
-				harvestcloth: (sql[15].value - sqlstats[0].harvestcloth),
-				harvestwood: (sql[16].value - sqlstats[0].harvestwood),
-				arrowhitbuilding: (sql[17].value - sqlstats[0].arrowhitbuilding),
-				killbear: (sql[18].value - sqlstats[0].killbear),
-				killboar: (sql[19].value - sqlstats[0].killboar),
-				killstag: (sql[20].value - sqlstats[0].killstag),
-				killchicken: (sql[21].value - sqlstats[0].killchicken),
-				killhorse: (sql[22].value - sqlstats[0].killhorse),
-				killwolf: (sql[23].value - sqlstats[0].killwolf),
-				harvestmetalore: (sql[24].value - sqlstats[0].harvestmetalore),
-				headshot: (sql[25].value - sqlstats[0].headshot),
-				harvestsulfurore: (sql[26].value - sqlstats[0].harvestsulfurore),
-				harvestbonefragments: (sql[27].value - sqlstats[0].harvestbonefragments),
-				harvesthumanmeatraw: (sql[28].value - sqlstats[0].harvesthumanmeatraw),
-				arrowhitboar: (sql[29].value - sqlstats[0].arrowhitboar),
-				arrowhitbear: (sql[30].value - sqlstats[0].arrowhitbear),
-				arrowhitwolf: (sql[31].value - sqlstats[0].arrowhitwolf),
-				arrowhitstag: (sql[32].value - sqlstats[0].arrowhitstag),
-				arrowhitchicke: (sql[33].value - sqlstats[0].arrowhitchicke),
-				bullethitbuilding: (sql[33].value - sqlstats[0].bullethitbuilding),
-				harvestwolfmeatraw: (sql[34].value - sqlstats[0].harvestwolfmeatraw),
-				harvestskullhuma: (sql[35].value - sqlstats[0].harvestskullhuma),
-				harvestskullwolf: (sql[36].value - sqlstats[0].harvestskullwolf),
-				arrowhithorse: (sql[37].value - sqlstats[0].arrowhithorse),
-				arrowhitplayer: (sql[38].value - sqlstats[0].arrowhitplayer),
-				deathentity: (sql[39].value - sqlstats[0].deathentity),
-				deathwolf: (sql[40].value - sqlstats[0].deathwolf),
-				deathbear: (sql[41].value - sqlstats[0].deathbear),
-				shotgunfired: (sql[42].value - sqlstats[0].shotgunfired),
-				shotgunhitbuildin: (sql[43].value - sqlstats[0].shotgunhitbuildin),
-				bullethitbear: (sql[44].value - sqlstats[0].bullethitbear),
-				bullethithorse: (sql[45].value - sqlstats[0].bullethithorse),
-				bullethitstag: (sql[46].value - sqlstats[0].bullethitstag),
-				bullethitwolf: (sql[47].value - sqlstats[0].bullethitwolf),
-				bullethitboar: (sql[48].value - sqlstats[0].bullethitboar),
-				bullethitsign: (sql[49].value - sqlstats[0].bullethitsign),
-				wounded: (sql[50].value - sqlstats[0].wounded),
-				woundedassiste: (sql[51].value - sqlstats[0].woundedassiste),
-				woundedheale: (sql[52].value - sqlstats[0].woundedheale),
-				bullethitplayercorpse: (sql[53].value - sqlstats[0].bullethitplayercorpse),
-				bullethitcorpse: (sql[54].value - sqlstats[0].bullethitcorpse)
-			}).then(function() {
-					console.log('holy shit it was inserted again')
-			}).catch(function(err) {
-				console.log(err)
-			})
+		knex(config.dbTables.steamstats_server).insert( {
+			steamid: steamStats.steamID,
+			connect_time: steamStatsAudit[0].connected_at,
+			stats: JSON.stringify(statsJson)
+		}).then(function() {
+				console.log('SERVER STATS INSERTED')
 		}).catch(function(err) {
-		console.log(err)
+			console.log(err)
+		})
 	}).catch(function(err) {
 		console.log(err)
 	})
-})
 }
-
-
-
-sqlSelectSteamStatsLastConnect = function(steamidstatspass) {
+sqlSelectSteamStatsLastConnect = function(si) {
 	return new Promise(function(resolve, reject) {
-		// console.log('inside')
-		knex.select('*').from('steamstats_audit').where( {steamid: steamidstatspass} ).limit(1).orderBy('created_at', 'desc').then(function(msg) {
-			// console.log(msg)
-			resolve(msg)
+		knex.select('*').from('steamstats_audit').where( {connect: true, steamid: si} ).limit(1).orderBy('created_at', 'desc').then(function(msg) {
+			if(msg.length < 1) {
+				reject('NO VALUES RETURNED')
+			} else {
+				resolve(msg)
+			}
 		}).catch(function(err) {
-		console.log(err)
+			console.log(err)
+			reject()
 		})
 	})
 }
 
+findName = function(name, f) { 
+    return (f.name === name)
+}
 
