@@ -15,17 +15,20 @@ exports.rustGenericGate = function(msg) {
 		log('GenericEvent ' + msg.message, 'l', logFile.rustbot, null)
 	} else if (clientRE.test(msg.message)) {
 		// console.log(msg)
-		log(msg.message, 'ld', logFile.connect, discordRoom.log)
-		cpu.sql.sqlInserters.sqlInsertersGate(msg.message, 'connect')
-		if (listPlayersUnlock) {
-			listPlayersUnlock = null
-			setTimeout(function(){
-				rust.rconListPlayers.getAndDisplayPlayers()
-				listPlayersUnlock = 1
-			}, 15000)
-		}
-		
+		rustClientMessage(msg)
 	} else {
 		log('Generic Nothing ' + msg.message, 'l', logFile.rustbot, null)
+	}
+}
+
+rustClientMessage = function(msg) {
+	log(msg.message, 'ld', logFile.connect, discordRoom.log)
+	cpu.sql.sqlInserters.sqlInsertersGate(msg.message, 'connect')
+	if (listPlayersUnlock) {
+		listPlayersUnlock = null
+		setTimeout(function(){
+			rust.rconListPlayers.getAndDisplayPlayers()
+			listPlayersUnlock = 1
+		}, 15000)
 	}
 }

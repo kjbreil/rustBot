@@ -44,7 +44,168 @@ createTableFromConfig = function(tableName) {
 				console.log('PLAYERLIST DB: ' + tableName + ' CHECK COMPLETE')
 			})
 			break;
+		case(config.dbTables.steamstats_audit):
+			createSteamStatsAuditDB(tableName).then(function(){
+				console.log('steamstats_audit DB: ' + tableName + ' CHECK COMPLETE')
+			})
+			break;
+		case(config.dbTables.steamstats_server):
+			createSteamStatsServerDB(tableName).then(function(){
+				console.log('steamstats_server DB: ' + tableName + ' CHECK COMPLETE')
+			})
+			break;
 	}
+}
+
+createSteamStatsServerDB = function(tableName) {
+	return new Promise(function(resolve, reject) {
+		knex.schema.hasTable(tableName)
+		    .then(function(exists) {
+		    	if(!exists) {
+					knex.schema.createTable(tableName,function(table){
+						table.increments()
+						table.timestamps(true, true)
+						table.bigint('steamid')
+						table.integer('deaths')
+						table.integer('bulletfired')
+						table.integer('arrowfired')
+						table.integer('itemdrop')
+						table.integer('blueprintstudied')
+						table.integer('deathsuicide')
+						table.integer('deathfall')
+						table.integer('deathselfinflicted')
+						table.integer('killplayer')
+						table.integer('bullethitplayer')
+						table.integer('arrowhitentity')
+						table.integer('harvestfatanimal')
+						table.integer('harveststones')
+						table.integer('bullethitentity')
+						table.integer('harvestcloth')
+						table.integer('harvestwood')
+						table.integer('arrowhitbuilding')
+						table.integer('killbear')
+						table.integer('killboar')
+						table.integer('killstag')
+						table.integer('killchicken')
+						table.integer('killhorse')
+						table.integer('killwolf')
+						table.integer('harvestmetalore')
+						table.integer('headshot')
+						table.integer('harvestsulfurore')
+						table.integer('harvestbonefragments')
+						table.integer('harvesthumanmeatraw')
+						table.integer('arrowhitboar')
+						table.integer('arrowhitbear')
+						table.integer('arrowhitwolf')
+						table.integer('arrowhitstag')
+						table.integer('arrowhitchicke')
+						table.integer('bullethitbuilding')
+						table.integer('harvestwolfmeatraw')
+						table.integer('harvestskullhuma')
+						table.integer('harvestskullwolf')
+						table.integer('arrowhithorse')
+						table.integer('arrowhitplayer')
+						table.integer('deathentity')
+						table.integer('deathwolf')
+						table.integer('deathbear')
+						table.integer('shotgunfired')
+						table.integer('shotgunhitbuildin')
+						table.integer('bullethitbear')
+						table.integer('bullethithorse')
+						table.integer('bullethitstag')
+						table.integer('bullethitwolf')
+						table.integer('bullethitboar')
+						table.integer('bullethitsign')
+						table.integer('wounded')
+						table.integer('woundedassiste')
+						table.integer('woundedheale')
+						table.integer('bullethitplayercorpse')
+						table.integer('bullethitcorpse')
+					}).then(function (make) {
+						console.log('STEAM_AUDIT DB: ' + tableName + ' CREATED')
+						resolve()
+					})
+				} else {
+					resolve()
+				}
+			})
+	})
+}
+
+createSteamStatsAuditDB = function(tableName) {
+	return new Promise(function(resolve, reject) {
+		knex.schema.hasTable(tableName)
+		    .then(function(exists) {
+		    	if(!exists) {
+					knex.schema.createTable(tableName,function(table){
+						table.increments()
+						table.timestamps(true, true)
+						table.boolean('onconnect')
+						table.bigint('steamid')
+						table.integer('deaths')
+						table.integer('bulletfired')
+						table.integer('arrowfired')
+						table.integer('itemdrop')
+						table.integer('blueprintstudied')
+						table.integer('deathsuicide')
+						table.integer('deathfall')
+						table.integer('deathselfinflicted')
+						table.integer('killplayer')
+						table.integer('bullethitplayer')
+						table.integer('arrowhitentity')
+						table.integer('harvestfatanimal')
+						table.integer('harveststones')
+						table.integer('bullethitentity')
+						table.integer('harvestcloth')
+						table.integer('harvestwood')
+						table.integer('arrowhitbuilding')
+						table.integer('killbear')
+						table.integer('killboar')
+						table.integer('killstag')
+						table.integer('killchicken')
+						table.integer('killhorse')
+						table.integer('killwolf')
+						table.integer('harvestmetalore')
+						table.integer('headshot')
+						table.integer('harvestsulfurore')
+						table.integer('harvestbonefragments')
+						table.integer('harvesthumanmeatraw')
+						table.integer('arrowhitboar')
+						table.integer('arrowhitbear')
+						table.integer('arrowhitwolf')
+						table.integer('arrowhitstag')
+						table.integer('arrowhitchicke')
+						table.integer('bullethitbuilding')
+						table.integer('harvestwolfmeatraw')
+						table.integer('harvestskullhuma')
+						table.integer('harvestskullwolf')
+						table.integer('arrowhithorse')
+						table.integer('arrowhitplayer')
+						table.integer('deathentity')
+						table.integer('deathwolf')
+						table.integer('deathbear')
+						table.integer('shotgunfired')
+						table.integer('shotgunhitbuildin')
+						table.integer('bullethitbear')
+						table.integer('bullethithorse')
+						table.integer('bullethitstag')
+						table.integer('bullethitwolf')
+						table.integer('bullethitboar')
+						table.integer('bullethitsign')
+						table.integer('wounded')
+						table.integer('woundedassiste')
+						table.integer('woundedheale')
+						table.integer('bullethitplayercorpse')
+						table.integer('bullethitcorpse')
+					}).then(function (make) {
+						console.log('STEAM_AUDIT DB: ' + tableName + ' CREATED')
+						resolve()
+					})
+				} else {
+					resolve()
+				}
+			})
+	})
 }
 
 createPlayerListDB = function(tableName) {
@@ -54,7 +215,8 @@ createPlayerListDB = function(tableName) {
 		    	if(!exists) {
 					knex.schema.createTable(tableName,function(table){
 						table.increments()
-						table.timestamp(true, true)
+						table.timestamps(true, true)
+						table.boolean('onconnect')
 						table.bigint('steamid')
 						table.bigint('ownersteamid')
 						table.text('name')

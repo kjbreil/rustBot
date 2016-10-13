@@ -1,7 +1,7 @@
 -- rustBotSqlViews.sql
  -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:xxxxxx@localhost/rustbot"
 
-CREATE OR REPLACE VIEW public.vConnectedPlayers AS
+CREATE OR REPLACE VIEW public."vConnectedPlayers" AS
 SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
        pl.steamid,
        pl.name,
@@ -27,7 +27,7 @@ WHERE to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) = (
                                                                 ORDER BY playerlist.created_at DESC LIMIT 1));
 
 
-ALTER TABLE public.vConnectedPlayers OWNER TO rustbot;
+ALTER TABLE public."vConnectedPlayers" OWNER TO rustbot;
 
 
 CREATE OR REPLACE VIEW public."vLastStats" AS
@@ -66,7 +66,7 @@ JOIN "vLastStats" vls ON ct.steamid = vls.steamid
 WHERE ct.disconnect = TRUE
   AND ct.steamid NOT IN
     (SELECT steamid
-     FROM vconnectedplayers)
+     FROM "vConnectedPlayers")
   AND ct.created_at > (now() - interval '24 hour')
 GROUP BY ct.steamid,
          ct.name,
@@ -106,8 +106,7 @@ SELECT victim_steamid,
        victim_name,
        COUNT(pvp) AS pvp,
        COUNT(sleeper) AS sleeper,
-       COUNT(died) AS died,
-       COUNT(killed) AS waskilled,
+       COUNT(died) + COUNT(killed) AS died,
        COUNT(suicide) AS suicided
 FROM death
 WHERE created_at > (now() - '24:00:00'::interval)
