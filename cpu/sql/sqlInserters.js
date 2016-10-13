@@ -280,86 +280,83 @@ chatLogToSQL = function(line) {
 
 insertUserStats = function(steamid, connect) {
 	userStats.GetUserStatsForGame('252490', steamid).then(function(msg) {
-		if(msg.status) {
-			console.log('Problem occured')
-		} else {
-			let sql = []
-			sql.push({name: 'steamid', value: msg.steamID})
-			for(let i in msg.stats) {
-				sql.push(msg.stats[i])
-			}
-			console.log(!connect)
-			if(!connect) {
-				insertUserServerStats(sql[0].value)
-
-				// console.log('in if')
-			}
-			// console.log(sql[0].value)
-			console.log(sql)
-			knex(config.dbTables.steamstats_audit).insert( {
-				onconnect: connect,
-				steamid: sql[0].value,
-				deaths: sql[1].value,
-				bulletfired: sql[2].value,
-				arrowfired: sql[3].value,
-				itemdrop: sql[4].value,
-				blueprintstudied:sql[5].value,
-				deathsuicide: sql[6].value,
-				deathfall: sql[7].value,
-				deathselfinflicted: sql[8].value,
-				killplayer: sql[9].value,
-				bullethitplayer: sql[10].value,
-				arrowhitentity: sql[11].value,
-				harvestfatanimal: sql[12].value,
-				harveststones: sql[13].value,
-				bullethitentity: sql[14].value,
-				harvestcloth: sql[15].value,
-				harvestwood: sql[16].value,
-				arrowhitbuilding: sql[17].value,
-				killbear: sql[18].value,
-				killboar: sql[19].value,
-				killstag: sql[20].value,
-				killchicken: sql[21].value,
-				killhorse: sql[22].value,
-				killwolf: sql[23].value,
-				harvestmetalore: sql[24].value,
-				headshot: sql[25].value,
-				harvestsulfurore: sql[26].value,
-				harvestbonefragments: sql[27].value,
-				harvesthumanmeatraw: sql[28].value,
-				arrowhitboar: sql[29].value,
-				arrowhitbear: sql[30].value,
-				arrowhitwolf: sql[31].value,
-				arrowhitstag: sql[32].value,
-				arrowhitchicke: sql[33].value,
-				bullethitbuilding: sql[33].value,
-				harvestwolfmeatraw: sql[34].value,
-				harvestskullhuma: sql[35].value,
-				harvestskullwolf: sql[36].value,
-				arrowhithorse: sql[37].value,
-				arrowhitplayer: sql[38].value,
-				deathentity: sql[39].value,
-				deathwolf: sql[40].value,
-				deathbear: sql[41].value,
-				shotgunfired: sql[42].value,
-				shotgunhitbuildin: sql[43].value,
-				bullethitbear: sql[44].value,
-				bullethithorse: sql[45].value,
-				bullethitstag: sql[46].value,
-				bullethitwolf: sql[47].value,
-				bullethitboar: sql[48].value,
-				bullethitsign: sql[49].value,
-				wounded: sql[50].value,
-				woundedassiste: sql[51].value,
-				woundedheale: sql[52].value,
-				bullethitplayercorpse: sql[53].value,
-				bullethitcorpse: sql[54].value
-			}).then(function() {
-					console.log('holy shit it was inserted')
-			}).catch(function(err) {
-				console.log(err)
-			})
+		let sql = []
+		sql.push({name: 'steamid', value: msg.steamID})
+		for(let i in msg.stats) {
+			sql.push(msg.stats[i])
 		}
+		console.log(!connect)
+		if(!connect) {
+			insertUserServerStats(sql[0].value)
+
+			// console.log('in if')
+		}
+		// console.log(sql[0].value)
+		console.log(sql)
+		knex(config.dbTables.steamstats_audit).insert( {
+			onconnect: connect,
+			steamid: sql[0].value,
+			deaths: sql[1].value,
+			bulletfired: sql[2].value,
+			arrowfired: sql[3].value,
+			itemdrop: sql[4].value,
+			blueprintstudied:sql[5].value,
+			deathsuicide: sql[6].value,
+			deathfall: sql[7].value,
+			deathselfinflicted: sql[8].value,
+			killplayer: sql[9].value,
+			bullethitplayer: sql[10].value,
+			arrowhitentity: sql[11].value,
+			harvestfatanimal: sql[12].value,
+			harveststones: sql[13].value,
+			bullethitentity: sql[14].value,
+			harvestcloth: sql[15].value,
+			harvestwood: sql[16].value,
+			arrowhitbuilding: sql[17].value,
+			killbear: sql[18].value,
+			killboar: sql[19].value,
+			killstag: sql[20].value,
+			killchicken: sql[21].value,
+			killhorse: sql[22].value,
+			killwolf: sql[23].value,
+			harvestmetalore: sql[24].value,
+			headshot: sql[25].value,
+			harvestsulfurore: sql[26].value,
+			harvestbonefragments: sql[27].value,
+			harvesthumanmeatraw: sql[28].value,
+			arrowhitboar: sql[29].value,
+			arrowhitbear: sql[30].value,
+			arrowhitwolf: sql[31].value,
+			arrowhitstag: sql[32].value,
+			arrowhitchicke: sql[33].value,
+			bullethitbuilding: sql[33].value,
+			harvestwolfmeatraw: sql[34].value,
+			harvestskullhuma: sql[35].value,
+			harvestskullwolf: sql[36].value,
+			arrowhithorse: sql[37].value,
+			arrowhitplayer: sql[38].value,
+			deathentity: sql[39].value,
+			deathwolf: sql[40].value,
+			deathbear: sql[41].value,
+			shotgunfired: sql[42].value,
+			shotgunhitbuildin: sql[43].value,
+			bullethitbear: sql[44].value,
+			bullethithorse: sql[45].value,
+			bullethitstag: sql[46].value,
+			bullethitwolf: sql[47].value,
+			bullethitboar: sql[48].value,
+			bullethitsign: sql[49].value,
+			wounded: sql[50].value,
+			woundedassiste: sql[51].value,
+			woundedheale: sql[52].value,
+			bullethitplayercorpse: sql[53].value,
+			bullethitcorpse: sql[54].value
+		}).then(function() {
+				console.log('holy shit it was inserted')
+		}).catch(function(err) {
+			// console.log(err)
+			console.log('PROFILE IS PRIVATE')
+		})
 	}).catch(function(err) {
 		console.log(err)
 	})
