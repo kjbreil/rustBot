@@ -1,5 +1,5 @@
 -- rustBotSqlViews.sql
- -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:xxxxxx@localhost/rustbot"
+ -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:poop666@w.awesomeland.org/rustbot"
 
 CREATE OR REPLACE VIEW public."vConnectedPlayers" AS
 SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
@@ -85,7 +85,7 @@ ALTER TABLE public."vRecentlyConnected" OWNER TO rustbot;
 
 
 
-CREATE OR REPLACE VIEW public."vKillerStats" AS
+CREATE OR REPLACE VIEW public."v24KillerStats" AS
 SELECT killer_steamid,
        killer_name,
        COUNT(CASE WHEN pvp THEN 1 END) AS pvp,
@@ -98,10 +98,10 @@ GROUP BY killer_steamid,
          killer_name;
 
 
-ALTER TABLE public."vKillerStats" OWNER TO rustbot;
+ALTER TABLE public."v24KillerStats" OWNER TO rustbot;
 
 
-CREATE OR REPLACE VIEW public."vDeathStats" AS
+CREATE OR REPLACE VIEW public."v24DeathStats" AS
 SELECT victim_steamid,
        victim_name,
        COUNT(pvp) AS pvp,
@@ -114,5 +114,127 @@ GROUP BY victim_steamid,
          victim_name;
 
 
-ALTER TABLE public."vDeathStats" OWNER TO rustbot;
+ALTER TABLE public."v24DeathStats" OWNER TO rustbot;
+
+CREATE OR REPLACE VIEW public."vSteamStatsLastConnect" AS
+
+SELECT 
+       steamid,
+       deaths,
+       bulletfired,
+       arrowfired,
+       itemdrop,
+       blueprintstudied,
+       deathsuicide,
+       deathfall,
+       deathselfinflicted,
+       killplayer,
+       bullethitplayer,
+       arrowhitentity,
+       harvestfatanimal,
+       harveststones,
+       bullethitentity,
+       harvestcloth,
+       harvestwood,
+       arrowhitbuilding,
+       killbear,
+       killboar,
+       killstag,
+       killchicken,
+       killhorse,
+       killwolf,
+       harvestmetalore,
+       headshot,
+       harvestsulfurore,
+       harvestbonefragments,
+       harvesthumanmeatraw,
+       arrowhitboar,
+       arrowhitbear,
+       arrowhitwolf,
+       arrowhitstag,
+       arrowhitchicke,
+       bullethitbuilding,
+       harvestwolfmeatraw,
+       harvestskullhuma,
+       harvestskullwolf,
+       arrowhithorse,
+       arrowhitplayer,
+       deathentity,
+       deathwolf,
+       deathbear,
+       shotgunfired,
+       shotgunhitbuildin,
+       bullethitbear,
+       bullethithorse,
+       bullethitstag,
+       bullethitwolf,
+       bullethitboar,
+       bullethitsign,
+       wounded,
+       woundedassiste,
+       woundedheale,
+       bullethitplayercorpse,
+       bullethitcorpse,
+       MAX(created_at)
+FROM steamstats_audit
+GROUP BY steamid,
+         deaths,
+         bulletfired,
+         arrowfired,
+         itemdrop,
+         blueprintstudied,
+         deathsuicide,
+         deathfall,
+         deathselfinflicted,
+         killplayer,
+         bullethitplayer,
+         arrowhitentity,
+         harvestfatanimal,
+         harveststones,
+         bullethitentity,
+         harvestcloth,
+         harvestwood,
+         arrowhitbuilding,
+         killbear,
+         killboar,
+         killstag,
+         killchicken,
+         killhorse,
+         killwolf,
+         harvestmetalore,
+         headshot,
+         harvestsulfurore,
+         harvestbonefragments,
+         harvesthumanmeatraw,
+         arrowhitboar,
+         arrowhitbear,
+         arrowhitwolf,
+         arrowhitstag,
+         arrowhitchicke,
+         bullethitbuilding,
+         harvestwolfmeatraw,
+         harvestskullhuma,
+         harvestskullwolf,
+         arrowhithorse,
+         arrowhitplayer,
+         deathentity,
+         deathwolf,
+         deathbear,
+         shotgunfired,
+         shotgunhitbuildin,
+         bullethitbear,
+         bullethithorse,
+         bullethitstag,
+         bullethitwolf,
+         bullethitboar,
+         bullethitsign,
+         wounded,
+         woundedassiste,
+         woundedheale,
+         bullethitplayercorpse,
+         bullethitcorpse;
+
+ALTER TABLE public."vSteamStatsLastConnect" OWNER TO rustbot;
+
+
 

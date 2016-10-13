@@ -1,6 +1,6 @@
 CREATE OR REPLACE VIEW public."vSteamStatsLastConnect" AS
 
-SELECT MAX(created_at),
+SELECT 
        steamid,
        deaths,
        bulletfired,
@@ -56,7 +56,8 @@ SELECT MAX(created_at),
        woundedassiste,
        woundedheale,
        bullethitplayercorpse,
-       bullethitcorpse
+       bullethitcorpse,
+       MAX(created_at)
 FROM steamstats_audit
 GROUP BY steamid,
          deaths,
