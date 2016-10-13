@@ -302,7 +302,7 @@ insertUserServerStats = function(si, steamStats) {
 		}
 		knex(config.dbTables.steamstats_server).insert( {
 			steamid: steamStats.steamID,
-			connect_time: steamStatsAudit[0].connected_at,
+			connect_time: steamStatsAudit[0].created_at,
 			stats: JSON.stringify(statsJson)
 		}).then(function() {
 				console.log('SERVER STATS INSERTED: ' + si)

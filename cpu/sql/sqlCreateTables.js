@@ -67,7 +67,7 @@ createSteamStatsAuditDB = function(tableName) {
 						table.timestamps(true, true)
 						table.boolean('connect')
 						table.bigint('steamid')
-						table.json('stats')
+						table.jsonb('stats')
 					}).then(function (make) {
 						console.log('STEAM_AUDIT DB: ' + tableName + ' CREATED')
 						resolve()
@@ -89,7 +89,7 @@ createSteamStatsServerDB = function(tableName) {
 						table.timestamps(true, true)
 						table.timestamp('connect_time')
 						table.bigint('steamid')
-						table.json('stats')
+						config.dbTables.death('stats')
 					}).then(function (make) {
 						console.log('STEAM_SERVER DB: ' + tableName + ' CREATED')
 						resolve()
@@ -186,7 +186,7 @@ createRawLogDB = function(tableName) {
 					knex.schema.createTable(tableName,function(table){
 						table.increments()
 						table.timestamp('created_at', true)
-						table.json('log')
+						table.jsonb('log')
 					}).then(function (make) {
 						console.log('CONNECT DB: ' + tableName + ' CREATED')
 						resolve()
@@ -267,7 +267,7 @@ createChatLogDB = function(tableName) {
 						table.bigint('steamid')
 						table.text('name')
 						table.text('message')
-						table.json('json')
+						table.jsonb('json')
 					}).then(function (make) {
 						console.log('CHAT DB: ' + tableName + ' CREATED')
 						resolve()
