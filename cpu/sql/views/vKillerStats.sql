@@ -1,7 +1,4 @@
 CREATE OR REPLACE VIEW public."vKillerStats" AS
-
-
-
 SELECT killer_steamid,
        killer_name,
        COUNT(CASE WHEN pvp THEN 1 END) AS pvp,
@@ -11,9 +8,7 @@ SELECT killer_steamid,
 FROM death
 WHERE created_at > (now() - '24:00:00'::interval)
 GROUP BY killer_steamid,
-       killer_name;
-
-
+         killer_name;
 
 
 ALTER TABLE public."vKillerStats" OWNER TO rustbot;

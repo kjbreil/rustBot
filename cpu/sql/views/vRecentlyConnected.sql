@@ -10,8 +10,8 @@ SELECT max(ct.created_at) AS lcon,
        vls.violationlevel,
        vls.ip,
        vls.ownersteamid
-FROM connect ct
-JOIN vLastStats vls ON ct.steamid = vls.steamid
+FROM CONNECT ct
+JOIN "vLastStats" vls ON ct.steamid = vls.steamid
 WHERE ct.disconnect = TRUE
   AND ct.steamid NOT IN
     (SELECT steamid
