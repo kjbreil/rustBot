@@ -10,27 +10,27 @@ let knexConnection = config.knex.connection
 
 global.knex = require('knex')(config.knex)
 
-var Model = require('objection').Model
-
 const sqlSelects = require('./sqlSelects')
 
-var bookshelf = require('bookshelf')(knex)
+// var bookshelf = require('bookshelf')(knex)
 
-var PlayerList = bookshelf.Model.extend({
-	tableName: 'connected_players'
-})
-
-PlayerList.fetchAll().then(function(PlayerList){
-	for(i in PlayerList.models) {
-		console.log(PlayerList.models[i].attributes)
-	}
-
-})
-
-
-
-// sqlSelects.sqlSelectPlayerListView().then(function () {
-// 	console.log('promise')
-// 	process.exit()
+// var PlayerList = bookshelf.Model.extend({
+// 	tableName: 'connected_players'
 // })
+
+// PlayerList.fetchAll().then(function(PlayerList){
+// 	for(i in PlayerList.models) {
+// 		console.log(PlayerList.models[i].attributes)
+// 	}
+
+// })
+
+
+
+sqlSelects.sqlSelectPlayerListView().then(function (msg) {
+	for(let i in msg) {
+		console.log(msg[i].name)
+	}
+	process.exit()	
+})
 
