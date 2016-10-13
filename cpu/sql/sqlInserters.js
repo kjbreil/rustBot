@@ -363,7 +363,7 @@ insertUserStats = function(steamid, connect) {
 insertUserServerStats = function(steamidpass) {
 	userStats.GetUserStatsForGame('252490', steamidpass).then(function(msg) {
 		let sql = []
-		sql.push({name: 'steamid', value: '76561198014626147'})
+		sql.push({name: 'steamid', value: steamidpass})
 		for(let i in msg.stats) {
 			sql.push(msg.stats[i])
 		}
