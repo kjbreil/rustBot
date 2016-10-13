@@ -245,19 +245,22 @@ chatLogToSQL = function(line) {
 		})
 }
 
+timeoutSteamQuery = function(si, interval) {
+	setTimeout(function() {
+		insertUserStats(si, false, true)
+	}, interval);
+}
+
 exports.manualRefreshSteamStatsConnected = function() {
 	knex.select('steamid').from('vConnectedPlayers').then(function(msg) {
 		for(i in msg) {
-			setTimeout(function() {
-				console.log('REFRESH STATS FOR: ' + msg[i].steamid)
-				insertUserStats(msg[i].steamid, false, true)
-			}, 3000 * i)
-			
+			timeoutSteamQuery(msg[i].steamid, 1000 * i)			
 		}
 	}).catch(function(err) {
 		console.log(err)
 	})
 }
+
 
 insertUserStats = function(si, connect, manual) {
 	userStats.GetUserStatsForGame('252490', si).then(function(steamStats) {
@@ -272,13 +275,13 @@ insertUserStats = function(si, connect, manual) {
 			steamid: steamStats.steamID,
 			stats: steamStats
 		}).then(function() {
-				console.log('AUDIT STATS INSERTED')
+				console.log('AUDIT STATS INSERTED: ' + si)
 		}).catch(function(err) {
 			console.log(err)
 		})
 	}).catch(function(err) {
 		// console.log(err)
-		console.log('PROFILE IS PRIVATE')
+		console.log('PROFILE IS PRIVATE: ' + si)
 	})
 }
 
@@ -302,7 +305,7 @@ insertUserServerStats = function(si, steamStats) {
 			connect_time: steamStatsAudit[0].connected_at,
 			stats: JSON.stringify(statsJson)
 		}).then(function() {
-				console.log('SERVER STATS INSERTED')
+				console.log('SERVER STATS INSERTED: ' + si)
 		}).catch(function(err) {
 			console.log(err)
 		})
@@ -314,7 +317,7 @@ sqlSelectSteamStatsLastConnect = function(si) {
 	return new Promise(function(resolve, reject) {
 		knex.select('*').from('steamstats_audit').where( {connect: true, steamid: si} ).limit(1).orderBy('created_at', 'desc').then(function(msg) {
 			if(msg.length < 1) {
-				reject('NO VALUES RETURNED')
+				reject('NO PREVIOUS STATS: ' + si)
 			} else {
 				resolve(msg)
 			}
