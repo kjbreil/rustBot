@@ -281,13 +281,14 @@ chatLogToSQL = function(line) {
 insertUserStats = function(steamid, connect) {
 	userStats.GetUserStatsForGame('252490', steamid).then(function(msg) {
 		let sql = []
-		sql.push({name: 'steamid', value: '76561198014626147'})
+		sql.push({name: 'steamid', value: steamid})
 		for(let i in msg.stats) {
 			sql.push(msg.stats[i])
 		}
 		console.log(!connect)
 		if(!connect) {
-			insertUserServerStats(steamid)
+			insertUserServerStats(sql[0].value)
+
 			console.log('in if')
 		}
 		// console.log(sql[0].value)
@@ -359,8 +360,8 @@ insertUserStats = function(steamid, connect) {
 	})
 }
 
-insertUserServerStats = function(steamid) {
-	userStats.GetUserStatsForGame('252490', steamid).then(function(msg) {
+insertUserServerStats = function(steamidpass) {
+	userStats.GetUserStatsForGame('252490', steamidpass).then(function(msg) {
 		let sql = []
 		sql.push({name: 'steamid', value: '76561198014626147'})
 		for(let i in msg.stats) {
