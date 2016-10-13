@@ -1,5 +1,5 @@
 -- rustBotSqlViews.sql
- -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:poop666@localhost/rustbot"
+ -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:xxxxxx@localhost/rustbot"
 
 CREATE OR REPLACE VIEW public.vConnectedPlayers AS
 SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
@@ -83,19 +83,6 @@ ORDER BY vls.created_at DESC;
 
 ALTER TABLE public."vRecentlyConnected" OWNER TO rustbot;
 
-
-CREATE OR REPLACE VIEW public."vPvpKills" AS
-SELECT dt.victim_steamid,
-       dt.victim_name,
-       dt.killer_steamid,
-       dt.killer_name
-FROM death dt
-WHERE dt.created_at > (now() - '24:00:00'::interval)
-  AND dt.pvp = TRUE
-  AND dt.sleeper = FALSE;
-
-
-ALTER TABLE public."vPvpKills" OWNER TO rustbot;
 
 
 CREATE OR REPLACE VIEW public."vKillerStats" AS
