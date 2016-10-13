@@ -354,11 +354,12 @@ insertUserStats = function(steamid, connect) {
 		}).then(function() {
 				console.log('holy shit it was inserted')
 		}).catch(function(err) {
-			// console.log(err)
+			console.log(err)
 			console.log('PROFILE IS PRIVATE')
 		})
 	}).catch(function(err) {
-		console.log(err)
+		// console.log(err)
+		console.log('PROFILE IS PRIVATE')
 	})
 }
 
