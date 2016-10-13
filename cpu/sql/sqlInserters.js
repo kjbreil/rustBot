@@ -443,9 +443,9 @@ insertUserServerStats = function(steamidpass) {
 
 sqlSelectSteamStatsLastConnect = function(steamid) {
 	return new Promise(function(resolve, reject) {
-		// console.log('inside')
+		console.log('inside')
 		knex.select('*').from('steamstats_audit').where( {steamid: steamid} ).limit(1).orderBy('created_at', 'desc').then(function(msg) {
-			// console.log(msg)
+			console.log(msg)
 			resolve(msg)
 		}).catch(function(err) {
 		console.log(err)
