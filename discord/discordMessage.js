@@ -72,6 +72,7 @@ exports.discordDeleteAllMessages = function(pChannel) {
 
 exports.discordDeleteMessageType = function(pChannel, type) {
     return new Promise(function (resolve, reject) {
+        // console.log(type + ' ' + pChannel)
         let channel = bot.channels.find('name', pChannel)
         channel.fetchMessages({limit : 100}).then(function (m) {
             filteredMessages = m.filter(findMessage.bind(this, type))
