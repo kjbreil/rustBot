@@ -1,5 +1,5 @@
 -- rustBotSqlViews.sql
- -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:poop666@w.awesomeland.org/rustbot"
+ -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:xxxxx@localhost/rustbot"
 
 CREATE OR REPLACE VIEW public."vConnectedPlayers" AS
 SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,

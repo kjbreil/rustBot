@@ -87,3 +87,16 @@ exports.discordDeleteMessageType = function(pChannel, type) {
 findMessage = function(r, f) { 
     if(r.test(f.content)) {return f}
 }
+
+// discord.discordMessage.fixedWidth(10, )
+exports.fixedWidth = function(width, str) {
+    if (typeof str === 'undefined') {
+        return pad
+    }
+    let i = width
+    let pad = ''
+    while(i--) {
+        pad += ' '
+    }
+    return (str + pad).substring(0, width)
+}

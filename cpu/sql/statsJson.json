@@ -1,0 +1,9 @@
+statsJson = {
+	"76561198064029237": [
+		"harvest":
+		{"arrow_hit_horse": 1, "bullet_hit_horse": 1}
+	],
+	"76561198030172959": [
+		{"arrow_hit_horse": 1, "bullet_hit_horse": 1}
+	]
+}

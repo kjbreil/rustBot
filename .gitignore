@@ -2,7 +2,7 @@ node_modules/
 logs/
 exLog/
 config.js
-test.js
+test*.js
 **.DS_Store
 test/
 rustBot.sublime-project

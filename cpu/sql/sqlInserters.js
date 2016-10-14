@@ -1,8 +1,8 @@
 // sqlInserters.js
 // cpu.sql.sqlInserters.sqlInsertersGate(line, type)
-
 var SteamApi = require('steam-api')
 var userStats = new SteamApi.UserStats(config.steamApiKey)
+
 
 exports.sqlInsertersGate = function(line, type) {
 	// console.log(line)
