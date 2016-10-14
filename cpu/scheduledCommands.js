@@ -36,7 +36,7 @@ exports.runScheduledCommands = function() {
 }
 
 var refreshServerStats = new CronJob({
-	cronTime: '0 * */1 * * *',
+	cronTime: '0 0 */1 * * *',
 	onTick: function() {
 		console.log('REFRESHING TOP SERVER STATS')
 		cpu.steamStats.steamsStatsStart('24')
