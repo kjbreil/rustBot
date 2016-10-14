@@ -6,7 +6,7 @@ exports.steamsStatsStart = function(hours) {
 			outputServerStats().then(function(statsArray) {
 				let cbRE = new RegExp(/\[\d+:\d+:\d+\] ```/)
 				discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
-					var outmsg = '```'
+					var outmsg = '[Previous ' + hours + ' hours]' + '```'
 					for(let a in statsArray) {
 						outmsg = outmsg + ('\n' + statsArray[a].name + ' : ' + statsArray[a].sum)
 					}
@@ -78,7 +78,7 @@ createTempStatsDB = function() {
 
 outputServerStats = function() {
 	return new Promise(function(resolve, reject) {
-			console.log('deleted')
+			// console.log('deleted')
 			knex.select('name')
 				.sum('value')
 				.from('tempSteamStats')
