@@ -4,8 +4,11 @@ exports.steamsStatsStart = function(hours) {
 	getSteamStats(hours).then(function(data) {
 		tempSteamStats(data).then(function() {
 			outputServerStats().then(function(statsArray) {
-				let cbRE = new RegExp(/\[\d+:\d+:\d+\] \[Previous \d+ hours\]```/)
+
+				let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[Previous " + hours + " hours\\]```")
+				// console.log(cbRE)
 				discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
+					// console.log('inside')
 					var outmsg = '[Previous ' + hours + ' hours]' + '```'
 					for(let a in statsArray) {
 						outmsg = outmsg + ('\n' + statsArray[a].name + ' : ' + statsArray[a].sum)
