@@ -254,7 +254,7 @@ timeoutSteamQuery = function(si, interval) {
 exports.manualRefreshSteamStatsConnected = function() {
 	knex.select('steamid').from('vConnectedPlayers').then(function(msg) {
 		for(i in msg) {
-			timeoutSteamQuery(msg[i].steamid, 1000 * i)			
+			timeoutSteamQuery(msg[i].steamid, 2000 * i)			
 		}
 	}).catch(function(err) {
 		console.log(err)
