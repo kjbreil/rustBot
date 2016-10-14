@@ -2,8 +2,8 @@
 
 exports.steamsStatsStart = function(hours) {
 	getSteamStats(hours).then(function(data) {
-		tempSteamStats(data).then(function() {
-			outputServerStats().then(function(statsArray) {
+		tempSteamStats(data, hours).then(function() {
+			outputServerStats(hours).then(function(statsArray) {
 
 				let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[Previous " + hours + " hours\\]```")
 				// console.log(cbRE)
@@ -34,13 +34,13 @@ getSteamStats = function(hours) {
 	})
 }
 
-tempSteamStats = function(data) {
+tempSteamStats = function(data, hours) {
 	return new Promise(function(resolve, reject) {
-		createTempStatsDB().then(function() {
+		createTempStatsDB(hours).then(function() {
 			for(let a in data) {
 				for(let b in data[a].stats) {
 					if(data[a].stats[b].value > 0) {
-						knex('tempSteamStats').insert( {
+						knex('tempSteamStats' + hours).insert( {
 							steamid: data[a].steamid,
 							name: data[a].stats[b].name,
 							value: data[a].stats[b].value	
@@ -59,18 +59,18 @@ tempSteamStats = function(data) {
 	
 
 
-createTempStatsDB = function() {
+createTempStatsDB = function(hours) {
 	return new Promise(function(resolve, reject) {
-		knex.schema.dropTableIfExists('tempSteamStats').then(function() {
+		knex.schema.dropTableIfExists('tempSteamStats' + hours).then(function() {
 			// console.log('DROPPED')
-			knex.schema.createTable('tempSteamStats', function(table) {
+			knex.schema.createTable('tempSteamStats' + hours, function(table) {
 				table.increments()
 				table.timestamp('created_at').defaultTo(knex.fn.now())
 				table.bigint('steamid')
 				table.text('name')
 				table.bigint('value')
 			}).then(function (make) {
-				console.log('STEAM_AUDIT DB: tempSteamStats CREATED')
+				console.log('STEAM_AUDIT DB: tempSteamStats' + hours + ' CREATED')
 				resolve()
 			}).catch(function(err) {
 				console.log(err)
@@ -79,12 +79,12 @@ createTempStatsDB = function() {
 	})
 }
 
-outputServerStats = function() {
+outputServerStats = function(hours) {
 	return new Promise(function(resolve, reject) {
 			// console.log('deleted')
 			knex.select('name')
 				.sum('value')
-				.from('tempSteamStats')
+				.from('tempSteamStats' + hours)
 				.groupBy('name')
 				.orderByRaw('SUM(value) DESC')
 				.then(function(msg) {
