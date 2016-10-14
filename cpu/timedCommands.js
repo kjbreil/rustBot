@@ -14,7 +14,7 @@ exports.runTimedCommands = function() {
 	}, 15000)
 
 	setTimeout(function(){
-		cpu.steamStats.steamsStatsStart('24')
+		cpu.steamStats.steamsStatsStart('4')
 	}, 12000)
 
 
