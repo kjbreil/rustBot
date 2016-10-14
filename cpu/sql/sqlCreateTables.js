@@ -84,7 +84,7 @@ createSteamStatsServerDB = function(tableName) {
 		knex.schema.hasTable(tableName)
 		    .then(function(exists) {
 		    	if(!exists) {
-					knex(tableName,function(table){
+					knex.schema.createTable(tableName,function(table){
 						table.increments()
 						table.timestamps(true, true)
 						table.timestamp('connect_time')
