@@ -32,14 +32,25 @@ exports.runScheduledCommands = function() {
 	console.log('INSERTING SCHEDULED COMMANDS')
 	rconRestartServer.start()
 	manualRefreshStats.start()
-	refreshServerStats.start()
+	refreshServerStats24.start()
+	refreshServerStats4.start()
 }
 
-var refreshServerStats = new CronJob({
-	cronTime: '0 0 */1 * * *',
+var refreshServerStats24 = new CronJob({
+	cronTime: '0 1 */1 * * *',
 	onTick: function() {
 		console.log('REFRESHING TOP SERVER STATS')
 		cpu.steamStats.steamsStatsStart('24')
+	},
+	start: false,
+	timeZone: 'America/Los_Angeles'
+})
+
+var refreshServerStats4 = new CronJob({
+	cronTime: '0 0 */1 * * *',
+	onTick: function() {
+		console.log('REFRESHING TOP SERVER STATS')
+		cpu.steamStats.steamsStatsStart('4')
 	},
 	start: false,
 	timeZone: 'America/Los_Angeles'
