@@ -59,7 +59,7 @@ tempSteamStats = function(data) {
 createTempStatsDB = function() {
 	return new Promise(function(resolve, reject) {
 		knex.schema.dropTableIfExists('tempSteamStats').then(function() {
-			console.log('DROPPED')
+			// console.log('DROPPED')
 			knex.schema.createTable('tempSteamStats', function(table) {
 				table.increments()
 				table.timestamp('created_at').defaultTo(knex.fn.now())
