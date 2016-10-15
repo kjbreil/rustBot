@@ -5,7 +5,11 @@ exports.steamServerStats = function(hours) {
 	getSteamStats(hours).then(function(data) {
 		tempSteamStats(data, hours).then(function() {
 			getServerStats(hours).then(function(statsArray) {
-				serverStatsDiscord(statsArray, hours)
+				// console.log(statsArray)
+				serverStatsCreateJson(statsArray).then(function(b) {
+					// console.log(b)
+					statsDiscord(b, hours, 'SERVER')
+				})
 			})
 		})
 	})
@@ -14,7 +18,7 @@ exports.steamServerStats = function(hours) {
 exports.steamUserStats = function(hours) {
 	getUserStats(hours).then(function(a) {
 		userStatsCreateJson(a).then(function(b) {
-			userStatsDiscord(b, hours)
+			statsDiscord(b, hours, 'USER')
 			// console.log(b)
 		})
 	})
@@ -84,17 +88,53 @@ createTempStatsDB = function(hours) {
 getServerStats = function(hours) {
 	return new Promise(function(resolve, reject) {
 			// console.log('deleted')
-			knex.select('name')
-				.sum('value')
+			knex.select('name as stat')
+				.sum('value as value')
 				.from('tempSteamStats' + hours)
 				.groupBy('name')
 				.orderByRaw('SUM(value) DESC')
 				.then(function(msg) {
+					// console.log(msg)
 					resolve(msg)			
 				}).catch(function(err) {
 					reject(err)
 				})
 
+	})
+}
+
+serverStatsCreateJson = function(s) {
+	return new Promise(function(resolve, reject) {
+		let statsJson = {} 
+		for(i in s) {
+			let steamid = ['SERVER']
+			let sname = [s[i].stat]
+			let svalue = s[i].value
+			// let [s[i].stat] = s[i].value
+			
+
+			if(!statsJson[steamid[0]]) {
+				statsJson[steamid[0]] = {}
+			}
+			statsJson[steamid[0]].name = 'SERVER'
+			if(ta = RegExp(/(^harvest)\.?(.+)?/).exec(sname[0])) {
+				if(!statsJson[steamid[0]].harvest) {
+					statsJson[steamid[0]].harvest = {}
+				}
+				let aname = [ta[2]]
+				statsJson[steamid[0]].harvest[aname[0]] = svalue
+			} else if (under = RegExp(/(^.+)\_(.+)/).exec(sname[0])) {
+				if(!statsJson[steamid[0]][under[1]]) {
+					statsJson[steamid[0]][under[1]] = {}
+				}
+				let aname = [under[2]]
+				statsJson[steamid[0]][under[1]][aname[0]] = svalue
+			} else {
+				statsJson[steamid[0]][sname[0]] = svalue
+			}
+			
+		}
+		resolve(statsJson)
 	})
 }
 
@@ -215,18 +255,18 @@ userStatsDiscord = function(statsArray, hours) {
 				let insideName = b
 				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
 			}
-			if ((outmsg.length / sent) > 500) {
+			if ((outmsg.length / sent) > 1500) {
 				outmsg += '\n```'
 				log(outmsg, 'dl', logFile.discord, discordRoom.general)
 				sent += 1
 				outmsg = '[USER][' + hours + ' hours][' + outmsg.length + ']'
+				outmsg += '\n```'
 			} else {
 				outmsg += '\n```'
 			}
 			
 		}
 		if (outmsg.length > 25) {
-			outmsg += '\n```'
 			log(outmsg, 'dl', logFile.discord, discordRoom.general)
 		}
 		
@@ -234,6 +274,99 @@ userStatsDiscord = function(statsArray, hours) {
 	})
 }
 
+statsDiscord = function(statsArray, hours, type) {
+	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[" + type + "\\]\\[" + hours + " hours\\]\\[\\d+\\]")
+	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
+		var outmsg = '[' + type + '][' + hours + ' hours][0]'
+		for(let a in statsArray) {
+
+			outmsg += '\n```Css'
+			
+			let steamname = statsArray[a].name
+			outmsg += '\n' + steamname
+
+			// let blank = discord.discordMessage.fixedWidth(1, '', ' ')
+			
+
+			// let endMainLine = ':'
+			// let endSubLine = ';'
+
+			let subLine = ''
+			let mainLine = ''
+
+			let startMainLine = '\n-{'
+			let endMainLine = ':'
+			let startMainTotal = '#'
+			let endMainTotal = '}\n--'
+			let startSubLine = '{'
+			let endSubLine = ':'
+			let startSubTotal = '#'
+			let endSubTotal = '}'
+
+			let valueFill = ''
+			let sent = 1
+			// let  + endMainTotal
+
+
+			let harvestTotal = sumArrayValues(statsArray[a].harvest)
+			if(sumArrayValues(statsArray[a].harvest) > 0) {
+				outmsg += (startMainLine  + 'harvest' + endMainLine + startMainTotal + harvestTotal + endMainTotal)
+			}
+			for(let b in statsArray[a].harvest) {
+				let insideStat = statsArray[a].harvest[b]
+				outmsg += (startSubLine + b + endSubLine + startSubTotal + insideStat + endSubTotal)
+			}
+
+			let bulletTotal = sumArrayValues(statsArray[a].bullet_hit)
+			if(sumArrayValues(statsArray[a].bullet_hit) > 0) {
+				outmsg += (startMainLine + 'bullets' + endMainLine + startMainTotal + bulletTotal + endMainTotal)
+			}
+			for(let b in statsArray[a].bullet_hit) {
+				let insideStat = statsArray[a].bullet_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
+			}
+
+			let arrowTotal = sumArrayValues(statsArray[a].arrow_hit)
+			if(sumArrayValues(statsArray[a].arrow_hit) > 0) {
+				outmsg += (startMainLine + 'arrows' + endMainLine + startMainTotal + arrowTotal + endMainTotal)
+			}
+			for(let b in statsArray[a].arrow_hit) {
+				let insideStat = statsArray[a].arrow_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
+			}
+
+			let shotgunTotal = sumArrayValues(statsArray[a].shotgun)
+			if(sumArrayValues(statsArray[a].shotgun) > 0) {
+				outmsg += (startMainLine + 'shotgun' + endMainLine + startMainTotal + shotgunTotal + endMainTotal)
+			}
+			for(let b in statsArray[a].shotgun_hit) {
+				let insideStat = statsArray[a].shotgun_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
+			}
+			if ((outmsg.length / sent) > 1500) {
+				outmsg += '\n```'
+				// console.lof(outmsg)
+				log(outmsg, 'dl', logFile.discord, discordRoom.general)
+				sent += 1
+				outmsg = '[' + type + '][' + hours + ' hours][' + outmsg.length + ']'
+				outmsg += '\n```'
+			} else {
+				outmsg += '\n```'
+			}
+			
+		}
+		if (outmsg.length > 30) {
+			
+			// console.log(outmsg)
+			log(outmsg, 'dl', logFile.discord, discordRoom.general)
+		}
+		
+		// process.exit()
+	})
+}
 
 /*
 
