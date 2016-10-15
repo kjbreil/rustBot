@@ -146,83 +146,90 @@ sumArrayValues = function(array) {
 userStatsDiscord = function(statsArray, hours) {
 	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[USER\\]\\[" + hours + " hours\\]\\[\\d+\\]```")
 	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
-		// console.log(z)
-		var msgNum = 1
-		let ttlMsg = 1
-		var outmsg = '[USER][' + hours + ' hours][0]' + '```'
+		var outmsg = '[USER][' + hours + ' hours][0]'
 		for(let a in statsArray) {
-			let steamname = '[###]' + statsArray[a].name + ']'
+
+			outmsg += '\n```Css'
+			
+			let steamname = statsArray[a].name
 			outmsg += '\n' + steamname
-			msgNum += 1
 
-			let blank = discord.discordMessage.fixedWidth(1, '', ' ')
-			// let dash10 = discord.discordMessage.fixedWidth(10, '', '-')
-			let subLine = discord.discordMessage.fixedWidth(1, '', '|')
-			let mainLine = discord.discordMessage.fixedWidth(3, '|=>', '-')
+			// let blank = discord.discordMessage.fixedWidth(1, '', ' ')
+			
 
-			let valueFill = '-'
-			// console.log(statsArray[a])
-			let harvestTotal = discord.discordMessage.fixedWidth(6, sumArrayValues(statsArray[a].harvest), valueFill)
+			// let endMainLine = ':'
+			// let endSubLine = ';'
+
+			let subLine = ''
+			let mainLine = ''
+
+			let startMainLine = '\n-{'
+			let endMainLine = ':'
+			let startMainTotal = '#'
+			let endMainTotal = '}\n--'
+			let startSubLine = '{'
+			let endSubLine = ':'
+			let startSubTotal = '#'
+			let endSubTotal = '}'
+
+			let valueFill = ''
+			let sent = 1
+			// let  + endMainTotal
+
+
+			let harvestTotal = sumArrayValues(statsArray[a].harvest)
 			if(sumArrayValues(statsArray[a].harvest) > 0) {
-				outmsg += ('\n' + mainLine + 'harvest: ' + harvestTotal)
-				msgNum += 1
+				outmsg += (startMainLine  + 'harvest' + endMainLine + startMainTotal + harvestTotal + endMainTotal)
 			}
 			for(let b in statsArray[a].harvest) {
-				let insideStat = discord.discordMessage.fixedWidth(6, statsArray[a].harvest[b], valueFill)
-				outmsg += (subLine + b + ': '+ insideStat)
-				// msgNum += 1
+				let insideStat = statsArray[a].harvest[b]
+				outmsg += (startSubLine + b + endSubLine + startSubTotal + insideStat + endSubTotal)
 			}
 
-			let bulletTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].bullet_hit), valueFill)
+			let bulletTotal = sumArrayValues(statsArray[a].bullet_hit)
 			if(sumArrayValues(statsArray[a].bullet_hit) > 0) {
-				outmsg += ('\n' + mainLine + 'bullets: ' + bulletTotal)
-					msgNum += 1
+				outmsg += (startMainLine + 'bullets' + endMainLine + startMainTotal + bulletTotal + endMainTotal)
 			}
 			for(let b in statsArray[a].bullet_hit) {
-				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].bullet_hit[b], valueFill)
-				let insideName = discord.discordMessage.fixedWidth(6, b)
-				outmsg += (subLine + insideName + ': '+ insideStat)
-				// msgNum += 1
+				let insideStat = statsArray[a].bullet_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
 			}
 
-			let arrowTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].arrow_hit), valueFill)
-			// console.log(sumArrayValues(statsArray[a].arrow_hit))
+			let arrowTotal = sumArrayValues(statsArray[a].arrow_hit)
 			if(sumArrayValues(statsArray[a].arrow_hit) > 0) {
-				outmsg += ('\n' + mainLine + 'arrows : ' + arrowTotal)
-				msgNum += 1
+				outmsg += (startMainLine + 'arrows' + endMainLine + startMainTotal + arrowTotal + endMainTotal)
 			}
 			for(let b in statsArray[a].arrow_hit) {
-				// console.log(statsArray[a].arrow_hit)
-				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].arrow_hit[b], valueFill)
-				let insideName = discord.discordMessage.fixedWidth(6, b)
-				outmsg += (subLine + insideName + ': '+ insideStat)
-				// msgNum += 1
+				let insideStat = statsArray[a].arrow_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
 			}
 
-			let shotgunTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].shotgun), valueFill)
+			let shotgunTotal = sumArrayValues(statsArray[a].shotgun)
 			if(sumArrayValues(statsArray[a].shotgun) > 0) {
-				outmsg += ('\n' + mainLine + 'shotgun: ' + shotgunTotal)
-				msgNum += 1
+				outmsg += (startMainLine + 'shotgun' + endMainLine + startMainTotal + shotgunTotal + endMainTotal)
 			}
 			for(let b in statsArray[a].shotgun_hit) {
-				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].shotgun_hit[b], valueFill)
-				let insideName = discord.discordMessage.fixedWidth(6, b)
-				outmsg += (subLine + insideName + ': '+ insideStat)
-				// msgNum += 1
+				let insideStat = statsArray[a].shotgun_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
 			}
-			if (msgNum > 15) {
-				ttlMsg += msgNum
-				outmsg += '```'
-				// console.log(outmsg)
+			if ((outmsg.length / sent) > 500) {
+				outmsg += '\n```'
 				log(outmsg, 'dl', logFile.discord, discordRoom.general)
-				outmsg = '[USER][' + hours + ' hours][' + ttlMsg + ']' + '```'
-				msgNum = 1
+				sent += 1
+				outmsg = '[USER][' + hours + ' hours][' + outmsg.length + ']'
+			} else {
+				outmsg += '\n```'
 			}
 			
 		}
-		outmsg += '```'
-		// console.log(outmsg)
-		log(outmsg, 'dl', logFile.discord, discordRoom.general)
+		if (outmsg.length > 25) {
+			outmsg += '\n```'
+			log(outmsg, 'dl', logFile.discord, discordRoom.general)
+		}
+		
 		// process.exit()
 	})
 }
