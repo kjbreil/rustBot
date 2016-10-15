@@ -41,6 +41,7 @@ tempSteamStats = function(data, hours) {
 				for(let b in data[a].stats) {
 					if(data[a].stats[b].value > 0) {
 						knex('tempSteamStats' + hours).insert( {
+							data_time: data[a].created_at,
 							steamid: data[a].steamid,
 							name: data[a].stats[b].name,
 							value: data[a].stats[b].value	
@@ -66,6 +67,7 @@ createTempStatsDB = function(hours) {
 			knex.schema.createTable('tempSteamStats' + hours, function(table) {
 				table.increments()
 				table.timestamp('created_at').defaultTo(knex.fn.now())
+				table.timestamp('data_time')
 				table.bigint('steamid')
 				table.text('name')
 				table.bigint('value')
@@ -146,6 +148,7 @@ userStatsDiscord = function(statsArray, hours) {
 	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
 		// console.log(z)
 		var msgNum = 1
+		let ttlMsg = 1
 		var outmsg = '[USER][' + hours + ' hours][0]' + '```'
 		for(let a in statsArray) {
 			let steamname = '[###]' + statsArray[a].name + ']'
@@ -167,7 +170,7 @@ userStatsDiscord = function(statsArray, hours) {
 			for(let b in statsArray[a].harvest) {
 				let insideStat = discord.discordMessage.fixedWidth(6, statsArray[a].harvest[b], valueFill)
 				outmsg += (subLine + b + ': '+ insideStat)
-				msgNum += 1
+				// msgNum += 1
 			}
 
 			let bulletTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].bullet), valueFill)
@@ -179,7 +182,7 @@ userStatsDiscord = function(statsArray, hours) {
 				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].bullet_hit[b], valueFill)
 				let insideName = discord.discordMessage.fixedWidth(6, b)
 				outmsg += (subLine + insideName + ': '+ insideStat)
-				msgNum += 1
+				// msgNum += 1
 			}
 
 			let arrowTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].arrow), valueFill)
@@ -191,7 +194,7 @@ userStatsDiscord = function(statsArray, hours) {
 				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].arrow_hit[b], valueFill)
 				let insideName = discord.discordMessage.fixedWidth(6, b)
 				outmsg += (subLine + insideName + ': '+ insideStat)
-				msgNum += 1
+				// msgNum += 1
 			}
 
 			let shotgunTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].shotgun), valueFill)
@@ -203,13 +206,15 @@ userStatsDiscord = function(statsArray, hours) {
 				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].shotgun_hit[b], valueFill)
 				let insideName = discord.discordMessage.fixedWidth(6, b)
 				outmsg += (subLine + insideName + ': '+ insideStat)
-				msgNum += 1
+				// msgNum += 1
 			}
-			if ((msgNum % 15) == 0) {
+			if (msgNum > 15) {
+				ttlMsg += msgNum
 				outmsg += '```'
 				// console.log(outmsg)
 				log(outmsg, 'dl', logFile.discord, discordRoom.general)
-				outmsg = '[USER][' + hours + ' hours][' + msgNum + ']' + '```'
+				outmsg = '[USER][' + hours + ' hours][' + ttlMsg + ']' + '```'
+				msgNum = 1
 			}
 			
 		}
