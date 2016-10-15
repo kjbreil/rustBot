@@ -161,7 +161,7 @@ userStatsDiscord = function(statsArray, hours) {
 			let mainLine = discord.discordMessage.fixedWidth(3, '|=>', '-')
 
 			let valueFill = '-'
-			
+			// console.log(statsArray[a])
 			let harvestTotal = discord.discordMessage.fixedWidth(6, sumArrayValues(statsArray[a].harvest), valueFill)
 			if(sumArrayValues(statsArray[a].harvest) > 0) {
 				outmsg += ('\n' + mainLine + 'harvest: ' + harvestTotal)
@@ -173,8 +173,8 @@ userStatsDiscord = function(statsArray, hours) {
 				// msgNum += 1
 			}
 
-			let bulletTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].bullet), valueFill)
-			if(sumArrayValues(statsArray[a].bullet) > 0) {
+			let bulletTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].bullet_hit), valueFill)
+			if(sumArrayValues(statsArray[a].bullet_hit) > 0) {
 				outmsg += ('\n' + mainLine + 'bullets: ' + bulletTotal)
 					msgNum += 1
 			}
@@ -185,12 +185,14 @@ userStatsDiscord = function(statsArray, hours) {
 				// msgNum += 1
 			}
 
-			let arrowTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].arrow), valueFill)
-			if(sumArrayValues(statsArray[a].arrow) > 0) {
+			let arrowTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].arrow_hit), valueFill)
+			console.log(sumArrayValues(statsArray[a].arrow_hit))
+			if(sumArrayValues(statsArray[a].arrow_hit) > 0) {
 				outmsg += ('\n' + mainLine + 'arrows : ' + arrowTotal)
 				msgNum += 1
 			}
 			for(let b in statsArray[a].arrow_hit) {
+				// console.log(statsArray[a].arrow_hit)
 				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].arrow_hit[b], valueFill)
 				let insideName = discord.discordMessage.fixedWidth(6, b)
 				outmsg += (subLine + insideName + ': '+ insideStat)
