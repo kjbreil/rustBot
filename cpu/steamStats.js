@@ -186,7 +186,7 @@ userStatsDiscord = function(statsArray, hours) {
 			}
 
 			let arrowTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].arrow_hit), valueFill)
-			console.log(sumArrayValues(statsArray[a].arrow_hit))
+			// console.log(sumArrayValues(statsArray[a].arrow_hit))
 			if(sumArrayValues(statsArray[a].arrow_hit) > 0) {
 				outmsg += ('\n' + mainLine + 'arrows : ' + arrowTotal)
 				msgNum += 1
