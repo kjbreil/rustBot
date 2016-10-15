@@ -207,14 +207,14 @@ userStatsDiscord = function(statsArray, hours) {
 			}
 			if ((msgNum % 15) == 0) {
 				outmsg += '```'
-				console.log(outmsg)
+				// console.log(outmsg)
 				log(outmsg, 'dl', logFile.discord, discordRoom.general)
 				outmsg = '[USER][' + hours + ' hours][' + msgNum + ']' + '```'
 			}
 			
 		}
 		outmsg += '```'
-		console.log(outmsg)
+		// console.log(outmsg)
 		log(outmsg, 'dl', logFile.discord, discordRoom.general)
 		// process.exit()
 	})
