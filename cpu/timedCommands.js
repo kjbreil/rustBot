@@ -1,4 +1,4 @@
-// timedCommands.js
+// timedCommands.js  steamUserStats
 
 exports.runTimedCommands = function() {
 	setTimeout(function(){
@@ -7,18 +7,18 @@ exports.runTimedCommands = function() {
 
 	setTimeout(function(){
 		cpu.sql.sqlInserters.manualRefreshSteamStatsConnected()
-	}, 10000)
+	}, 2000)
+
+		setTimeout(function(){
+		cpu.steamStats.steamServerStats('4')
+	}, 5000)
 
 	setTimeout(function(){
-		cpu.steamStats.steamsStatsStart('24')
-	}, 15000)
-
+		cpu.steamStats.steamServerStats('24')
+	}, 6000)
 	setTimeout(function(){
-		cpu.steamStats.steamsStatsStart('4')
-	}, 12000)
-
-
-	
+		cpu.steamStats.steamUserStats('24')
+	}, 8000)
 }
 
 

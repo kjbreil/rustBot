@@ -34,13 +34,24 @@ exports.runScheduledCommands = function() {
 	manualRefreshStats.start()
 	refreshServerStats24.start()
 	refreshServerStats4.start()
+	refreshUserStats24.start()
 }
+
+var refreshUserStats24 = new CronJob({
+	cronTime: '30 */15 * * * *',
+	onTick: function() {
+		console.log('REFRESHING USER STATS')
+		cpu.steamStats.steamUserStats('24')
+	},
+	start: false,
+	timeZone: 'America/Los_Angeles'
+})
 
 var refreshServerStats24 = new CronJob({
 	cronTime: '5 */15 * * * *',
 	onTick: function() {
 		console.log('REFRESHING TOP SERVER STATS')
-		cpu.steamStats.steamsStatsStart('24')
+		cpu.steamStats.steamServerStats('24')
 	},
 	start: false,
 	timeZone: 'America/Los_Angeles'
@@ -50,7 +61,7 @@ var refreshServerStats4 = new CronJob({
 	cronTime: '0 */15 * * * *',
 	onTick: function() {
 		console.log('REFRESHING TOP SERVER STATS')
-		cpu.steamStats.steamsStatsStart('4')
+		cpu.steamStats.steamServerStats('4')
 	},
 	start: false,
 	timeZone: 'America/Los_Angeles'

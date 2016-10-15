@@ -1,7 +1,7 @@
 // steamStats.js
 
 
-exports.steamsStatsStart = function(hours) {
+exports.steamServerStats = function(hours) {
 	getSteamStats(hours).then(function(data) {
 		tempSteamStats(data, hours).then(function() {
 			getServerStats(hours).then(function(statsArray) {
@@ -10,6 +10,16 @@ exports.steamsStatsStart = function(hours) {
 		})
 	})
 }
+
+exports.steamUserStats = function(hours) {
+	getUserStats(hours).then(function(a) {
+		userStatsCreateJson(a).then(function(b) {
+			userStatsDiscord(b, hours)
+			// console.log(b)
+		})
+	})
+}
+
 
 getSteamStats = function(hours) {
 	return new Promise(function(resolve, reject) {
@@ -86,78 +96,183 @@ getServerStats = function(hours) {
 	})
 }
 
-exports.getUserStats = function(hours) {
+getUserStats = function(hours) {
 	return new Promise(function(resolve, reject) {
-			// console.log('deleted')
-			let tempDB = 'tempSteamStats' + hours
-			knex.select('vLastStats.steamid as steamid', 'vLastStats.name as steamname')
-				.select(tempDB + '.name as stat')
-				.sum(tempDB + '.value as value')
-				.from('vLastStats')
-				.groupBy(tempDB + '.name', 'vLastStats.steamid', 'vLastStats.name')
-				// .orderByRaw('SUM(value) DESC')
-				.orderBy('value', 'steamid')
-				.join(tempDB, 'vLastStats.steamid', tempDB + '.steamid').as('tss')
-				// .limit(10)
-				.then(function(msg) {
-					resolve(msg)			
-				}).catch(function(err) {
-					reject(err)
-				})
+		// console.log('deleted')
+		let tempDB = 'tempSteamStats' + hours
+		knex.select('vLastStats.steamid as steamid', 'vLastStats.name as steamname')
+			.select(tempDB + '.name as stat')
+			.sum(tempDB + '.value as value')
+			.from('vLastStats')
+			.groupBy(tempDB + '.name', 'vLastStats.steamid', 'vLastStats.name')
+			// .orderByRaw('SUM(value) DESC')
+			.whereNotNull(tempDB + '.name')
+			.orderBy('value', 'desc')
+			.join(tempDB, 'vLastStats.steamid', tempDB + '.steamid').as('tss')
+			// .limit(10)
+			.then(function(msg) {
+				resolve(msg)			
+			}).catch(function(err) {
+				reject(err)
+			})
 
+	})
+}
+
+
+
+serverStatsDiscord = function(statsArray, hours) {
+	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[SERVER\\]\\[" + hours + " hours\\]```")
+	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
+		var outmsg = '[SERVER][' + hours + ' hours]' + '```'
+		for(let a in statsArray) {
+			outmsg = outmsg + ('\n' + statsArray[a].name + ' : ' + statsArray[a].sum)
+		}
+		outmsg = outmsg + '```'
+		log(outmsg, 'd', null, discordRoom.general)
+	})
+}
+
+sumArrayValues = function(array) {
+	let sum = 0
+	for(let a in array) {
+		sum += parseInt(array[a])
+	}
+	return sum
+}
+
+userStatsDiscord = function(statsArray, hours) {
+	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[USER\\]\\[" + hours + " hours\\]\\[\\d+\\]```")
+	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
+		// console.log(z)
+		var msgNum = 1
+		var outmsg = '[USER][' + hours + ' hours][0]' + '```'
+		for(let a in statsArray) {
+			let steamname = '[###]' + statsArray[a].name + ']'
+			outmsg += '\n' + steamname
+			msgNum += 1
+
+			let blank = discord.discordMessage.fixedWidth(1, '', ' ')
+			// let dash10 = discord.discordMessage.fixedWidth(10, '', '-')
+			let subLine = discord.discordMessage.fixedWidth(1, '', '|')
+			let mainLine = discord.discordMessage.fixedWidth(3, '|=>', '-')
+
+			let valueFill = '-'
+			
+			let harvestTotal = discord.discordMessage.fixedWidth(6, sumArrayValues(statsArray[a].harvest), valueFill)
+			if(sumArrayValues(statsArray[a].harvest) > 0) {
+				outmsg += ('\n' + mainLine + 'harvest: ' + harvestTotal)
+				msgNum += 1
+			}
+			for(let b in statsArray[a].harvest) {
+				let insideStat = discord.discordMessage.fixedWidth(6, statsArray[a].harvest[b], valueFill)
+				outmsg += (subLine + b + ': '+ insideStat)
+				msgNum += 1
+			}
+
+			let bulletTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].bullet), valueFill)
+			if(sumArrayValues(statsArray[a].bullet) > 0) {
+				outmsg += ('\n' + mainLine + 'bullets: ' + bulletTotal)
+					msgNum += 1
+			}
+			for(let b in statsArray[a].bullet_hit) {
+				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].bullet_hit[b], valueFill)
+				let insideName = discord.discordMessage.fixedWidth(6, b)
+				outmsg += (subLine + insideName + ': '+ insideStat)
+				msgNum += 1
+			}
+
+			let arrowTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].arrow), valueFill)
+			if(sumArrayValues(statsArray[a].arrow) > 0) {
+				outmsg += ('\n' + mainLine + 'arrows : ' + arrowTotal)
+				msgNum += 1
+			}
+			for(let b in statsArray[a].arrow_hit) {
+				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].arrow_hit[b], valueFill)
+				let insideName = discord.discordMessage.fixedWidth(6, b)
+				outmsg += (subLine + insideName + ': '+ insideStat)
+				msgNum += 1
+			}
+
+			let shotgunTotal = discord.discordMessage.fixedWidth(4, sumArrayValues(statsArray[a].shotgun), valueFill)
+			if(sumArrayValues(statsArray[a].shotgun) > 0) {
+				outmsg += ('\n' + mainLine + 'shotgun: ' + shotgunTotal)
+				msgNum += 1
+			}
+			for(let b in statsArray[a].shotgun_hit) {
+				let insideStat = discord.discordMessage.fixedWidth(3, statsArray[a].shotgun_hit[b], valueFill)
+				let insideName = discord.discordMessage.fixedWidth(6, b)
+				outmsg += (subLine + insideName + ': '+ insideStat)
+				msgNum += 1
+			}
+			if ((msgNum % 15) == 0) {
+				outmsg += '```'
+				console.log(outmsg)
+				log(outmsg, 'dl', logFile.discord, discordRoom.general)
+				outmsg = '[USER][' + hours + ' hours][' + msgNum + ']' + '```'
+			}
+			
+		}
+		outmsg += '```'
+		console.log(outmsg)
+		log(outmsg, 'dl', logFile.discord, discordRoom.general)
+		// process.exit()
 	})
 }
 
 
 /*
 
-SELECT 
-vls."steamid" as "steamid",
-vls."name" as "steamname",
-SUM(CASE WHEN tss."name" = 'harvest.wood' THEN tss."value" ELSE 0 END) as "wood",
-SUM(CASE WHEN tss."name" = 'harvest.stones' THEN tss."value" ELSE 0 END) as "stones",
-SUM(CASE WHEN tss."name" = 'harvest.cloth' THEN tss."value" ELSE 0 END) as "cloth",
-SUM(CASE WHEN tss."name" like 'harvest.%' THEN tss."value" ELSE 0 END) as "harvest_total",
-SUM(CASE WHEN tss."name" = 'item_drop' THEN tss."value" ELSE 0 END) as "items_dropped",
-SUM(CASE WHEN tss."name" = 'bullet_fired' THEN tss."value" ELSE 0 END) as "bullet_fired",
-SUM(CASE WHEN tss."name" like 'bullet_hit_%' THEN tss."value" ELSE 0 END) as "bullet_hit",
-SUM(CASE WHEN tss."name" = 'arrow_fired' THEN tss."value" ELSE 0 END) as "arrow_fired",
-SUM(CASE WHEN tss."name" like 'arrow_hit_%' THEN tss."value" ELSE 0 END) as "arrow_hit",
-SUM(CASE WHEN tss."name" like 'deaths' THEN tss."value" ELSE 0 END) as "deaths",
-SUM(CASE WHEN tss."name" like 'wounded' THEN tss."value" ELSE 0 END) as "wounded"
-FROM "vLastStats" vls
-JOIN "tempSteamStats24" tss ON vls.steamid = tss.steamid
-WHERE vls.NAME NOTNULL
-GROUP BY 1,2
-ORDER BY (6,3,2,1,8,9,10,11) DESC
-
-
-
-
-SELECT 
-vls."steamid" as "SteamID",
-vls."name" as "Steam Name",
-tss."name" as "Stat",
-SUM(tss."value")
-
-FROM "vLastStats" vls
-JOIN "tempSteamStats24" tss ON vls.steamid = tss.steamid
-WHERE vls.NAME NOTNULL
-GROUP BY vls."steamid",
-vls."name",
-tss."name"
-ORDER BY sum DESC
+  '76561198030172959': 
+   { name: 'hellsboy',
+     kill: [ '{boar: 1}', '{bear: 1}', '{player: 2}' ],
+     headshot: '1',
+     death: [ '{selfinflicted: 2}', '{suicide: 7}', '{entity: 31}' ],
+     wounded: [ '{assisted: 2}' ],
+     bullet_hit: 
+      [ '{boar: 2}',
+        '{bear: 7}',
+        '{player: 10}',
+        '{building: 50}',
+        '{entity: 115}' ],
+     harvest: [ '{harvest.cloth: 10}', '{harvest.wood: 9304}' ],
+     deaths: '42',
+     item: [ '{drop: 92}' ],
+     bullet: [ '{fired: 283}' ] },
 
 */
 
-serverStatsDiscord = function(statsArray, hours) {
-	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[Previous " + hours + " hours\\]```")
-	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
-		var outmsg = '[Previous ' + hours + ' hours]' + '```'
-		for(let a in statsArray) {
-			outmsg = outmsg + ('\n' + statsArray[a].name + ' : ' + statsArray[a].sum)
+userStatsCreateJson = function(s) {
+	return new Promise(function(resolve, reject) {
+		let statsJson = {} 
+		for(i in s) {
+			let steamid = [s[i].steamid]
+			let sname = [s[i].stat]
+			let svalue = s[i].value
+			// let [s[i].stat] = s[i].value
+			
+
+			if(!statsJson[steamid[0]]) {
+				statsJson[steamid[0]] = {}
+			}
+			statsJson[steamid[0]].name = s[i].steamname
+			if(ta = RegExp(/(^harvest)\.?(.+)?/).exec(sname[0])) {
+				if(!statsJson[steamid[0]].harvest) {
+					statsJson[steamid[0]].harvest = {}
+				}
+				let aname = [ta[2]]
+				statsJson[steamid[0]].harvest[aname[0]] = svalue
+			} else if (under = RegExp(/(^.+)\_(.+)/).exec(sname[0])) {
+				if(!statsJson[steamid[0]][under[1]]) {
+					statsJson[steamid[0]][under[1]] = {}
+				}
+				let aname = [under[2]]
+				statsJson[steamid[0]][under[1]][aname[0]] = svalue
+			} else {
+				statsJson[steamid[0]][sname[0]] = svalue
+			}
+			
 		}
-		outmsg = outmsg + '```'
-		log(outmsg, 'd', null, discordRoom.general)
+		resolve(statsJson)
 	})
 }

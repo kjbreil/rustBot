@@ -46,7 +46,7 @@ exports.discordSendMessage = function(msg, pChannel){
             channel.stopTyping(true)
     		break;
     	default:
-    		channel.sendMessage(time + msg, split=1)
+    		channel.sendMessage(time + msg)
             channel.stopTyping(true)
     }
 }
@@ -89,14 +89,15 @@ findMessage = function(r, f) {
 }
 
 // discord.discordMessage.fixedWidth(10, )
-exports.fixedWidth = function(width, str) {
+exports.fixedWidth = function(width, str, chr) {
+    if(!chr){chr = ' '}
     if (typeof str === 'undefined') {
         return pad
     }
     let i = width
     let pad = ''
     while(i--) {
-        pad += ' '
+        pad += chr
     }
     return (str + pad).substring(0, width)
 }
