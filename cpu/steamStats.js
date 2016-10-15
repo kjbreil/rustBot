@@ -144,7 +144,7 @@ sumArrayValues = function(array) {
 }
 
 userStatsDiscord = function(statsArray, hours) {
-	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[USER\\]\\[" + hours + " hours\\]\\[\\d+\\]```")
+	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[USER\\]\\[" + hours + " hours\\]\\[\\d+\\]")
 	discord.discordMessage.discordDeleteMessageType(discordRoom.general, cbRE).then(function (z) {
 		var outmsg = '[USER][' + hours + ' hours][0]'
 		for(let a in statsArray) {
