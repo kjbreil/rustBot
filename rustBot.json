@@ -3,7 +3,7 @@
 		"name"        : "rustBot",
 		"script"      : "./rustBot.js",
 		"watch": "./",
-		"ignore_watch" : ["[\\/\\\\]\\./", "node_modules", "logs"],
+		"ignore_watch" : ["[\\/\\\\]\\./", "node_modules", "logs", "\\.git"],
 			"watch_options": {
 				"followSymlinks": false,
 				"useFsEvents": true
