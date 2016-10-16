@@ -52,7 +52,7 @@ exports.getPlayerArray = function() {
     return new Promise(function (resolve, reject) {
         rcon.run('global.playerlist').then(function(msg){
             // console.log(msg)
-            msg = JSON.parse(msg.message)
+            msg = JSON.parse(JSON.stringifiy(msg.message))
             server.refresh.player = new Date().getTime()
             server.players = msg
             cpu.sql.sqlInserters.playerListToSQL(server.players)
