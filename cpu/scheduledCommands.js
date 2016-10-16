@@ -35,7 +35,18 @@ exports.runScheduledCommands = function() {
 	refreshServerStats24.start()
 	refreshServerStats4.start()
 	refreshUserStats24.start()
+	refreshRconStatus.start()
 }
+
+var refreshRconStatus = new CronJob({
+	cronTime: '0 */10 * * * *',
+	onTick: function() {
+		console.log('REFRESHING STATUS')
+		discord.discordServerInfo.displayJsonInfo()
+	},
+	start: false,
+	timeZone: 'America/Los_Angeles'
+})
 
 var refreshUserStats24 = new CronJob({
 	cronTime: '30 */15 * * * *',

@@ -8,6 +8,7 @@ let clientRE  = new RegExp(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:\d{1,6})\/(\d+
 
 exports.rustGenericGate = function(msg) {
 	// msg.message | msg.time
+	// console.log(msg)
 	if(deathRE.test(msg.message)) {
 		rust.rustDeath.deathMessageIF(msg.message)
 	} else if (eventRE.test(msg.message)) { 

@@ -5,7 +5,9 @@
     {"cmd" : "giveall", "rcon" : "giveall", "help" : "Give kits to all players,  for more info"},
     {"cmd" : "serverinfo", "scmd" : "si", "rcon" : "global.serverinfo", "help" : "serverinfo"},
     {"cmd" : "stats", "scmd" : "si", "rcon" : "global.stats", "help" : "NOT WORKING"},
-    {"cmd" : "status", "scmd" : "st", "rcon" : "global.status", "help" : "NOT WORKING", "cb" : "rconResponse.rconStatus"}
+    {"cmd" : "status", "scmd" : "st", "rcon" : "global.status", "help" : "NOT WORKING", "cb" : "rconResponse.rconStatus"},
+    {"cmd" : "statustest", "scmd" : "stt", "rcon" : "global.status", "help" : "NOT WORKING", "cb" : "rconResponse.rconStatus"},
+    {"cmd" : "getplayers", "scmd" : "gp", "rcon": "listplayers"}
 ],
 "disabledCommands": [
 	{"cmd" : "say" , "scmd" : "s" , "rcon" : "say", "help" : "say something in chat"},

@@ -7,40 +7,67 @@ exports.discordBotGate = function(msg) {
 		let msgArray = RegExp(/(^\S+)\s?(.*?)?\s?(\S*)?$/).exec(msg.content)
 		let cmd = msgArray[1]
 		let commandArray = discord.discordResponders.botChannelCommands.find(findCommand.bind(this, cmd))
-		console.log(msgArray)
-		msgArrayFix(msgArray)
-		console.log(msgArray)
+		// console.log(msgArray)
+        msgArray = msgArrayFix(msgArray)
+		// console.log(msgArray)
 
-		// if(commandArray) {
-		// 	if(commandArray.dcmd) {
-		// 		botCommandSwitch(msgArray, commandArray)
-		// 	} else if (commandArray.cmd === 'help') {
-		// 		botCommandHelp()
-		// 	} else {log(msg.author.username + ' tried command \"' + cmd + '\" but it is not setup correctly as an bot command', 'l', logFile.discord, null)}
-		// } else {
-		// 	log(msg.author.username + ' tried command \"' + cmd + '\" it was not found', 'l', logFile.discord, null)
-		// }
+		if(commandArray) {
+			if(commandArray.dcmd) {
+				botCommandSwitch(msgArray, commandArray)
+			} else if (commandArray.cmd === 'help') {
+				botCommandHelp()
+			} else {log(msg.author.username + ' tried command \"' + cmd + '\" but it is not setup correctly as an bot command', 'l', logFile.discord, null)}
+		} else {
+			log(msg.author.username + ' tried command \"' + cmd + '\" it was not found', 'l', logFile.discord, null)
+		}
 		resolve(msg)
     })
 }
 
 msgArrayFix = function(ma) {
 	if (ma[2]) {
-		console.log(ma[2].length)
-	}
-	// console.log(ca.length)
-	// switch(ca.length)
+		if (ma[2].length === 1) {
+            ma[2] = ma[2] + ma[3]
+            ma = ma.slice(0, 3)
+            // console.log(ma)
+    	}
+    }
+   return ma
 }
 
 findCommand = function(cmd, f) { 
     return (f.cmd === cmd)
 }
 
+clearChannelCheck = function(pc) {
+    switch (pc){
+        case(discordRoom.rcon):
+            discord.discordMessage.discordDeleteAllMessages(discordRoom.rcon)
+            break;
+        case(discordRoom.bot):
+            discord.discordMessage.discordDeleteAllMessages(discordRoom.bot)
+            break;
+        case(discordRoom.default):
+            discord.discordMessage.discordDeleteAllMessages(discordRoom.default)
+            break;
+        case(discordRoom.log):
+            discord.discordMessage.discordDeleteAllMessages(discordRoom.log)
+            break;
+        case(discordRoom.general):
+            discord.discordMessage.discordDeleteAllMessages(discordRoom.general)
+            break;
+        default:
+            log('Channel ' + pc + ' outside context of current bot', 'lcd', logFile.discord, config.discordRooms.bot)
+            break;
+        }
+}
+
+
 botCommandSwitch = function(ma, ca) {
-	console.log(ca)
 	switch(ca.cmd) {
 		case('clear'):
-			console.logm(a)
+            clearChannelCheck(ma[2])
+            // console.log(ma)
 			break;
 		default:
 			console.log('something went wrong')

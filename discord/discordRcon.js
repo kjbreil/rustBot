@@ -8,6 +8,7 @@ exports.discordRconGate = function(msg) {
 		let cmd = msgArray[1].toLowerCase()
 
 		let commandArray = discord.discordResponders.rconChannelCommands.find(findCommand.bind(this, cmd))
+		// console.log(commandArray)
 		if(commandArray) {
 			if(commandArray.rcon) {
 				rconCommandSwitch(msgArray, commandArray)
@@ -27,9 +28,26 @@ findCommand = function(cmd, f) {
 }
 
 rconCommandSwitch = function(ma, ca) {
+
 	switch(ca.cmd) {
 		case('listplayers'):
 			rust.rconListPlayers.getAndDisplayPlayers(ma)
+			break;
+		case('status'):
+			discord.discordServerInfo.displayJsonInfo()
+
+			// rust.rconStatus.getRconStatus(ma).then(function() {
+			// 	// console.log('IM IN HERE')
+			// 	discord.discordServerInfo.displayJsonInfo()
+			// })
+			break;
+		case('getplayers'):
+			// discord.discordServerInfo.displayJsonInfo()
+			rust.rconListPlayers.getPlayerArray().then(function(msg){
+				// server.players.push(msg)
+				server = JSON.parse(JSON.stringify(server))
+				console.log(server)
+			})
 			break;
 		default:
 			console.log('something went wrong')

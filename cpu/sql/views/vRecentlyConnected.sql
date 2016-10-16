@@ -15,7 +15,7 @@ JOIN "vLastStats" vls ON ct.steamid = vls.steamid
 WHERE ct.disconnect = TRUE
   AND ct.steamid NOT IN
     (SELECT steamid
-     FROM vconnectedplayers)
+     FROM "vConnectedPlayers")
   AND ct.created_at > (now() - interval '24 hour')
 GROUP BY ct.steamid,
          ct.name,
@@ -28,6 +28,5 @@ GROUP BY ct.steamid,
          vls.ownersteamid,
          vls.created_at
 ORDER BY vls.created_at DESC;
-
 
 ALTER TABLE public."vRecentlyConnected" OWNER TO rustbot;

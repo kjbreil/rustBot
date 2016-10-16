@@ -23,7 +23,8 @@ global.log = cpu.logger.rustBotLog
 global.logFile = config.logFiles[0]
 global.discordRoom = config.discordRooms[0]
 
-
+global.server = {}
+server.refresh = {}
 
 cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()

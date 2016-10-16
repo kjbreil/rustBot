@@ -17,35 +17,46 @@
 
 */
 exports.getAndDisplayPlayers = function() {
-    rcon.run('global.playerlist').then(function(msg){
-    	a = msg.message
-        let plRE = new RegExp(/^.+ \[__\*\*\d{1,2}\*\*__\]\[\*listplayers\*\:\*\*\*lp\*\*\*\]/)
-        discord.discordMessage.discordDeleteMessageType(discordRoom.rcon, plRE).then(function (z) {
-    		if (a !== '\[\]') {
-                a = JSON.parse(a)
-                cpu.sql.sqlInserters.playerListToSQL(a)
-    			let playersOnline = '[__**' + a.length + '**__][*listplayers*:***lp***][DisplayName : SteamID : Ping : Level : XP : Health]'
-                let finalMessage = ''
-    			for(var i in a) {
-    				finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' | P:' + a[i].Ping + ' | L:'
-    				finalMessage = finalMessage + a[i].CurrentLevel + ' | X:' + a[i].UnspentXp + ' | H:' + a[i].Health + ']'
-    			}
-    			log(playersOnline + finalMessage, 'ld', logFile.rustbot, discordRoom.rcon)
-    		} else {
-                cpu.sql.sqlInserters.noPlayersToSql(a)
-    			log('[__**0**__][*listplayers*:***lp***][DisplayName | SteamID | Ping | Level | XP | Health]', 'ld', logFile.rustbot, discordRoom.rcon)
-    		}
-        })
-    }).catch(function (err) {
-        console.log(err)
+
+    rust.rconListPlayers.getPlayerArray().then(function() {
+        discord.discordRconSend.playerList()
     })
+    // rcon.run('global.playerlist').then(function(msg){
+    //     let plRE = new RegExp(/^.+ \[__\*\*\d{1,2}\*\*__\]\[\*listplayers\*\:\*\*\*lp\*\*\*\]/)
+    //     discord.discordMessage.discordDeleteMessageType(discordRoom.rcon, plRE).then(function (z) {
+    //         // console.log(z)
+    //         // console.log(msg)
+    //         a = msg.message
+    //         a = JSON.parse(a)
+    // 		if (a !== '\[\]') {
+    //             cpu.sql.sqlInserters.playerListToSQL(a)
+    // 			let playersOnline = '[__**' + a.length + '**__][*listplayers*:***lp***][DisplayName : SteamID : Ping : Level : XP : Health]'
+    //             let finalMessage = ''
+    // 			for(var i in a) {
+    // 				finalMessage = finalMessage + '\n[__' + a[i].DisplayName + '__ : ' + a[i].SteamID + ' | P:' + a[i].Ping + ' | L:'
+    // 				finalMessage = finalMessage + a[i].CurrentLevel + ' | X:' + a[i].UnspentXp + ' | H:' + a[i].Health + ']'
+    // 			}
+    // 			log(playersOnline + finalMessage, 'ld', logFile.rustbot, discordRoom.rcon)
+    // 		} else {
+    //             cpu.sql.sqlInserters.noPlayersToSql(a)
+    // 			log('[__**0**__][*listplayers*:***lp***][DisplayName | SteamID | Ping | Level | XP | Health]', 'ld', logFile.rustbot, discordRoom.rcon)
+    // 		}
+    //     })
+    // }).catch(function (err) {
+    //     console.log(err)
+    // })
 
 }
 
 exports.getPlayerArray = function() {
     return new Promise(function (resolve, reject) {
         rcon.run('global.playerlist').then(function(msg){
-            resolve(msg.message)
+            // console.log(msg)
+            msg = JSON.parse(msg.message)
+            server.refresh.player = new Date().getTime()
+            server.players = msg
+            cpu.sql.sqlInserters.playerListToSQL(server.players)
+            resolve(msg)
         }).catch(function (err) {
             console.log(err)
         })
@@ -57,7 +68,7 @@ exports.getPlayerIsOnline = function(si) {
     return new Promise(function (resolve, reject) {
         rust.rconListPlayers.getPlayerArray().then(function (po) {
             // console.log('get player array ' + po)
-            po = JSON.parse(po)
+            // po = JSON.parse(po)
             let out = po.find(findBySteamId.bind(this, si))
             console.log('out ' + out)
             resolve(out)
@@ -73,6 +84,7 @@ exports.getPlayerIsOnline = function(si) {
 findBySteamId = function(si, po) { 
     return (po.SteamID === si )
 }
+
 
 
 

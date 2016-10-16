@@ -50,6 +50,10 @@ logAllRcon = function(line) {
 	})
 }
 exports.playerListToSQL = function(playerList) {
+	if(playerList.length === 0) { 
+		console.log('NO PLAYERS')
+		noPlayersToSql() 
+	}
 	for(let i in playerList) {
 		let ip = playerList[i].Address.substr(0, playerList[i].Address.indexOf(":"))
 		let port = playerList[i].Address.substr(playerList[i].Address.indexOf(":") + 1)
@@ -70,7 +74,7 @@ exports.playerListToSQL = function(playerList) {
 		})
 	}
 }
-exports.noPlayersToSql = function(playerList) {
+noPlayersToSql = function(playerList) {
 		knex(config.dbTables.playerlist).insert( {
 			steamid: 0,
 			ownersteamid: 0

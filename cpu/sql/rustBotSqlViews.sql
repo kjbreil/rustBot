@@ -1,6 +1,32 @@
 -- rustBotSqlViews.sql
  -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:xxxxx@localhost/rustbot"
 
+CREATE OR REPLACE VIEW public."vLastStats" AS
+SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
+       pl.created_at,
+       pl.steamid,
+       pl.name,
+       pl.ping,
+       pl.health,
+       pl.currentlevel,
+       pl.unspentxp,
+       pl.violationlevel,
+       pl.ownersteamid,
+       pl.ip
+FROM playerlist pl,
+  (SELECT MAX(created_at),
+          steamid
+   FROM playerlist
+   WHERE steamid != 0
+   GROUP BY 2
+   ORDER BY 1 DESC) lto
+WHERE pl.steamid = lto.steamid
+  AND lto.max = pl.created_at
+ORDER BY pl.created_at DESC;
+
+ALTER TABLE public."vLastStats" OWNER TO rustbot;
+
+
 CREATE OR REPLACE VIEW public."vConnectedPlayers" AS
 SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
        pl.steamid,
@@ -14,40 +40,16 @@ SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
        pl.currentlevel
 FROM playerlist pl
 JOIN
-  (SELECT max(connect.created_at) AS lcon,
-          connect.steamid,
-          connect.name
-   FROM CONNECT
-   WHERE CONNECT.CONNECT = TRUE
-   GROUP BY CONNECT.steamid,
-                    CONNECT.name) cn ON cn.steamid = pl.steamid
-WHERE to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) = (
-                                                               (SELECT to_char(playerlist.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char
-                                                                FROM playerlist
-                                                                ORDER BY playerlist.created_at DESC LIMIT 1));
+  (SELECT created_at AS lcon,
+          steamid,
+          name
+   FROM "vLastStats"
+   WHERE name NOTNULL
+   ORDER BY 1 DESC) cn ON pl.steamid = cn.steamid
+WHERE func_pl_time() = pl.created_at;
 
 
 ALTER TABLE public."vConnectedPlayers" OWNER TO rustbot;
-
-
-CREATE OR REPLACE VIEW public."vLastStats" AS
-SELECT DISTINCT ON (playerlist.steamid) to_char(playerlist.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
-                                        playerlist.created_at,
-                                        playerlist.steamid,
-                                        playerlist.name,
-                                        playerlist.ping,
-                                        playerlist.health,
-                                        playerlist.currentlevel,
-                                        playerlist.unspentxp,
-                                        playerlist.violationlevel,
-                                        playerlist.ownersteamid,
-                                        playerlist.ip
-FROM playerlist
-ORDER BY playerlist.steamid,
-         playerlist.created_at DESC;
-
-
-ALTER TABLE public."vLastStats" OWNER TO rustbot;
 
 
 CREATE OR REPLACE VIEW public."vRecentlyConnected" AS

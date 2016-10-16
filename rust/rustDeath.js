@@ -12,7 +12,7 @@
 let dT = 'rod'
 
 exports.deathMessageIF = function (line) {
-	// console.log(line)
+	console.log(line)
 	cpu.sql.sqlInserters.sqlInsertersGate(line, 'death')
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
 	var d = d[3]
