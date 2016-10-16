@@ -50,10 +50,12 @@ logAllRcon = function(line) {
 	})
 }
 exports.playerListToSQL = function(playerList) {
+	if(typeof playerList == "string") {playerList = JSON.parse(playerList)}
 	if(playerList.length === 0) { 
 		console.log('NO PLAYERS')
 		noPlayersToSql() 
 	}
+	console.log(playerList)
 	for(let i in playerList) {
 		let ip = playerList[i].Address.substr(0, playerList[i].Address.indexOf(":"))
 		let port = playerList[i].Address.substr(playerList[i].Address.indexOf(":") + 1)
@@ -291,6 +293,7 @@ insertUserStats = function(si, connect, manual) {
 
 insertUserServerStats = function(si, steamStats) {
 	sqlSelectSteamStatsLastConnect(si).then(function(steamStatsAudit) {
+		console.log(steamStats)
 		// console.log(steamStats)
 		// console.log(steamStatsAudit)
 		let connectStats = steamStatsAudit[0].stats.stats
