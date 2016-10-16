@@ -1,3 +1,4 @@
 #!/bin/bash
-npm install
-./node_modules/forever/bin/forever --spinSleepTime 10000 -w --minUptime 10000 --killSignal=SIGUSR2 ./rustBot.js
+# npm install
+pm2 delete all
+pm2 start rustBot.json
