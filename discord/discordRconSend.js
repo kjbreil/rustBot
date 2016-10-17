@@ -8,7 +8,7 @@ exports.playerList = function(full) {
 		if(typeof sp == "string") {sp = JSON.parse(sp)}
 		let outmsg = '[PLAYER LIST][0][**' + sp.length + '**]'
 		outmsg += st + '```CSS\n'
-		if (full) {
+		if (!full) {
 			for (let a in sp) {
 				outmsg += st + sp[a].DisplayName + ' {SI:#' + sp[a].SteamID + '}{PING:#' + sp[a].Ping + '}'
 				outmsg += '{OSI:#' + sp[a].OwnerSteamID + '}{IP:#' + sp[a].Address + '}{V:#' + sp[a].VoiationLevel + '}'
