@@ -40,15 +40,13 @@ exports.getPlayerArray = function() {
 exports.getPlayerIsOnline = function(si) {
     // log('inside getPlayerIsOnline function ' + si, 'lc', logFile.info, discordRoom.bot)
     return new Promise(function (resolve, reject) {
-        console.log(si)
-        console.log('GPI')
         if(typeof server.players == "string") {server.players = JSON.parse(server.players)}
-
-
-        let out = po.find(findBySteamId.bind(this, si))
-        console.log(out)
-        log('out ' + out, 'lc', logFile.info, discordRoom.bot)
-        resolve(out)
+        console.log(si)
+        if( out = server.players.find(findBySteamId.bind(this, si)) ) {
+            log('out ' + out, 'lc', logFile.info, discordRoom.bot)
+            resolve(out)  
+        }
+        reject()
     } )
 }
 
