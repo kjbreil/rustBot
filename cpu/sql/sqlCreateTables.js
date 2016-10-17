@@ -4,7 +4,7 @@
 // 	for(let i in config.dbTables) {
 // 		createTableFromConfig(i).then(function() {
 // 			og('DB TABLE ' + i + ' EXISTS', 'lc', logFile.info, discordRoom.bot)
-// 		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+// 		}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 // 	}
 // }
 const async = require('async')
@@ -22,37 +22,37 @@ createTableFromConfig = function(tableName) {
 		case(config.dbTables.chat):
 			createChatLogDB(tableName).then(function(){
 				log('CHAT DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 		case(config.dbTables.connect):
 			createConnectLogDB(tableName).then(function(){
 				log('CONNECT DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 		case(config.dbTables.death):
 			createDeathLogDB(tableName).then(function(){
 				log('DEATH DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 		case(config.dbTables.log):
 			createRawLogDB(tableName).then(function(){
 				log('LOG DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 		case(config.dbTables.playerlist):
 			createPlayerListDB(tableName).then(function(){
 				log('PLAYERLIST DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 		case(config.dbTables.steamstats_audit):
 			createSteamStatsAuditDB(tableName).then(function(){
 				log('steamstats_audit DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 		case(config.dbTables.steamstats_server):
 			createSteamStatsServerDB(tableName).then(function(){
 				log('steamstats_server DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			break;
 	}
 }

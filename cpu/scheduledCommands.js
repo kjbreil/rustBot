@@ -110,7 +110,7 @@ restartCountDown = function(time) {
 		setTimeout(function(){
 			let timeLeft = timeMilliseconds - timer[i]
 			let readableLeft = ((timeLeft/1000/60) << 0) + ':' + (String("00" + (timeLeft/1000) % 60).slice(-2))
-			log('rustBot: server restart in ' + readableLeft, 'lr', logFile.rustbot, discordRoom.chat)
+			log('rustBot: server restart in ' + readableLeft, 'lr', discordRoom.chat, logFile.rustbot)
 		}, timer[i])		
 	}
 }

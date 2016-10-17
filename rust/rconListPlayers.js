@@ -19,7 +19,7 @@
 exports.getAndDisplayPlayers = function() {
     rust.rconListPlayers.getPlayerArray().then(function() {
         discord.discordRconSend.playerList()
-    }).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+    }).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 }
 
 exports.getPlayerArray = function() {

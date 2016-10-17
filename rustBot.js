@@ -46,7 +46,7 @@ rcon.on('connect', () => {
 		    bot.destroy().then(function() {
 				log('DISCONNECTED: DISCORD', 'lc', logFile.info, discordRoom.bot)
 				process.exit()
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 		})
 
 		process.on('SIGUSR2', () => {
@@ -58,7 +58,7 @@ rcon.on('connect', () => {
 				process.exit(1)
 			}).catch(function (err) {
 		        log(err, 'lc', logFile.info, discordRoom.bot)
-		    }).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+		    }).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 		})
 	})
 	rcon.on('message', (msg) => {

@@ -24,7 +24,7 @@ checkServerStatus = function() {
 				// Status hasn't been updated in so long that its not displayed
 				rust.rconStatus.getRconStatus().then(function() {
 					resolve()
-				}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+				}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 			} else {
 				resolve()
 			}
@@ -32,7 +32,7 @@ checkServerStatus = function() {
 			// Never Refreshed
 			rust.rconStatus.getRconStatus().then(function() {
 				resolve()
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 		}
 	})
 }
@@ -43,7 +43,7 @@ checkPlayerList = function() {
 			// Status hasn't been updated in so long that its not displayed
 			rust.rconListPlayers.getPlayerArray().then(function() {
 				resolve()
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 		} else {
 			resolve()
 		}

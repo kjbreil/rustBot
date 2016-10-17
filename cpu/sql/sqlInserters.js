@@ -74,7 +74,7 @@ exports.playerListToSQL = function(playerList) {
 			health: playerList[i].Health
 		}).then(function() {
 			log('PLAYER: ' + playerList[i].SteamID + ' INSERTED INTO PLAYER LIST', 'lc', logFile.info, discordRoom.bot)
-		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+		}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 	}
 }
 noPlayersToSql = function(playerList) {
@@ -83,7 +83,7 @@ noPlayersToSql = function(playerList) {
 			ownersteamid: 0
 		}).then(function() {
 			log('NO PLAYERS ONLINE: PLAYERLIST UPDATED', 'lc', logFile.info, discordRoom.bot)
-		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+		}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 }
 
 exports.pvpNonSleeper = function(line) {

@@ -7,18 +7,18 @@ exports.steamServerStats = function(hours) {
 			getServerStats(hours).then(function(statsArray) {
 				serverStatsCreateJson(statsArray).then(function(b) {
 					statsDiscord(b, hours, 'SERVER')
-				}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
-			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
-		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
-	}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+				}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
+			}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
+		}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
+	}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 }
 
 exports.steamUserStats = function(hours) {
 	getUserStats(hours).then(function(a) {
 		userStatsCreateJson(a).then(function(b) {
 			statsDiscord(b, hours, 'USER')
-		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
-	}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+		}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
+	}).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
 }
 
 
