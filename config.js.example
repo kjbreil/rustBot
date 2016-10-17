@@ -15,10 +15,36 @@ config.discordAPI = 'myApplicationApiDiscordKey'
 config.discordID = 'myApplicationDiscordID'
 config.discordRooms = [{general : "general", chat : "chat", rcon : "rcon", bot : "bot", log : "log"}]
 
+// config.discordRooms = [{chat : "chatdev", rcon : "rcondev", bot : "botdev", general : "test", log : "logdev"}]
+
+
 // Dont fuck with these unless you know what you are doing
-config.logFiles = [{rustbot: "rustbot", chat: "chat", rcon: "rcon", discord: "discord", connect: "connect", websocket: "websocket", rust: "rust"}]
-config.reDir = ['logs','exLog','lib','matchers']
+
+// Dont fuck with these unless you know what you are doing
+config.logFiles = [{rustbot: "rustbot", chat: "chat", rcon: "rcon", discord: "discord", connect: "connect", websocket: "websocket", rust: "rust", sql: "sql", info: "info"}]
 config.logFileLocation = './logs/'
-config.reDir = ["logs","lib","matchers","websocket"]
+config.reDir = ["logs"]
+
+config.knex = {
+	client: 'pg',
+	connection: {
+		user: 'rustbot',
+		database: 'rustbot',
+		port: 5432,
+		host: 'localhost',
+		password: ''
+	},
+		debug: false,
+		pool: {
+			min: 1,
+			max: 2 
+	}
+}
+
+config.dbTables = {connect: "connect", death: "death", chat: "chat", log: "rawlog", playerlist: "playerlist", playerlistlive: "playerlistlive", steamstats_audit: "steamstats_audit", steamstats_server: "steamstats_server"}
+config.steamApiKey = ''
+config.ownerSteamId = ''
+config.rustAppId = '252490'
+
 
 module.exports = config;
