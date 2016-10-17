@@ -293,8 +293,8 @@ statsDiscord = function(statsArray, hours, type) {
 			let startMainLine = '\n-{'
 			let endMainLine = ':'
 			let startMainTotal = '#'
-			let endMainTotal = '}\n--'
-			let startSubLine = '{'
+			let endMainTotal = '}'
+			let startSubLine = '\n--{'
 			let endSubLine = ':'
 			let startSubTotal = '#'
 			let endSubTotal = '}'
@@ -339,6 +339,24 @@ statsDiscord = function(statsArray, hours, type) {
 			}
 			for(let b in statsArray[a].shotgun_hit) {
 				let insideStat = statsArray[a].shotgun_hit[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
+			}
+			let deathTotal = sumArrayValues(statsArray[a].death)
+			if(deathTotal > 0) {
+				outmsg += (startMainLine + 'deaths' + endMainLine + startMainTotal + deathTotal + endMainTotal)
+			}
+			for(let b in statsArray[a].death) {
+				let insideStat = statsArray[a].death[b]
+				let insideName = b
+				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
+			}
+			let killTotal = sumArrayValues(statsArray[a].kill)
+			if(deathTotal > 0) {
+				outmsg += (startMainLine + 'kills' + endMainLine + startMainTotal + killTotal + endMainTotal)
+			}
+			for(let b in statsArray[a].kill) {
+				let insideStat = statsArray[a].kill[b]
 				let insideName = b
 				outmsg += (startSubLine + insideName + endSubLine + startSubTotal + insideStat + endSubTotal)
 			}
