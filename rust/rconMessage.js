@@ -18,7 +18,7 @@ exports.rconMessageGate = function(msg) {
 		// if((/^\[.+\] /).test(msg.message)) {return;}
 		switch(msg.type) {
 			case('Chat'):
-				// console.log('inside chat')
+				// log('inside chat', 'lc', logFile.info, discordRoom.bot)
 				rconChatMessage(msg)
 				break;
 			case('Generic'):
@@ -34,7 +34,7 @@ exports.rconMessageGate = function(msg) {
 rconChatMessage = function(msg) {
 	cpu.sql.sqlInserters.sqlInsertersGate(msg.message, 'chat')
 	if((/^\[.+\] /).test(msg.message)) {
-		console.log('Event in Chat')
+		log('Event in Chat', 'lc', logFile.info, discordRoom.bot)
 		return
 	}
 	msg = JSON.parse(msg.message)

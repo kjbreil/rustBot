@@ -3,56 +3,56 @@
 // exports.sqlCreateTablesGate = function() {
 // 	for(let i in config.dbTables) {
 // 		createTableFromConfig(i).then(function() {
-// 			console.log('DB TABLE ' + i + ' EXISTS')
-// 		})
+// 			og('DB TABLE ' + i + ' EXISTS', 'lc', logFile.info, discordRoom.bot)
+// 		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 // 	}
 // }
 const async = require('async')
 
 exports.sqlCreateTablesGate = function() {
-	// console.log(config.dbTables)
+	// log(config.dbTables, 'lc', logFile.info, discordRoom.bot)
 	for(let i in config.dbTables) {
 		createTableFromConfig(config.dbTables[i])
 	}
 }
 
 createTableFromConfig = function(tableName) {
-	// console.log(tableName)
+	// log(tableName, 'lc', logFile.info, discordRoom.bot)
 	switch(tableName) {
 		case(config.dbTables.chat):
 			createChatLogDB(tableName).then(function(){
-				console.log('CHAT DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('CHAT DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 		case(config.dbTables.connect):
 			createConnectLogDB(tableName).then(function(){
-				console.log('CONNECT DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('CONNECT DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 		case(config.dbTables.death):
 			createDeathLogDB(tableName).then(function(){
-				console.log('DEATH DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('DEATH DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 		case(config.dbTables.log):
 			createRawLogDB(tableName).then(function(){
-				console.log('LOG DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('LOG DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 		case(config.dbTables.playerlist):
 			createPlayerListDB(tableName).then(function(){
-				console.log('PLAYERLIST DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('PLAYERLIST DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 		case(config.dbTables.steamstats_audit):
 			createSteamStatsAuditDB(tableName).then(function(){
-				console.log('steamstats_audit DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('steamstats_audit DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 		case(config.dbTables.steamstats_server):
 			createSteamStatsServerDB(tableName).then(function(){
-				console.log('steamstats_server DB: ' + tableName + ' CHECK COMPLETE')
-			})
+				log('steamstats_server DB: ' + tableName + ' CHECK COMPLETE', 'lc', logFile.info, discordRoom.bot)
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			break;
 	}
 }
@@ -69,12 +69,14 @@ createSteamStatsAuditDB = function(tableName) {
 						table.bigint('steamid')
 						table.jsonb('stats')
 					}).then(function (make) {
-						console.log('STEAM_AUDIT DB: ' + tableName + ' CREATED')
+						log('STEAM_AUDIT DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 }
@@ -91,12 +93,14 @@ createSteamStatsServerDB = function(tableName) {
 						table.bigint('steamid')
 						config.dbTables.death('stats')
 					}).then(function (make) {
-						console.log('STEAM_SERVER DB: ' + tableName + ' CREATED')
+						log('STEAM_SERVER DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 }
@@ -122,12 +126,14 @@ createPlayerListDB = function(tableName) {
 						table.decimal('unspentxp')
 						table.decimal('health')
 					}).then(function (make) {
-						console.log('PLAYERLIST DB: ' + tableName + ' CREATED')
+						log('PLAYERLIST DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 }
@@ -168,12 +174,14 @@ createConnectLogDB = function(tableName) {
 						table.text('auth_level').nullable()
 						table.text('line')
 					}).then(function (make) {
-						console.log('CONNECT DB: ' + tableName + ' CREATED')
+						log('CONNECT DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 }
@@ -188,12 +196,14 @@ createRawLogDB = function(tableName) {
 						table.timestamp('created_at', true)
 						table.jsonb('log')
 					}).then(function (make) {
-						console.log('CONNECT DB: ' + tableName + ' CREATED')
+						log('CONNECT DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 }
@@ -217,12 +227,14 @@ createConnectedLogDB = function(tableName) {
 						table.text('auth_level').nullable()
 						table.text('line')
 					}).then(function (make) {
-						console.log('CONNECT DB: ' + tableName + ' CREATED')
+						log('CONNECT DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 }
@@ -246,12 +258,14 @@ createDeathLogDB = function(tableName) {
 						table.boolean('suicide').nullable()
 						table.text('line')
 					}).then(function (make) {
-						console.log('DEATH DB: ' + tableName + ' CREATED')
+						log('DEATH DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 } 
@@ -269,12 +283,14 @@ createChatLogDB = function(tableName) {
 						table.text('message')
 						table.jsonb('json')
 					}).then(function (make) {
-						console.log('CHAT DB: ' + tableName + ' CREATED')
+						log('CHAT DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()
 					})
 				} else {
 					resolve()
 				}
+			}).catch(function(err) {
+				reject(err)
 			})
 	})
 } 

@@ -41,30 +41,30 @@ var items = new SteamApi.Items(config.steamApiKey, config.ownerSteamId);
 
 // Steam API Backpack
 // items.GetPlayerItems(config.rustAppId, config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // // Inventory
 // inventory.GetAppItems(config.rustAppId, config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // // User methods
 // user.GetPlayerBans(config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // user.GetFriendList(optionalRelationship = 'all', config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // user.GetUserGroupList(config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // //// e.g. vanityUrl = "pr00fgames";
 // // user.ResolveVanityUrl(vanityUrl).done(function(result){
-// //   console.log(result);
+// //   log(result, 'lc', logFile.info, discordRoom.bot);
 // // });
  
  
@@ -72,28 +72,28 @@ var items = new SteamApi.Items(config.steamApiKey, config.ownerSteamId);
 // //// e.g. config.rustAppId = 17740;
 // //// e.g. statsName = ['global.map.emp_isle'];
 // // userStats.GetGlobalStatsForGame(config.rustAppId, statsName).done(function(result){
-// //   console.log(result);
+// //   log(result, 'lc', logFile.info, discordRoom.bot);
 // // });
  
 // //// e.g. config.rustAppId = 620;
 // userStats.GetNumberOfCurrentPlayers(config.rustAppId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 userStats.GetSchemaForGame(config.rustAppId).done(function(result){
-  console.log(result.availableGameStats.stats);
+  log(result.availableGameStats.stats, 'lc', logFile.info, discordRoom.bot);
 });
  
 // userStats.GetPlayerAchievements(config.rustAppId, config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // userStats.GetGlobalAchievementPercentagesForApp(config.rustAppId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // userStats.GetUserStatsForGame(config.rustAppId, config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
  
@@ -104,43 +104,43 @@ userStats.GetSchemaForGame(config.rustAppId).done(function(result){
 //                     optionalMaxLength = null
 //                   )
 //     .done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
  
 // // App Methods
 // app.appDetails(config.rustAppId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // app.GetAppList().done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // app.GetServersAtAddress('107.191.112.62').done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // app.UpToDateCheck(config.rustAppId, '1803').done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
  
 // // Player Methods
 // player.GetSteamLevel(config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // player.GetPlayerLevelDetails(config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // player.GetBadges(config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // player.GetCommunityBadgeProgress(null, config.ownerSteamId).done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });
  
 // player.GetOwnedGames(
@@ -150,5 +150,5 @@ userStats.GetSchemaForGame(config.rustAppId).done(function(result){
 //                       // optionalconfig.rustAppIdsFilter = []
 //                     )
 //       .done(function(result){
-//   console.log(result);
+//   log(result, 'lc', logFile.info, discordRoom.bot);
 // });

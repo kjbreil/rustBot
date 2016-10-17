@@ -2,15 +2,12 @@
 
 exports.playerList = function(full) {
 	let st = '\n'
-
 	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[PLAYER LIST\\]\\[\\d+\\]\\[\\*\\*\\d+\\*\\*\\]")
 	discord.discordMessage.discordDeleteMessageType(discordRoom.rcon, cbRE).then(function (z) {
-		
 		let sp = server.players
-
+		if(typeof sp == "string") {sp = JSON.parse(sp)}
 		let outmsg = '[PLAYER LIST][0][**' + sp.length + '**]'
 		outmsg += st + '```CSS\n'
-		// outmsg += st + 'Otto {SI:#1231231423}{PING:#12}{OSI:#}{IP:#}{V:#}{H:#}{L:#}{X:#}'
 		if (full) {
 			for (let a in sp) {
 				outmsg += st + sp[a].DisplayName + ' {SI:#' + sp[a].SteamID + '}{PING:#' + sp[a].Ping + '}'
@@ -26,10 +23,10 @@ exports.playerList = function(full) {
 			}
 		}
 		outmsg += '\n```'
-		// console.log(outmsg)
-		log(outmsg, 'd', logFile.discord, discordRoom.rcon)
+		// log(outmsg, 'lc', logFile.info, discordRoom.bot)
+		log(outmsg, 'dl', logFile.discord, discordRoom.rcon)
 	}).catch(function(err){
-		console.log(err)
+		log(err, 'lc', logFile.info, discordRoom.bot)
 	})
 }
 
@@ -39,7 +36,7 @@ exports.status = function(full) {
 	let cbRE = new RegExp("\\[\\d+:\\d+:\\d+\\] \\[STATUS\\]\\[\\d+\\]")
 	discord.discordMessage.discordDeleteMessageType(discordRoom.rcon, cbRE).then(function (z) {
 		
-		// console.log(server)
+		// log(server, 'lc', logFile.info, discordRoom.bot)
 
 		let outmsg = '[STATUS][0]'
 		outmsg += st + '```CSS\n'
@@ -49,10 +46,10 @@ exports.status = function(full) {
 		outmsg += st + '{C:#' + server.status.players.connected + '}{J:#' + server.status.players.joiningPlayers + '}{Q:#' + server.status.players.queuedPlayers + '}{M:#' + server.status.players.maxPlayers + '}'
 		
 		outmsg += '\n```'
-		// console.log(outmsg)
+		// log(outmsg, 'lc', logFile.info, discordRoom.bot)
 		log(outmsg, 'd', logFile.discord, discordRoom.rcon)
 	}).catch(function(err){
-		console.log(err)
+		log(err, 'lc', logFile.info, discordRoom.bot)
 	})
 }
 

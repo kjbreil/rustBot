@@ -12,6 +12,8 @@ global.rcon = new WebRcon(config.addr, config.port)
 
 global.playersOnline = []
 
+global.Promise = require("bluebird")
+
 const fs = require('fs')
 
 
@@ -30,48 +32,48 @@ cpu.fsUtils.createDirectories()
 cpu.fsUtils.renameLogFiles()
 
 rcon.on('connect', () => {
-    console.log('CONNECTED: RCON')
+    log('CONNECTED: RCON', 'lc', logFile.info, discordRoom.bot)
 	bot.on('ready', () => {
-		console.log('CONNECTED: DISCORD')
-		// rust.rconListPlayers.getPlayerIsOnline('76561198125564678').then(function (msg) {console.log(msg)})
+		log('CONNECTED: DISCORD', 'lc', logFile.info, discordRoom.bot)
+		// rust.rconListPlayers.getPlayerIsOnline('76561198125564678').then(function (msg) {log(msg)}, 'lc', logFile.info, discordRoom.bot)
 
 
 		cpu.scheduledCommands.runScheduledCommands()
 		cpu.timedCommands.runTimedCommands()
 
 		rcon.on('disconnect', () => {
-		    console.log('RCON DISCONNECTED')
+		    log('RCON DISCONNECTED', 'lc', logFile.info, discordRoom.bot)
 		    bot.destroy().then(function() {
-				console.log('DISCONNECTED: DISCORD')
+				log('DISCONNECTED: DISCORD', 'lc', logFile.info, discordRoom.bot)
 				process.exit()
-			})
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 		})
 
 		process.on('SIGUSR2', () => {
-			console.log('SIGUSR2: DISCONNECTING: DISCORD, RCON')
+			log('SIGUSR2: DISCONNECTING: DISCORD, RCON', 'lc', logFile.info, discordRoom.bot)
 			bot.destroy().then(function() {
-				console.log('DISCONNECTED: DISCORD')
+				log('DISCONNECTED: DISCORD', 'lc', logFile.info, discordRoom.bot)
 				rcon.disconnect()
-				console.log('DISCONNECTED: RCON')
+				log('DISCONNECTED: RCON', 'lc', logFile.info, discordRoom.bot)
 				process.exit(1)
 			}).catch(function (err) {
-		        console.log(err)
-		    })
+		        log(err, 'lc', logFile.info, discordRoom.bot)
+		    }).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 		})
 	})
 	rcon.on('message', (msg) => {
-		// console.log('RCON MESSAGE')
+		// log('RCON MESSAGE', 'lc', logFile.info, discordRoom.bot)
     	rust.rconMessage.rconMessageGate(msg)
 	})
 	bot.on('message', (msg) => {
-		// console.log(msg)
+		// log(msg, 'lc', logFile.info, discordRoom.bot)
 		discord.discordMessage.discordMessageGate(msg)
 	})
 
 	bot.on('disconnect', () => {
-	    console.log('DISCONNECTED: DISCORD CONNECTION LOST')
+	    log('DISCONNECTED: DISCORD CONNECTION LOST', 'lc', logFile.info, discordRoom.bot)
 	    rcon.disconnect()
-	    console.log('DISCONNECTED: RCON')
+	    log('DISCONNECTED: RCON', 'lc', logFile.info, discordRoom.bot)
 	    process.exit(2)
 	});
 
@@ -79,7 +81,7 @@ rcon.on('connect', () => {
 })
 
 rcon.on('error', (err) => {
-    console.log('ERROR:', err)
+    log('ERROR:', err, 'lc', logFile.info, discordRoom.bot)
     process.exit(2)
 })
  

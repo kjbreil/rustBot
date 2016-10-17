@@ -1,7 +1,7 @@
 -- View: public.connected_players
  -- DROP VIEW public.connected_players;
 
-CREATE OR REPLACE VIEW public.vConnectedPlayers AS
+CREATE OR REPLACE VIEW public."vConnectedPlayers" AS
 SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
        pl.steamid,
        pl.name,
@@ -26,5 +26,5 @@ RIGHT JOIN
    ORDER BY 1 DESC LIMIT 1) lr ON pl.created_at = lr.created_at;
 
 
-ALTER TABLE public.vConnectedPlayers OWNER TO rustbot;
+ALTER TABLE public."vConnectedPlayers" OWNER TO rustbot;
 

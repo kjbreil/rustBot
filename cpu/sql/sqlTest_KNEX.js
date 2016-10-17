@@ -8,7 +8,7 @@ global.config = require('./../../config.js')
 let knexClient = config.knex.client
 let knexConnection = config.knex.connection
 
-console.log(config.knex)
+log(config.knex, 'lc', logFile.info, discordRoom.bot)
 
 
 global.knex = require('knex')(config.knex)
@@ -16,7 +16,7 @@ global.knex = require('knex')(config.knex)
 // datetime, ip, port, steamid, name, connect, os, os_steamid, disconnect, disconnect_why, auth, auth_level
 
 // knex.select('datetime', 'ip', 'port').from('connect_log').then(function (msg) {
-// 	console.log(msg)
+// 	log(msg, 'lc', logFile.info, discordRoom.bot)
 // })
 
 var lineReader = require('line-reader');
@@ -54,7 +54,7 @@ createConnectLogDB = function() {
 						table.text('auth_level').nullable()
 						table.text('line')
 					}).then(function (make) {
-						console.log('Connect Table Made')
+						log('Connect Table Made', 'lc', logFile.info, discordRoom.bot)
 						createDeathLogDB()
 						resolve()
 					})
@@ -84,7 +84,7 @@ createDeathLogDB = function() {
 						table.boolean('suicide').nullable()
 						table.text('line')
 					}).then(function (make) {
-						console.log('Death Table Made')
+						log('Death Table Made', 'lc', logFile.info, discordRoom.bot)
 						startLineReader()
 						resolve()
 					})
@@ -123,7 +123,7 @@ deathToSql = function(line) {
 					pvp: true,
 					line: line
 				}).then(function() {
-					console.log('pvp inserted')
+					log('pvp inserted', 'lc', logFile.info, discordRoom.bot)
 					reject()
 				})
 		} else if (killed = killedRE.exec(line)) {
@@ -134,7 +134,7 @@ deathToSql = function(line) {
 					killed: true,
 					line: line
 				}).then(function() {
-					console.log('killed inserted')
+					log('killed inserted', 'lc', logFile.info, discordRoom.bot)
 					reject()
 				})
 		} else if (suicide = suicideRE.exec(line)) {
@@ -145,7 +145,7 @@ deathToSql = function(line) {
 					died: true,
 					line: line
 				}).then(function() {
-					console.log('suicide inserted')
+					log('suicide inserted', 'lc', logFile.info, discordRoom.bot)
 					reject()
 				})
 		} else if (suicide = diedRE.exec(line)) {
@@ -156,7 +156,7 @@ deathToSql = function(line) {
 					suicide: true,
 					line: line
 				}).then(function() {
-					console.log('died inserted')
+					log('died inserted', 'lc', logFile.info, discordRoom.bot)
 					reject()
 				})
 		} else {
@@ -180,10 +180,10 @@ connectLogToSQL = function(line) {
 				disconnect: true,
 				disconnect_why: dis[6]
 			}).then(function() {
-				console.log('disconnect inserted')
+				log('disconnect inserted', 'lc', logFile.info, discordRoom.bot)
 				reject()
 			})
-				// console.log(dis)
+				// log(dis, 'lc', logFile.info, discordRoom.bot)
 		} else if (join = joinedRE.exec(line)) {
 			knex('connect_log').insert( {
 				ip: join[1],
@@ -195,7 +195,7 @@ connectLogToSQL = function(line) {
 				os: join[5],
 				os_steamid: join[6]
 			}).then(function() {
-				console.log('joined inserted')
+				log('joined inserted', 'lc', logFile.info, discordRoom.bot)
 				reject()
 			})
 		} else if (auth = authRE.exec(line)) {
@@ -208,7 +208,7 @@ connectLogToSQL = function(line) {
 				auth: true,
 				auth_level: auth[5]
 			}).then(function() {
-				console.log('auth inserted')
+				log('auth inserted', 'lc', logFile.info, discordRoom.bot)
 				reject()
 			})
 		} else {
@@ -226,14 +226,14 @@ startLineReader = function() {
 				} else if (line === '\n') {
 					
 				} else {
-					// console.log(line)
+					// log(line, 'lc', logFile.info, discordRoom.bot)
 				}
 				
 			}).catch(function(err) {
 
 			})
 		}).catch(function (err) {
-            // console.log('skipped')
+            // log('skipped', 'lc', logFile.info, discordRoom.bot)
         })
 		
 	})

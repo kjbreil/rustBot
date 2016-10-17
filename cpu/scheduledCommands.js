@@ -14,13 +14,13 @@ const CronJob = require('cron').CronJob
 //  # * * * * * *
 
 // cron.schedule('* * * * *', function(){
-//   console.log('running a task every minute');
+//   log('running a task every minute', 'lc', logFile.info, discordRoom.bot);
 // });
 
 // exports.runScheduledCommands = function() {
-// 	console.log('INSERTING SCHEDULED COMMANDS')
+// 	log('INSERTING SCHEDULED COMMANDS', 'lc', logFile.info, discordRoom.bot)
 // 	cron.schedule('0 2 13 * * *', function(){
-// 		console.log('RUNNING RESTART COMMAND')
+// 		log('RUNNING RESTART COMMAND', 'lc', logFile.info, discordRoom.bot)
 // 		let grace = 900
 // 		rcon.run('global.restart ' + (grace + 15)).then(function(line) {
 // 			restartCountDown(grace)
@@ -29,7 +29,7 @@ const CronJob = require('cron').CronJob
 // }
 
 exports.runScheduledCommands = function() {
-	console.log('INSERTING SCHEDULED COMMANDS')
+	log('INSERTING SCHEDULED COMMANDS', 'lc', logFile.info, discordRoom.bot)
 	rconRestartServer.start()
 	manualRefreshStats.start()
 	refreshServerStats24.start()
@@ -41,7 +41,7 @@ exports.runScheduledCommands = function() {
 var refreshRconStatus = new CronJob({
 	cronTime: '0 */10 * * * *',
 	onTick: function() {
-		console.log('REFRESHING STATUS')
+		log('REFRESHING STATUS', 'lc', logFile.info, discordRoom.bot)
 		discord.discordServerInfo.displayJsonInfo()
 	},
 	start: false,
@@ -51,7 +51,7 @@ var refreshRconStatus = new CronJob({
 var refreshUserStats24 = new CronJob({
 	cronTime: '30 */15 * * * *',
 	onTick: function() {
-		console.log('REFRESHING USER STATS')
+		log('REFRESHING USER STATS', 'lc', logFile.info, discordRoom.bot)
 		cpu.steamStats.steamUserStats('24')
 	},
 	start: false,
@@ -61,7 +61,7 @@ var refreshUserStats24 = new CronJob({
 var refreshServerStats24 = new CronJob({
 	cronTime: '5 */15 * * * *',
 	onTick: function() {
-		console.log('REFRESHING TOP SERVER STATS')
+		log('REFRESHING TOP SERVER STATS', 'lc', logFile.info, discordRoom.bot)
 		cpu.steamStats.steamServerStats('24')
 	},
 	start: false,
@@ -71,7 +71,7 @@ var refreshServerStats24 = new CronJob({
 var refreshServerStats4 = new CronJob({
 	cronTime: '0 */15 * * * *',
 	onTick: function() {
-		console.log('REFRESHING TOP SERVER STATS')
+		log('REFRESHING TOP SERVER STATS', 'lc', logFile.info, discordRoom.bot)
 		cpu.steamStats.steamServerStats('4')
 	},
 	start: false,
@@ -81,7 +81,7 @@ var refreshServerStats4 = new CronJob({
 var manualRefreshStats = new CronJob({
 	cronTime: '0 */15 * * * *',
 	onTick: function() {
-		console.log('REFRESHING PLAYER STATS')
+		log('REFRESHING PLAYER STATS', 'lc', logFile.info, discordRoom.bot)
 		cpu.sql.sqlInserters.manualRefreshSteamStatsConnected()
 	},
 	start: false,
@@ -91,7 +91,7 @@ var manualRefreshStats = new CronJob({
 var rconRestartServer = new CronJob({
 	cronTime: '00 45 2 * * *',
 	onTick: function() {
-		console.log('RUNNING RESTART COMMAND')
+		log('RUNNING RESTART COMMAND', 'lc', logFile.info, discordRoom.bot)
 		let grace = 900
 		rcon.run('global.restart ' + (grace + 15)).then(function(line) {
 		restartCountDown(grace)

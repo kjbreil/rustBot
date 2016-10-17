@@ -12,7 +12,7 @@
 let dT = 'rod'
 
 exports.deathMessageIF = function (line) {
-	console.log(line)
+	log(line, 'lc', logFile.info, discordRoom.bot)
 	cpu.sql.sqlInserters.sqlInsertersGate(line, 'death')
 	var d = new RegExp(/^(.+?)\[\d+?\/(\d+?)\] (.+?) /).exec(line);
 	var d = d[3]
@@ -357,6 +357,7 @@ function pvp(line, name, killer){
 	// 1:Victim 2:? 3:Victim SteamID 4:Killer 5:? 6:Killer SteamID
 	let newLine = RegExp(/(^.+)\[(\d+)\/(\d+)\] was killed by (.+)\[(\d+)\/(\d+)\]$/).exec(line)
     rust.rconListPlayers.getPlayerIsOnline(newLine[3]).then(function (pa) {
+    	console.log('NEWLI TRUES')
     	if(pa) {
 			var message = [
 				{'color' : 'red', 'text': killer},
@@ -375,6 +376,6 @@ function pvp(line, name, killer){
 			log(message, dT, logFile.rcon, discordRoom.chat)
     	}
     }).catch(function (err) {
-        console.log(err)
+        log(err, 'lc', logFile.info, discordRoom.bot)
     })
 }

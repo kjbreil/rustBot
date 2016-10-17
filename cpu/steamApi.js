@@ -13,7 +13,7 @@ exports.getSteamStats(steamid) {
 		userStats.GetUserStatsForGame('252490', steamid).then(function(result){
 			resolve(result);
 		}).catch(function (err) {
-	        console.log(err)
+	        log(err, 'lc', logFile.info, discordRoom.bot)
 	    })
 	}
 }

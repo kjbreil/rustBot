@@ -5,23 +5,20 @@ exports.steamServerStats = function(hours) {
 	getSteamStats(hours).then(function(data) {
 		tempSteamStats(data, hours).then(function() {
 			getServerStats(hours).then(function(statsArray) {
-				// console.log(statsArray)
 				serverStatsCreateJson(statsArray).then(function(b) {
-					// console.log(b)
 					statsDiscord(b, hours, 'SERVER')
-				})
-			})
-		})
-	})
+				}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+	}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 }
 
 exports.steamUserStats = function(hours) {
 	getUserStats(hours).then(function(a) {
 		userStatsCreateJson(a).then(function(b) {
 			statsDiscord(b, hours, 'USER')
-			// console.log(b)
-		})
-	})
+		}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
+	}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 }
 
 
@@ -32,7 +29,7 @@ getSteamStats = function(hours) {
 			.then(function(msg) {
 				resolve(msg)			
 			}).catch(function(err) {
-				console.log(err)
+				log(err, 'lc', logFile.info, discordRoom.bot)
 				reject()
 			})
 	})
@@ -50,9 +47,9 @@ tempSteamStats = function(data, hours) {
 							name: data[a].stats[b].name,
 							value: data[a].stats[b].value	
 						}).then(function() {
-							// console.log('INSERT')
+							// log('INSERT', 'lc', logFile.info, discordRoom.bot)
 						}).catch(function(err) {
-							console.log('LOG INSERT FAILED' + err)
+							log('LOG INSERT FAILED' + err, 'lc', logFile.info, discordRoom.bot)
 						})	
 					}
 				}
@@ -67,7 +64,7 @@ tempSteamStats = function(data, hours) {
 createTempStatsDB = function(hours) {
 	return new Promise(function(resolve, reject) {
 		knex.schema.dropTableIfExists('tempSteamStats' + hours).then(function() {
-			// console.log('DROPPED')
+			// log('DROPPED', 'lc', logFile.info, discordRoom.bot)
 			knex.schema.createTable('tempSteamStats' + hours, function(table) {
 				table.increments()
 				table.timestamp('created_at').defaultTo(knex.fn.now())
@@ -76,10 +73,10 @@ createTempStatsDB = function(hours) {
 				table.text('name')
 				table.bigint('value')
 			}).then(function (make) {
-				console.log('STEAM_AUDIT DB: tempSteamStats' + hours + ' CREATED')
+				log('STEAM_AUDIT DB: tempSteamStats' + hours + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 				resolve()
 			}).catch(function(err) {
-				console.log(err)
+				log(err, 'lc', logFile.info, discordRoom.bot)
 			})
 		})
 	})
@@ -87,14 +84,13 @@ createTempStatsDB = function(hours) {
 
 getServerStats = function(hours) {
 	return new Promise(function(resolve, reject) {
-			// console.log('deleted')
+			// log('deleted', 'lc', logFile.info, discordRoom.bot)
 			knex.select('name as stat')
 				.sum('value as value')
 				.from('tempSteamStats' + hours)
 				.groupBy('name')
 				.orderByRaw('SUM(value) DESC')
 				.then(function(msg) {
-					// console.log(msg)
 					resolve(msg)			
 				}).catch(function(err) {
 					reject(err)
@@ -140,7 +136,7 @@ serverStatsCreateJson = function(s) {
 
 getUserStats = function(hours) {
 	return new Promise(function(resolve, reject) {
-		// console.log('deleted')
+		// log('deleted', 'lc', logFile.info, discordRoom.bot)
 		let tempDB = 'tempSteamStats' + hours
 		knex.select('vLastStats.steamid as steamid', 'vLastStats.name as steamname')
 			.select(tempDB + '.name as stat')
@@ -360,7 +356,7 @@ statsDiscord = function(statsArray, hours, type) {
 		}
 		if (outmsg.length > 30) {
 			
-			// console.log(outmsg)
+			// log(outmsg, 'lc', logFile.info, discordRoom.bot)
 			log(outmsg, 'dl', logFile.discord, discordRoom.general)
 		}
 		

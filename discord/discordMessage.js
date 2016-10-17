@@ -14,7 +14,7 @@ exports.discordMessageGate = function(msg) {
 			discord.discordRcon.discordRconGate(msg).then(function(m){
 				discordDeleteMessage(msg)
 			}).catch(function (err) {
-                console.log(err)
+                log(err, 'lc', logFile.info, discordRoom.bot)
 		    })
 			break;
 		case (discordRoom.log):
@@ -24,7 +24,7 @@ exports.discordMessageGate = function(msg) {
             discord.discordBot.discordBotGate(msg).then(function(m){
                 discordDeleteMessage(msg)
             }).catch(function (err) {
-                console.log(err)
+                log(err, 'lc', logFile.info, discordRoom.bot)
             })
 			break;
 		default:
@@ -36,13 +36,14 @@ exports.discordSendMessage = function(msg, pChannel){
     let time = dateFormat(new Date(), '[HH:MM:ss] ')
     let channel = bot.channels.find('name', pChannel)
     // channel.startTyping()
+    // console.log(msg)
     switch (pChannel){
     	case (config.discordRooms.log):
-    		channel.sendMessage(datetime + msg, split=1)
+    		channel.sendMessage(datetime + msg)
             channel.stopTyping(true)
     		break;
     	case (config.discordRooms.bot):
-    		channel.sendMessage(datetime + msg, split=1)
+    		channel.sendMessage(datetime + msg)
             channel.stopTyping(true)
     		break;
     	default:
@@ -65,22 +66,22 @@ exports.discordDeleteAllMessages = function(pChannel) {
     channel.fetchMessages({limit : 100}).then(function (m) {
         channel.bulkDelete(m)
     }).catch(function (err) {
-        console.log('## ' + err);
+        log('## ' + err, 'lc', logFile.info, discordRoom.bot);
     });
 }
 
 
 exports.discordDeleteMessageType = function(pChannel, type) {
     return new Promise(function (resolve, reject) {
-        // console.log(type + ' ' + pChannel)
+        // log(type + ' ' + pChannel, 'lc', logFile.info, discordRoom.bot)
         let channel = bot.channels.find('name', pChannel)
         channel.fetchMessages({limit : 100}).then(function (m) {
-            // console.log(m)
+            // log(m, 'lc', logFile.info, discordRoom.bot)
             filteredMessages = m.filter(findMessage.bind(this, type))
             filteredMessages.deleteAll()
             resolve()
         }).catch(function (err) {
-            console.log('### ' + err)
+            log('### ' + err, 'lc', logFile.info, discordRoom.bot)
         })
     })
 }

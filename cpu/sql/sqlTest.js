@@ -20,7 +20,7 @@ const sqlSelects = require('./sqlSelects')
 
 // PlayerList.fetchAll().then(function(PlayerList){
 // 	for(i in PlayerList.models) {
-// 		console.log(PlayerList.models[i].attributes)
+// 		log(PlayerList.models[i].attributes, 'lc', logFile.info, discordRoom.bot)
 // 	}
 
 // })
@@ -29,7 +29,7 @@ const sqlSelects = require('./sqlSelects')
 
 sqlSelects.sqlSelectPlayerListView().then(function (msg) {
 	for(let i in msg) {
-		console.log(msg[i].name)
+		log(msg[i].name, 'lc', logFile.info, discordRoom.bot)
 	}
 	process.exit()	
 })

@@ -3,7 +3,7 @@
 exports.getRconStatus = function() {
 	return new Promise(function(resolve, reject) {
 		rcon.run('status').then(function(m) {
-			// console.log(m)
+			// log(m, 'lc', logFile.info, discordRoom.bot)
 			let extractor = new RegExp(/^hostname: (.+)\nversion : (\d+) (\w+) \((.+?)\)\nmap +: (.+)\nplayers +: (\d{1,3}) \((\d{1,3}) max\) \((\d{1,3}) queued\) \((\d{1,3}) joining\)\n/)
 			let e = extractor.exec(m.message)
 			// let sj = {}
@@ -23,7 +23,7 @@ exports.getRconStatus = function() {
 			server.refresh.status = new Date().getTime()
 			resolve()
 		}).catch(function(err) {
-			console.log(err)
+			reject()
 		})
 	})
 }
@@ -49,7 +49,7 @@ exports.rconStatus = function(m, r) {
     discordDeleteMessageType(config.discordRooms.rcon, RE).then(function (z) {
 		base.log('[*status*:***st***] ' + text, 'lcd', null, config.discordRooms.rcon)
     }).catch(function (err) {
-        console.log(err)
+        log(err, 'lc', logFile.info, discordRoom.bot)
     })
 }
 

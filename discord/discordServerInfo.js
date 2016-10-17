@@ -24,7 +24,7 @@ checkServerStatus = function() {
 				// Status hasn't been updated in so long that its not displayed
 				rust.rconStatus.getRconStatus().then(function() {
 					resolve()
-				})
+				}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 			} else {
 				resolve()
 			}
@@ -32,7 +32,7 @@ checkServerStatus = function() {
 			// Never Refreshed
 			rust.rconStatus.getRconStatus().then(function() {
 				resolve()
-			})
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 		}
 	})
 }
@@ -43,7 +43,7 @@ checkPlayerList = function() {
 			// Status hasn't been updated in so long that its not displayed
 			rust.rconListPlayers.getPlayerArray().then(function() {
 				resolve()
-			})
+			}).catch(function(err) {log(err, 'lc', discordRoom.bot, logFile.info)})
 		} else {
 			resolve()
 		}
@@ -70,13 +70,13 @@ sumArrayValues = function(array) {
 
 outputServerStatus = function() {
 
-		// console.log(z)
+		// log(z, 'lc', logFile.info, discordRoom.bot)
 		
-		// console.log(server)
+		// log(server, 'lc', logFile.info, discordRoom.bot)
 		for(let a in server) {
 			switch(a) {
 				case('refresh'):
-						console.log(server.refresh)
+						log(server.refresh, 'lc', logFile.info, discordRoom.bot)
 					break;
 				case('players'):
 					discord.discordRconSend.playerList()
@@ -108,7 +108,7 @@ outputServerStatus = function() {
 						let sent = 1
 						
 						for (let b in server[a]) {
-							// console.log(server[a][b])
+							// log(server[a][b], 'lc', logFile.info, discordRoom.bot)
 							
 							if (b === 'x') {
 

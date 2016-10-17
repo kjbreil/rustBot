@@ -7,9 +7,9 @@ exports.discordBotGate = function(msg) {
 		let msgArray = RegExp(/(^\S+)\s?(.*?)?\s?(\S*)?$/).exec(msg.content)
 		let cmd = msgArray[1]
 		let commandArray = discord.discordResponders.botChannelCommands.find(findCommand.bind(this, cmd))
-		// console.log(msgArray)
+		// log(msgArray, 'lc', logFile.info, discordRoom.bot)
         msgArray = msgArrayFix(msgArray)
-		// console.log(msgArray)
+		// log(msgArray, 'lc', logFile.info, discordRoom.bot)
 
 		if(commandArray) {
 			if(commandArray.dcmd) {
@@ -29,7 +29,7 @@ msgArrayFix = function(ma) {
 		if (ma[2].length === 1) {
             ma[2] = ma[2] + ma[3]
             ma = ma.slice(0, 3)
-            // console.log(ma)
+            // log(ma, 'lc', logFile.info, discordRoom.bot)
     	}
     }
    return ma
@@ -67,10 +67,10 @@ botCommandSwitch = function(ma, ca) {
 	switch(ca.cmd) {
 		case('clear'):
             clearChannelCheck(ma[2])
-            // console.log(ma)
+            // log(ma, 'lc', logFile.info, discordRoom.bot)
 			break;
 		default:
-			console.log('something went wrong')
+			log('something went wrong', 'lc', logFile.info, discordRoom.bot)
 			break;
 	}
 
@@ -113,7 +113,7 @@ botCommands = function(command){
             case ('discordDeleteMessageType()'):
                 switch (messageArgs){
                     case('r'):
-                        // console.log('not broken')
+                        // log('not broken', 'lc', logFile.info, discordRoom.bot)
                         let RE = new RegExp(/^.+ RCON /)
                         discordDeleteMessageType(config.discordRooms.bot, RE)
                         break;
