@@ -53,12 +53,15 @@ exports.discordSendMessage = function(msg, pChannel){
 }
 
 discordDeleteMessage = function(message) {
-    console.log(message)
+    // console.log(message)
+    if(typeof message == "string") {message = JSON.parse(playerList)}
     setTimeout(function () {
-        message.delete()
-            .then(msg => log(`${msg} by ${msg.author.username} deleted from ${msg.channel.name}`, 'l', logFile.discord, null))
-            .catch(log('Delete message failed'), 'l', 'discord', null);
-    }, 250);    
+        message.delete().then(function(msg) {
+            log(msg, 'l', logFile.discord, null)
+        }).catch(function() {
+            log('Delete message failed', 'lc', logFile.discord, null)
+        })
+    }, 2500)
 }
 
 exports.discordDeleteAllMessages = function(pChannel) {
