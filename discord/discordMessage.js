@@ -53,6 +53,7 @@ exports.discordSendMessage = function(msg, pChannel){
 }
 
 discordDeleteMessage = function(message) {
+    console.log(message)
     setTimeout(function () {
         message.delete()
             .then(msg => log(`${msg} by ${msg.author.username} deleted from ${msg.channel.name}`, 'l', logFile.discord, null))
