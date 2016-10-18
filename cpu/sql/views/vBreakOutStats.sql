@@ -1,3 +1,9 @@
+CREATE TYPE "public"."death_type" AS  ("name" text COLLATE "default", "value" int4);
+
+ALTER TYPE "public"."death_type" OWNER TO "rustbot";
+
+
+
  CREATE OR REPLACE VIEW public.view_breakoutstats AS
  SELECT bos.created_at AS audit_time,
     bos.steamid,
