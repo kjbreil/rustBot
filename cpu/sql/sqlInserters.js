@@ -272,6 +272,7 @@ insertUserStats = function(si, connect, manual) {
 	userStats.GetUserStatsForGame('252490', si).then(function(steamStats) {
 		if(!connect) {
 			insertUserServerStats(si, steamStats)
+			log('IM GONNA INSERT USER SERVER STATS', 'lc', logFile.info, discordRoom.bot)
 		}
 		if(manual) {
 			connect = true
@@ -291,6 +292,7 @@ insertUserStats = function(si, connect, manual) {
 }
 
 insertUserServerStats = function(si, steamStats) {
+	log('IM GONNA SELECT LAST CONNECT', 'lc', logFile.info, discordRoom.bot)
 	sqlSelectSteamStatsLastConnect(si).then(function(steamStatsAudit) {
 
 		let connectStats = steamStatsAudit[0].stats.stats
@@ -319,7 +321,13 @@ insertUserServerStats = function(si, steamStats) {
 }
 sqlSelectSteamStatsLastConnect = function(si) {
 	return new Promise(function(resolve, reject) {
-		knex.select('*').from('steamstats_audit').where( {connect: true, steamid: si} ).limit(1).orderBy('created_at', 'desc').then(function(msg) {
+		let now = new Date()
+		now.setSeconds(-30)
+		knex.select('*').from('steamstats_audit')
+			.where( {connect: true, steamid: si} )
+			.where('created_at', '<', now)
+			.limit(1).orderBy('created_at', 'desc')
+			.then(function(msg) {
 			if(msg.length < 1) {
 				reject('NO PREVIOUS STATS: ' + si)
 			} else {
