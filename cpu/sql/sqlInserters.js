@@ -237,9 +237,11 @@ chatLogToSQL = function(line) {
 	// log('CHAT: ' + line, 'lc', logFile.info, discordRoom.bot)
 	// let chatRE = RegExp(/^\[CHAT\] (.+)\[(\d+)\/(\d+)\] : (.+)$/)
 	return new Promise(function(resolve, reject) {
+		let rightNow = new Date()
 		// chat = chatRE.exec(line.message)
 		msg = JSON.parse(line)
 		knex(config.dbTables.chat).insert( {
+					created_at: rightNow,
 					steamid: msg.UserId,
 					name: msg.Username,
 					message: msg.Message,
