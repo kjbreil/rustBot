@@ -49,7 +49,7 @@ var refreshRconStatus = new CronJob({
 })
 
 var refreshUserStats24 = new CronJob({
-	cronTime: '30 */15 * * * *',
+	cronTime: '0 45 * * * *',
 	onTick: function() {
 		log('REFRESHING USER STATS', 'lc', logFile.info, discordRoom.bot)
 		cpu.steamStats.steamUserStats('24')
@@ -59,7 +59,7 @@ var refreshUserStats24 = new CronJob({
 })
 
 var refreshServerStats24 = new CronJob({
-	cronTime: '5 */15 * * * *',
+	cronTime: '0 30 * * * *',
 	onTick: function() {
 		log('REFRESHING TOP SERVER STATS', 'lc', logFile.info, discordRoom.bot)
 		cpu.steamStats.steamServerStats('24')
