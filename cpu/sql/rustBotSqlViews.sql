@@ -2,7 +2,7 @@
  -- psql -f './rustBotSqlViews.sql' "postgresql://rustbot:xxxxx@localhost/rustbot"
 
 CREATE OR REPLACE VIEW public."vLastStats" AS
-SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
+SELECT pl.created_at,
        pl.created_at,
        pl.steamid,
        pl.name,
@@ -14,7 +14,7 @@ SELECT to_char(pl.created_at, 'MM/DD/YY HH24:MI:SS'::text) AS to_char,
        pl.ownersteamid,
        pl.ip
 FROM playerlist pl,
-  (SELECT MAX(created_at),
+  (SELECT MAX(created_at) as max,
           steamid
    FROM playerlist
    WHERE steamid != 0

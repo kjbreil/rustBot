@@ -43,4 +43,3 @@ rconChatMessage = function(msg) {
 	} else {
 		log(msg.Username + ': ' + msg.Message, 'ld', logFile.chat, discordRoom.chat)		
 	}
-}

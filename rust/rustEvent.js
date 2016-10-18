@@ -1,4 +1,3 @@
-
 // event.js
 
 // [event] assets/prefabs/npc/patrol helicopter/patrolhelicopter.prefab
@@ -24,4 +23,3 @@ exports.rustEventGate = function(msg) {
 	} else {
 		log('event error' + msg, 'lc', logFile.info, discordRoom.bot)
 	}
-}
