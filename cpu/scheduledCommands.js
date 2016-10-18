@@ -31,10 +31,10 @@ const CronJob = require('cron').CronJob
 exports.runScheduledCommands = function() {
 	log('INSERTING SCHEDULED COMMANDS', 'lc', logFile.info, discordRoom.bot)
 	rconRestartServer.start()
-	manualRefreshStats.start()
-	refreshServerStats24.start()
-	refreshServerStats4.start()
-	refreshUserStats24.start()
+	// manualRefreshStats.start()
+	// refreshServerStats24.start()
+	// refreshServerStats4.start()
+	// refreshUserStats24.start()
 	refreshRconStatus.start()
 }
 
