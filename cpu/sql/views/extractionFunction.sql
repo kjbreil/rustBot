@@ -1,0 +1,49 @@
+DROP TABLE "public"."stats" CASCADE;
+	CREATE TABLE "public"."stats" (
+	"id" integer DEFAULT nextval('connect_id_seq'::regclass) NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"data_time" timestamp with time zone NOT NULL,
+	"connect" boolean NOT NULL,
+	"steamid" int8 NOT NULL,
+	"stat" varchar(32) COLLATE "default" NOT NULL,
+	"value" integer NOT NULL,
+	"running" integer NOT NULL,
+PRIMARY KEY ("id")
+)
+WITH (OIDS=FALSE)
+;
+
+ALTER TABLE "public"."stats" OWNER TO "rustbot";
+
+
+
+
+CREATE OR REPLACE FUNCTION stats_extract(starttime date, endtime date) 
+RETURNS void AS $$
+BEGIN
+    
+DELETE FROM STATS
+WHERE data_time BETWEEN starttime AND endtime;
+
+INSERT INTO stats (data_time, connect, steamid, stat, value, running)
+
+SELECT
+	ssa.created_at,
+	ssa.connect,
+	ssa.steamid,
+	st.name,
+	st.value,
+	0 as running
+FROM
+	steamstats_audit ssa,
+	LATERAL jsonb_populate_recordset (NULL :: death_type, ssa.stats->'stats'::text) st
+	WHERE created_at BETWEEN starttime AND endtime
+	ORDER BY ssa.steamid, st.name, ssa.created_at;
+	
+
+
+
+
+
+    END;
+    $$ LANGUAGE plpgsql;
