@@ -1,3 +1,50 @@
+
+
+DECLARE
+	summation int;
+
+BEGIN
+
+
+SELECT SUM(ch."Change")
+
+
+FROM (SELECT
+CASE WHEN (
+(lag(connect = FALSE) OVER (ORDER BY data_time))
+AND
+((data_time - interval '15 minutes') > lag(data_time) OVER (ORDER BY data_time))
+) THEN 0 ELSE (value - lag(value) OVER (ORDER BY data_time)) END AS "Change"
+FROM view_stats_audit
+WHERE stat = pstat
+AND steamid = psteamid
+ORDER BY stat, steamid, data_time) ch into summation;
+
+IF (summation ISNULL) THEN 
+	RETURN 0;
+ELSE 
+	RETURN summation;
+END IF;
+
+
+
+END;
+
+
+
+--VIEW
+ SELECT ssa.created_at AS data_time,
+    ssa.connect,
+    ssa.steamid,
+    st.name AS stat,
+    st.value
+   FROM steamstats_audit ssa,
+    LATERAL jsonb_populate_recordset(NULL::death_type, (ssa.stats -> 'stats'::text)) st(name, value)
+  ORDER BY ssa.steamid, st.name, ssa.created_at;
+
+
+--WORKING BELOW
+
 select stats_extract(date '10/13/2016', date '10/16/2016');
 SELECT * FROM STATS;
 
@@ -9,22 +56,39 @@ SELECT SUM(value)
 	AND data_time = date '2016-10-14 17:32:11.244969-07';
 
 
-CREATE OR REPLACE FUNCTION stats_add(passsteamid int8, start_time date)
-RETURNS INTEGER AS $$
-DECLARE 
-	first_time date;
-	last_disconnect date;
-	
+CREATE OR REPLACE FUNCTION stats_add(psteamid int8, pstat varchar(32))
+RETURNS int AS $summation$
+
+DECLARE
+	summation int;
+
 BEGIN
-	return (
-	SELECT SUM(value)
-	FROM stats
-	WHERE steamid = passsteamid
-	AND data_time = start_time);
+
+
+SELECT SUM(ch."Change")
+
+
+FROM (SELECT
+CASE WHEN (
+(lag(stats.connect = FALSE) OVER (ORDER BY data_time))
+AND
+((data_time - interval '15 minutes') > lag(stats.data_time) OVER (ORDER BY data_time))
+) THEN 0 ELSE (value - lag(value) OVER (ORDER BY data_time)) END AS "Change"
+FROM stats
+WHERE stat = pstat
+AND steamid = psteamid
+ORDER BY stat, steamid, data_time) ch into summation;
+
+IF (summation ISNULL) THEN 
+	RETURN 0;
+ELSE 
+	RETURN summation;
+END IF;
+
 
 
 END;
-$$ LANGUAGE plpgsql;
+$summation$ LANGUAGE plpgsql;
 
  DROP FUNCTION stats_add(bigint,date) ;
 
@@ -83,7 +147,7 @@ ALTER TABLE "public"."stats" OWNER TO "rustbot";
 CREATE OR REPLACE FUNCTION stats_extract(starttime date, endtime date) 
 RETURNS void AS $$
 BEGIN
-    
+
 DELETE FROM STATS
 WHERE data_time BETWEEN starttime AND endtime;
 
