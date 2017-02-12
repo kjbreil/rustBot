@@ -10,12 +10,18 @@ services:
       - POSTGRES_USER=rustbot
       - POSTGRES_PASSWORD=poop666
       - POSTGRES_DB=rustbot
+    volumes:
+      - rustbotdb:/var/lib/postgresql/data
   rustbot:
     build: .
-    restart: unless-stopped
+    restart: unless-stoppeda
     depends_on:
       - db
     volumes:
       - .:/app
     environment:
       - PGPASSWORD=poop666
+
+# docker volume create --name rustbotdb
+volumes:
+  rustbotdb:
