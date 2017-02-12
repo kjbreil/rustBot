@@ -14,7 +14,7 @@ services:
       - rustbotdb:/var/lib/postgresql/data
   rustbot:
     build: .
-    restart: unless-stoppeda
+    restart: unless-stopped
     depends_on:
       - db
     volumes:
