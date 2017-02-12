@@ -91,7 +91,7 @@ createSteamStatsServerDB = function(tableName) {
 						table.timestamps(true, true)
 						table.timestamp('connect_time')
 						table.bigint('steamid')
-						config.dbTables.death('stats')
+						table.jsonb('stats')
 					}).then(function (make) {
 						log('STEAM_SERVER DB: ' + tableName + ' CREATED', 'lc', logFile.info, discordRoom.bot)
 						resolve()

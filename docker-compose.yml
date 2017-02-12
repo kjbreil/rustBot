@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=rustbot
+      - POSTGRES_PASSWORD=poop666
+      - POSTGRES_DB=rustbot
+  rustbot:
+    build: .
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    environment:
+      - PGPASSWORD=poop666

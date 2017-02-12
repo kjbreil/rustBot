@@ -1,5 +1,4 @@
 #!/bin/bash
-# npm install
-pm2 delete all
-pm2 start rustBot.json
-pm2 logs
+psql -h db -U rustbot -d rustbot -f rustBot.sql
+npm install
+forever --spinSleepTime 10000 -w --minUptime 10000 --killSignal=SIGUSR2 ./rustBot.js

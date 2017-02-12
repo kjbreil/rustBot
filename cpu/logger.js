@@ -6,7 +6,7 @@ exports.rustBotLog = function(msg, type, file, channel) {
     // console.log('logger start: ' + msg)
 	if(file == null){file = logFile.rustbot};
 	file = config.logFileLocation + file + '.log'
-	
+
     let colorMsg = null
     if (RegExp(/o/).test(type)) {
         colorMsg = correctSpaces(msg)
@@ -17,7 +17,7 @@ exports.rustBotLog = function(msg, type, file, channel) {
 	// Log to console
     if(RegExp(/c/).test(type)) {console.log(date + ' ' + JSON.stringify(msg) + '\n')}
 	// Log to file
-    if(RegExp(/l/).test(type)) {fs.appendFile(file, date + ' ' + JSON.stringify(msg) + '\n')} 
+    if(RegExp(/l/).test(type)) {fs.appendFileSync(file, date + ' ' + JSON.stringify(msg) + '\n')} 
     // Log to Rcon
     if(colorMsg && RegExp(/r/).test(type)) {
         rcon.run('say ' + colorMsg.colorMsg)
