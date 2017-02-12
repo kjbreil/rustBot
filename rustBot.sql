@@ -2,12 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -35,8 +34,8 @@ SET search_path = public, pg_catalog;
 --
 
 CREATE TYPE death_type AS (
-	name text,
-	value integer
+    name text,
+    value integer
 );
 
 
@@ -50,7 +49,7 @@ CREATE FUNCTION func_pl_time() RETURNS timestamp without time zone
     LANGUAGE plpgsql
     AS $$
 DECLARE
-	out timestamp;
+    out timestamp;
 BEGIN
    SELECT created_at
    FROM playerlist
@@ -652,70 +651,107 @@ CREATE VIEW view_breakoutstats AS
 ALTER TABLE view_breakoutstats OWNER TO rustbot;
 
 --
--- Name: chat id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY chat ALTER COLUMN id SET DEFAULT nextval('chat_id_seq'::regclass);
 
 
 --
--- Name: connect id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY connect ALTER COLUMN id SET DEFAULT nextval('connect_id_seq'::regclass);
 
 
 --
--- Name: death id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY death ALTER COLUMN id SET DEFAULT nextval('death_id_seq'::regclass);
 
 
 --
--- Name: playerlist id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY playerlist ALTER COLUMN id SET DEFAULT nextval('playerlist_id_seq'::regclass);
 
 
 --
--- Name: rawlog id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY rawlog ALTER COLUMN id SET DEFAULT nextval('rawlog_id_seq'::regclass);
 
 
 --
--- Name: steamstats_audit id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY steamstats_audit ALTER COLUMN id SET DEFAULT nextval('steamstats_audit_id_seq'::regclass);
 
 
 --
--- Name: steamstats_server id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY steamstats_server ALTER COLUMN id SET DEFAULT nextval('steamstats_server_id_seq'::regclass);
 
 
 --
--- Name: tempSteamStats24 id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY "tempSteamStats24" ALTER COLUMN id SET DEFAULT nextval('"tempSteamStats24_id_seq"'::regclass);
 
 
 --
--- Name: tempSteamStats4 id; Type: DEFAULT; Schema: public; Owner: rustbot
+-- Name: id; Type: DEFAULT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY "tempSteamStats4" ALTER COLUMN id SET DEFAULT nextval('"tempSteamStats4_id_seq"'::regclass);
 
 
 --
--- Name: chat chat_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: steamstats_server_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rustbot
+--
+
+SELECT pg_catalog.setval('steamstats_server_id_seq', 5463, true);
+
+
+--
+-- Data for Name: tempSteamStats24; Type: TABLE DATA; Schema: public; Owner: rustbot
+--
+
+COPY "tempSteamStats24" (id, created_at, data_time, steamid, name, value) FROM stdin;
+\.
+
+
+--
+-- Name: tempSteamStats24_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rustbot
+--
+
+SELECT pg_catalog.setval('"tempSteamStats24_id_seq"', 1, false);
+
+
+--
+-- Data for Name: tempSteamStats4; Type: TABLE DATA; Schema: public; Owner: rustbot
+--
+
+COPY "tempSteamStats4" (id, created_at, data_time, steamid, name, value) FROM stdin;
+\.
+
+
+--
+-- Name: tempSteamStats4_id_seq; Type: SEQUENCE SET; Schema: public; Owner: rustbot
+--
+
+SELECT pg_catalog.setval('"tempSteamStats4_id_seq"', 1, false);
+
+
+--
+-- Name: chat_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY chat
@@ -723,7 +759,7 @@ ALTER TABLE ONLY chat
 
 
 --
--- Name: connect connect_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: connect_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY connect
@@ -731,7 +767,7 @@ ALTER TABLE ONLY connect
 
 
 --
--- Name: death death_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: death_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY death
@@ -739,7 +775,7 @@ ALTER TABLE ONLY death
 
 
 --
--- Name: playerlist playerlist_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: playerlist_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY playerlist
@@ -747,7 +783,7 @@ ALTER TABLE ONLY playerlist
 
 
 --
--- Name: rawlog rawlog_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: rawlog_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY rawlog
@@ -755,7 +791,7 @@ ALTER TABLE ONLY rawlog
 
 
 --
--- Name: steamstats_audit steamstats_audit_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: steamstats_audit_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY steamstats_audit
@@ -763,7 +799,7 @@ ALTER TABLE ONLY steamstats_audit
 
 
 --
--- Name: steamstats_server steamstats_server_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: steamstats_server_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY steamstats_server
@@ -771,7 +807,7 @@ ALTER TABLE ONLY steamstats_server
 
 
 --
--- Name: tempSteamStats24 tempSteamStats24_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: tempSteamStats24_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY "tempSteamStats24"
@@ -779,11 +815,21 @@ ALTER TABLE ONLY "tempSteamStats24"
 
 
 --
--- Name: tempSteamStats4 tempSteamStats4_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
+-- Name: tempSteamStats4_pkey; Type: CONSTRAINT; Schema: public; Owner: rustbot
 --
 
 ALTER TABLE ONLY "tempSteamStats4"
     ADD CONSTRAINT "tempSteamStats4_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
