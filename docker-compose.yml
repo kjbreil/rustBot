@@ -3,6 +3,7 @@ version: '2'
 services:
   db:
     image: postgres
+    restart: unless-stopped
     ports:
       - 5432:5432
     environment:
@@ -11,6 +12,7 @@ services:
       - POSTGRES_DB=rustbot
   rustbot:
     build: .
+    restart: unless-stopped
     depends_on:
       - db
     volumes:
