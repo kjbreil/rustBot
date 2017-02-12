@@ -8,7 +8,6 @@
     "auto-loader": "^0.2.0",
     "dateformat": "^1.0.12",
     "discord.js": "^9.2.0",
-    "forever": "^0.15.2",
     "pg": "^6.1.0",
     "pg-native": "^1.0.0",
     "request": "^2.75.0",
