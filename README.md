@@ -31,3 +31,9 @@ Version 2 Goals:
 * SQL(MongoDB?) integration
 * One time use codes
 * More advanced discord integration
+
+
+Install - WIP
+
+Discord - 
+https://discordapp.com/oauth2/authorize?client_id=303223933354901505&scope=bot&permissions=0 

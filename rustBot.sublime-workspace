@@ -1,0 +1,551 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"dow",
+				"downloads"
+			],
+			[
+				"plex",
+				"plexrequests"
+			],
+			[
+				"co",
+				"container_name"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "packaget",
+		"selected_items":
+		[
+			[
+				"packaget",
+				"Package Control: List Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git br",
+				"Git: New Branch"
+			],
+			[
+				"js",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"jjs",
+				"Pretty JSON: JSON 2 XML"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"low",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"rever",
+				"File: Revert"
+			],
+			[
+				"git comp",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git ",
+				"Package Control: Install Package"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"update",
+				"Git: Update Project Ignored Files"
+			],
+			[
+				"Push",
+				"Git: Push"
+			],
+			[
+				"q",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"qu",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"qui",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"branc",
+				"Git: Change Branch"
+			],
+			[
+				"pu",
+				"Git: Push"
+			],
+			[
+				"ex",
+				"Make file executable"
+			],
+			[
+				"exe",
+				"Make file executable"
+			],
+			[
+				"QU",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git qu",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"qy",
+				"Git: Quick Commit (repo, only already added files)"
+			],
+			[
+				"docker",
+				"Set Syntax: Dockerfile"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"ad",
+				"Git: Add All"
+			],
+			[
+				"sync ba",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"e",
+				"Make file executable"
+			],
+			[
+				"quic",
+				"Coffee: Quick Run Bar"
+			],
+			[
+				"reset",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"puh",
+				"Git: Push"
+			],
+			[
+				"ma",
+				"Make file executable"
+			],
+			[
+				"config",
+				"Set Syntax: Generic Config"
+			],
+			[
+				"conf",
+				"Set Syntax: Generic Config"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/kjell/git/rustBot"
+	],
+	"file_history":
+	[
+		"/Users/kjell/git/rustBot/test.js",
+		"/Users/kjell/git/rustBot/config.js",
+		"/Users/kjell/git/rustBot/rustBot.js",
+		"/usr/local/etc/redis.conf",
+		"/Users/kjell/Library/Application Support/Sublime Text 3/Installed Packages/Nodejs.sublime-package",
+		"/Users/kjell/git/rustBot/README.md",
+		"/Users/kjell/git/POSLog/agent/app.js",
+		"/Users/kjell/git/poslog_xml/app/extract.js",
+		"/Users/kjell/git/poslog_xml/app/transaction.js",
+		"/Users/kjell/git/poslog_xml/app/send.js",
+		"/Users/kjell/git/poslog_xml/app/package.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701191130-6.json",
+		"/Users/kjell/git/poslog_xml/app/router.js",
+		"/Users/kjell/git/poslog_xml/ecosystem.config.js",
+		"/Users/kjell/git/poslog_xml/files/error/json/POSLog-201703171415-72.json_20170316016008000223.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701122030-90.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701122100-90.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701102245-88.json",
+		"/Users/kjell/git/poslog_xml/app/host.js",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701091800-87.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701090400-87.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701180400-5.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701191145-6.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701191200-6.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701191215-6.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701191230-6.json",
+		"/Users/kjell/git/poslog_xml/files/json/POSLog-201701191245-6.json",
+		"/Users/kjell/git/poslog_xml/test,s",
+		"/Users/kjell/git/POSLog/host/api.js",
+		"/Users/kjell/git/POSLog/agent/output.json",
+		"/Users/kjell/git/compose/canal/docker-compose.yml",
+		"/Users/kjell/git/hyper2/storage/cache.txt",
+		"/Users/kjell/git/compose/pterodactyl-panel/docker-compose.yml",
+		"/Users/kjell/git/compose/factorio/docker-compose.yml",
+		"/Users/kjell/git/POSLog/host/sql.js",
+		"/Users/kjell/git/POSLognogit/host/sql.js",
+		"/Users/kjell/git/POSLognogit/agent/test.js",
+		"/Users/kjell/git/POSLog/agent/test.js",
+		"/Users/kjell/Library/Containers/com.hankinsoft.osx.sqlprostudio/Data/Library/Autosave Information/Unsaved SQLPro Studio Document 2.sql",
+		"/Users/kjell/Library/Containers/com.hankinsoft.osx.sqlprostudio/Data/Library/Autosave Information/Unsaved SQLPro Studio Document 3.sql",
+		"/Users/kjell/Library/Containers/com.hankinsoft.osx.sqlprostudio/Data/Library/Autosave Information/Unsaved SQLPro Studio Document 4.sql",
+		"/Users/kjell/Library/Containers/com.hankinsoft.osx.sqlprostudio/Data/Library/Autosave Information/Unsaved SQLPro Studio Document 5.sql",
+		"/Users/kjell/Library/Containers/com.hankinsoft.osx.sqlprostudio/Data/Library/Autosave Information/Unsaved SQLPro Studio Document 6.sql",
+		"/Users/kjell/Documents/Again/control.lua",
+		"/Users/kjell/Documents/Again/level-init.dat",
+		"/Users/kjell/Documents/Again/info.json",
+		"/Users/kjell/git/pterodactyl-panel-Dockerfile/docker-compose.yml",
+		"/Users/kjell/git/rustBot/cpu/sql/views/extractionFunction.sql",
+		"/Users/kjell/git/rustBot/cpu/sql/views/vConnectedPlayers.sql",
+		"/Users/kjell/git/docker/arch-base/Makefile",
+		"/Users/kjell/git/compose/proxy/docker-compose.yml",
+		"/Users/kjell/git/hyper2/storage/hyper2.txt",
+		"/Users/kjell/git/hyper2/game/start.sh",
+		"/Users/kjell/rustBot.sql",
+		"/Users/kjell/git/compose/canal/docker-compose_edit.yml",
+		"/Users/kjell/.norge/configs/mac/Übersicht/widgets/Eva.widget/index.coffee",
+		"/Users/kjell/.norge/configs/mac/Übersicht/widgets/earth-view.widget/index.coffee",
+		"/Users/kjell/.norge/configs/mac/Übersicht/widgets/background.widget/bing-photooftheday.coffee",
+		"/Users/kjell/git/docker-rust/docker-compose.yml",
+		"/Users/kjell/git/docker-rust/Dockerfile",
+		"/Users/kjell/git/docker-rust/rust",
+		"/Users/kjell/git/canal/docker-compose.yml",
+		"/Users/kjell/git/lgsm-rust/rust",
+		"/Users/kjell/git/lgsm-rust/Dockerfile",
+		"/Users/kjell/git/lgsm-rust/docker-compose.yml",
+		"/Users/kjell/git/lgsm-rust/rust.sh",
+		"/Users/kjell/git/dizzy/apacman/etc/pacman.conf",
+		"/Users/kjell/git/dizzy/apacman/Dockerfile",
+		"/Users/kjell/git/dizzy/apacman/Makefile",
+		"/Users/kjell/git/compose/transcode/Dockerfile",
+		"/Users/kjell/git/dizzy/apacman/etc/sudoers",
+		"/Users/kjell/git/lgsm-rust/rust.install",
+		"/Users/kjell/git/lgsm-rust/run.sh",
+		"/Users/kjell/git/rustBot/run.sh",
+		"/Users/kjell/git/lgsm-rust/lgsm/functions/install_steamcmd.sh",
+		"/Users/kjell/git/lgsm-rust/lgsm/functions/check_steamcmd.sh",
+		"/Users/kjell/git/adf/dockerfile/20_arch-yaourt",
+		"/Users/kjell/git/arch-docker/arch-yaourt/Dockerfile",
+		"/Users/kjell/git/docker2/apacman/Dockerfile",
+		"/Users/kjell/git/dizzy/arch-yaourt/Dockerfile",
+		"/Users/kjell/git/docker/arch-yaourt/Dockerfile",
+		"/Users/kjell/git/docker2/arch-yaourt/Dockerfile",
+		"/Users/kjell/git/pms-docker/Dockerfile",
+		"/Users/kjell/git/dizzy/apacman/etc/apacman.conf",
+		"/Users/kjell/git/dizzy/apacman/bin/apacman",
+		"/Users/kjell/git/dizzy/apacman/bin/start",
+		"/Users/kjell/git/lgsm-rust/rustserver",
+		"/Users/kjell/git/compose/transcode/docker-compose.yml",
+		"/Users/kjell/git/rustBot/rustBot.sh",
+		"/Users/kjell/git/rustBot/rustBot.sql",
+		"/Users/kjell/git/rustBot/docker-compose.yml",
+		"/Users/kjell/git/dizzy/transcode/docker-compose.yml",
+		"/Users/kjell/git/rustBot/Dockerfile",
+		"/Users/kjell/git/rustBot/package.json",
+		"/Users/kjell/git/rustBot/logs/info.log",
+		"/Users/kjell/Documents/rustBot.sql",
+		"/Users/kjell/git/dizzy/transcode/scripts/convert.sh",
+		"/Users/kjell/git/rustBot/logs/rcon.log",
+		"/Users/kjell/git/rustBot/logs/rustbot.log",
+		"/Users/kjell/git/rustBot/logs/sql.log",
+		"/Users/kjell/git/rustBot/cpu/logger.js",
+		"/Users/kjell/git/rustBot/test2.js",
+		"/Users/kjell/git/rustBot/cpu/sql/rustBotSqlViews.sql",
+		"/Users/kjell/git/rustBot/cpu/sql/sqlCreateTables.js",
+		"/Users/kjell/Downloads/server (1).cfg",
+		"/Users/kjell/rustBot.sqlc",
+		"/Users/kjell/git/rustBot/app/package.json",
+		"/Users/kjell/git/rustBot/app/cpu/sql/sqlCreateTables.js",
+		"/Users/kjell/git/rustBot/app/test2.js",
+		"/Users/kjell/git/rustBot/app/config.js",
+		"/Users/kjell/git/rustBot/app/config.js.example",
+		"/Users/kjell/git/rustBot/app/rustBot.js",
+		"/Users/kjell/Documents/rustbot_config.js",
+		"/Users/kjell/git/rustBot/app/rustBot.sh",
+		"/Users/kjell/git/dizzy/arch-build/Dockerfile",
+		"/Users/kjell/git/dizzy/docker-compose.yml",
+		"/Users/kjell/git/rustBot/app/.foreverignore",
+		"/Users/kjell/git/dizzy/transcode/Dockerfile",
+		"/Users/kjell/git/rustBot/rustBot.json",
+		"/Users/kjell/git/compose/transcode/Makefile",
+		"/Users/kjell/git/compose/canal/Dockerfile",
+		"/Users/kjell/git/dizzy/arch-base/Dockerfile",
+		"/Users/kjell/git/compose/transcode/scripts/convert.sh",
+		"/Users/kjell/git/dizzy/arch-base/Makefile",
+		"/Users/kjell/git/dizzy/apacman/README.md",
+		"/Users/kjell/git/dizzy/Makefile",
+		"/Users/kjell/git/hyper1/config/hosts",
+		"/Users/kjell/git/hyper1/config/link.sh"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/kjell/git/dizzy/apacman",
+			"/Users/kjell/git/arch-docker",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"aof",
+			"rdb",
+			"adb",
+			"rdb",
+			"aof",
+			"/usr/loca",
+			"aof",
+			"rdb",
+			"const chokidar = require('chokidar')\n",
+			"..",
+			"../",
+			"unlink",
+			"poslog.",
+			"trx",
+			"unlink",
+			"writefile",
+			"console.log",
+			"expres",
+			"write",
+			"transactionId",
+			"oper",
+			"view_stats",
+			"stats_add",
+			"pstat",
+			"view_stats_audit",
+			"stats_add",
+			"8181",
+			"\", \"",
+			"config.dbtables.deat",
+			"death",
+			"createChatLogDB",
+			"plexpy",
+			"tran",
+			"trans",
+			"8989",
+			"movies",
+			"opt/build",
+			"apac",
+			"local",
+			"repo-add",
+			"nginx",
+			"plex",
+			"transcode",
+			"docker",
+			"plex",
+			"#!/",
+			"exp",
+			"- m",
+			"cmd + ctrl - p ",
+			"pseudo",
+			"left"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"transactionid",
+			" ",
+			"build",
+			"plex",
+			"v"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 75.0
+	},
+	"output.nodejs":
+	{
+		"height": 59.0
+	},
+	"pinned_build_system": "",
+	"project": "rustBot.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 319.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

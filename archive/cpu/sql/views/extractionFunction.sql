@@ -45,7 +45,7 @@ END;
 
 --WORKING BELOW
 
-select stats_extract(date '10/13/2016', date '10/16/2016');
+select stats_extract(date '2/1/2017', date '2/28/2017');
 SELECT * FROM STATS;
 
 select stats_add(76561197986861802, date '2016-10-14 17:32:11.244969-07');
