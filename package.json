@@ -15,7 +15,7 @@
     "async": "^2.0.1",
     "cron": "^1.1.1",
     "steam-api": "^1.1.3",
-    "webrcon": "git://github.com/kjbreil/WebRcon.git#master"
+    "webrcon": "https://github.com/kjbreil/WebRcon.git#master"
   },
   "directories": {
     "test": "test"
