@@ -9,7 +9,7 @@ var userStats = new SteamApi.UserStats(config.steamApiKey)
 
 
 exports.getSteamStats(steamid) {
-	return new Promist(function(resolve, reject)) {
+	return new Promise(function(resolve, reject)) {
 		userStats.GetUserStatsForGame('252490', steamid).then(function(result){
 			resolve(result);
 		}).catch(function (err) {
