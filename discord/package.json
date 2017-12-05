@@ -13,5 +13,16 @@
     "discord.js": "^11.0.0",
     "moment": "^2.18.1",
     "redis": "^2.7.1"
+  },
+  "standard": {
+    "globals": [
+      "config",
+      "Discord",
+      "bot",
+      "moment",
+      "log",
+      "err"
+    ]
   }
+
 }
