@@ -16,9 +16,10 @@ services:
     image: didstopia/rust-server
     restart: unless-stopped
     ports:
-      - 28015:28015
-      - 28015:28015/udp
-      - 8080:8080
+      - "28015:28015/tcp"
+      - "28015:28015/udp"
+      - "28016:28016/tcp"
+      - "8080:8080/tcp"
     volumes:
       - rustserver:/steamcmd/rust
     environment:
@@ -28,6 +29,7 @@ services:
       - RUST_SERVER_NAME=My Awesome Server
       - RUST_SERVER_DESCRIPTION=This is my awesome server
       - RUST_RCON_PASSWORD=poop666
+
   # rustbot:
   #   build: .
   #   restart: unless-stopped
