@@ -12,16 +12,35 @@ services:
       - POSTGRES_DB=rustbot
     volumes:
       - rustbotdb:/var/lib/postgresql/data
-  rustbot:
-    build: .
+  rustserver:
+    image: didstopia/rust-server
     restart: unless-stopped
-    depends_on:
-      - db
+    ports:
+      - 28015:28015
+      - 28015:28015/udp
+      - 8080:8080
     volumes:
-      - .:/app
+      - rustserver:/steamcmd/rust
     environment:
-      - PGPASSWORD=poop666
+      - RUST_SERVER_STARTUP_ARGUMENTS=-batchmode -load -logfile /dev/stdout +server.secure 1
+      - RUST_SERVER_IDENTITY=rustBot_test_server
+      - RUST_SERVER_SEED=12345
+      - RUST_SERVER_NAME=My Awesome Server
+      - RUST_SERVER_DESCRIPTION=This is my awesome server
+      - RUST_RCON_PASSWORD=poop666
+  # rustbot:
+  #   build: .
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - db
+  #     - rustserver
+  #   volumes:
+  #     - .:/app
+  #   environment:
+  #     - PGPASSWORD=poop666
 
 # docker volume create --name rustbotdb
+# docker volume create --name rustserver
 volumes:
   rustbotdb:
+  rustserver:
