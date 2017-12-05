@@ -47,5 +47,9 @@ docker-compose up -d
 ```
 
 Right now start the server with either
-```node app.js```
-```forever --spinSleepTime 10000 -w --minUptime 10000 --killSignal=SIGUSR2 ./rustBot.js```
+```
+node app.js
+```
+```
+forever --spinSleepTime 10000 -w --minUptime 10000 --killSignal=SIGUSR2 ./rustBot.js
+```
