@@ -5,17 +5,18 @@
   "main": "rustBot.js",
   "author": "Otto the Caddy",
   "dependencies": {
+    "async": "^2.0.1",
     "auto-loader": "^0.2.0",
+    "cron": "^1.1.1",
     "dateformat": "^1.0.12",
     "discord.js": "^9.2.0",
+    "knex": "^0.12.3",
     "pg": "^6.1.0",
     "pg-native": "^1.0.0",
     "request": "^2.75.0",
-    "knex": "^0.12.3",
-    "async": "^2.0.1",
-    "cron": "^1.1.1",
+    "standard": "^10.0.3",
     "steam-api": "^1.1.3",
-    "webrcon": "https://github.com/kjbreil/WebRcon.git#master"
+    "webrconjs": "git+https://github.com/kjbreil/WebRcon.git#master"
   },
   "directories": {
     "test": "test"
@@ -32,5 +33,25 @@
   "bugs": {
     "url": "https://github.com/kjbreil/rustBot/issues"
   },
-  "homepage": "https://github.com/kjbreil/rustBot#readme"
+  "homepage": "https://github.com/kjbreil/rustBot#readme",
+  "standard": {
+    "globals": [
+      "config",
+      "WebRcon",
+      "Discord",
+      "dateFormat",
+      "knex",
+      "bot",
+      "rcon",
+      "Promise",
+      "cpu",
+      "playersOnline",
+      "discord",
+      "rust",
+      "log",
+      "logFile",
+      "discordRoom",
+      "server"
+    ]
+  }
 }
