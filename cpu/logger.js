@@ -33,7 +33,7 @@ exports.rustBotLog = function (msg, type, file, channel) {
   file = null
 }
 
-function correctSpaces (msg) {
+let correctSpaces = (msg) => {
   let plMsg = ''
   for (let i in msg) {
     // need to figure out why trim is not working
@@ -48,7 +48,7 @@ function correctSpaces (msg) {
   return rtn
 }
 
-function colorizeMessage (a) {
+let colorizeMessage = (a) => {
   var finalText = ''
   for (var i = 0, len = a.length; i < len; i++) {
     if (a[i].text !== undefined) {
@@ -65,7 +65,7 @@ function colorizeMessage (a) {
   return finalText
 }
 
-function colorHex (color) {
+let colorHex = (color) => {
   var colors = {
     'aliceblue': '#f0f8ff',
     'antiquewhite': '#faebd7',
