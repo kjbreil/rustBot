@@ -14,49 +14,44 @@
     "Health": 59.7555847
   }
 
-
 */
-exports.getAndDisplayPlayers = function() {
-    rust.rconListPlayers.getPlayerArray().then(function() {
-        discord.discordRconSend.playerList()
-    }).catch(function(err) {log(err, 'lc', logFile.info, discordRoom.bot)})
+exports.getAndDisplayPlayers = function () {
+  rust.rconListPlayers.getPlayerArray().then(function () {
+    discord.discordRconSend.playerList()
+  }).catch(function (err) { log(err, 'lc', logFile.info, discordRoom.bot) })
 }
 
-exports.getPlayerArray = function() {
-    return new Promise(function (resolve, reject) {
-        rcon.run('global.playerlist').then(function(msg){
+exports.getPlayerArray = function () {
+  return new Promise(function (resolve, reject) {
+    rcon.run('global.playerlist').then(function (msg) {
             // log(msg, 'lc', logFile.info, discordRoom.bot)
-            msg = JSON.parse(JSON.stringify(msg.message))
-            server.refresh.player = new Date().getTime()
-            server.players = msg
-            cpu.sql.sqlInserters.playerListToSQL(server.players)
-            resolve(msg)
-        }).catch(function (err) {
-            reject(err)
-        })
+      msg = JSON.parse(JSON.stringify(msg.message))
+      server.refresh.player = new Date().getTime()
+      server.players = msg
+      cpu.sql.sqlInserters.playerListToSQL(server.players)
+      resolve(msg)
+    }).catch(function (err) {
+      reject(err)
     })
+  })
 }
 
-exports.getPlayerIsOnline = function(si) {
+exports.getPlayerIsOnline = function (si) {
     // log('inside getPlayerIsOnline function ' + si, 'lc', logFile.info, discordRoom.bot)
-    return new Promise(function (resolve, reject) {
-        if(typeof server.players == "string") {server.players = JSON.parse(server.players)}
-        console.log(si)
-        if( out = server.players.find(findBySteamId.bind(this, si)) ) {
-            log('out ' + out, 'lc', logFile.info, discordRoom.bot)
-            resolve(out)  
-        }
-        reject()
-    } )
+  return new Promise(function (resolve, reject) {
+    if (typeof server.players === 'string') { server.players = JSON.parse(server.players) }
+    let out = server.players.find(findBySteamId.bind(this, si))
+    if (out !== undefined) {
+      log('out ' + out, 'lc', logFile.info, discordRoom.bot)
+      resolve(out)
+    }
+    let err = 'player not found'
+    Promise.reject(err)
+  })
 }
-
 
 // let commandArray = po.find(onlineCheck.bind(this, si))
 
-findBySteamId = function(si, po) { 
-    return (po.SteamID === si )
+let findBySteamId = (si, po) => {
+  return (po.SteamID === si)
 }
-
-
-
-
