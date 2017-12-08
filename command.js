@@ -1,3 +1,14 @@
+/*
+Usage:
+const Command = require('./command.js')
+var c = new Command()
+c.SetPrefix('!') <-- or whatever prefix you are using
+c.SetQuery('!play mechina proprioception') <-- passing chat text as a command query
+var name = c.GetCommandName() <-- returns 'play'
+var fullargs = c.GetArgs() <-- returns ['mechina','proprioception']
+var a1 = c.GetArgs(0) <-- returns 'mechina proprioception'
+var a2 = c.GetArgs(0,1) <-- returns 'proprioception'
+*/
 function Command() {
   this.prefix = ''
   this.query = ''
