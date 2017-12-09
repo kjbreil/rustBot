@@ -2,7 +2,7 @@
   "name": "rustbot",
   "version": "0.0.4",
   "description": "Rust Experimental integration bot",
-  "main": "rustBot.js",
+  "main": "app.js",
   "author": "Otto the Caddy",
   "dependencies": {
     "async": "^2.0.1",

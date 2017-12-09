@@ -1,12 +1,3 @@
-                  _   ____        _   
-                 | | |  _ \      | |  
-   _ __ _   _ ___| |_| |_) | ___ | |_ 
-  | '__| | | / __| __|  _ < / _ \| __|
-  | |  | |_| \__ \ |_| |_) | (_) | |_ 
-  |_|   \__,_|___/\__|____/ \___/ \__|
-                                             
-       by Otto the Caddy
-       awesomeland.org
 
 rustBot is gonna your personal assitant for managing rust servers automagically
 This is not going to be a RCON tool but will do much of what RCON tools do in that it will not have the ability to send commands interactivly. 
