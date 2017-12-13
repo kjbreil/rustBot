@@ -36,8 +36,8 @@ rcon.on('connect', () => {
     log('CONNECTED: DISCORD', 'lc', logFile.info, discordRoom.bot)
     // rust.rconListPlayers.getPlayerIsOnline('76561198125564678').then(function (msg) {log(msg)}, 'lc', logFile.info, discordRoom.bot)
     // Disable scheduled and timed commands for now, no need for steam stats right now
-    // cpu.scheduledCommands.runScheduledCommands()
-    // cpu.timedCommands.runTimedCommands()
+    cpu.scheduledCommands.runScheduledCommands()
+    cpu.timedCommands.runTimedCommands()
 
     rcon.on('disconnect', () => {
       log('RCON DISCONNECTED', 'lc', logFile.info, discordRoom.bot)
