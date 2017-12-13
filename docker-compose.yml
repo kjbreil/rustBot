@@ -30,19 +30,6 @@ services:
       - RUST_SERVER_DESCRIPTION=This is my awesome server
       - RUST_RCON_PASSWORD=poop666
 
-  # rustbot:
-  #   build: .
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - db
-  #     - rustserver
-  #   volumes:
-  #     - .:/app
-  #   environment:
-  #     - PGPASSWORD=poop666
-
-# docker volume create --name rustbotdb
-# docker volume create --name rustserver
 volumes:
   rustbotdb:
   rustserver:
