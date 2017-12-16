@@ -76,18 +76,18 @@ var manualRefreshStats = new CronJob({
   timeZone: 'America/Los_Angeles'
 })
 
-var rconRestartServer = new CronJob({
-  cronTime: '00 45 2 * * *',
-  onTick: function () {
-    log('RUNNING RESTART COMMAND', 'lc', logFile.info, discordRoom.bot)
-    let grace = 900
-    rcon.run('global.restart ' + (grace + 15)).then(function (line) {
-      restartCountDown(grace)
-    })
-  },
-  start: false,
-  timeZone: 'America/Los_Angeles'
-})
+// var rconRestartServer = new CronJob({
+//   cronTime: '00 45 2 * * *',
+//   onTick: function () {
+//     log('RUNNING RESTART COMMAND', 'lc', logFile.info, discordRoom.bot)
+//     let grace = 900
+//     rcon.run('global.restart ' + (grace + 15)).then(function (line) {
+//       restartCountDown(grace)
+//     })
+//   },
+//   start: false,
+//   timeZone: 'America/Los_Angeles'
+// })
 
 let restartCountDown = (time) => {
   timeMilliseconds = time * 1000
